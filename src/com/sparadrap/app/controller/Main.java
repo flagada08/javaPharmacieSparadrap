@@ -1,10 +1,29 @@
 package com.sparadrap.app.controller;
 
+import java.awt.EventQueue;
+
+import javax.swing.UIManager;
+
+import com.sparadrap.app.view.FenetrePrincipale;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new Pharmacie(0, null, null, null, null);
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FenetrePrincipale frame = new FenetrePrincipale();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }
