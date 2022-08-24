@@ -3,6 +3,8 @@ package com.sparadrap.app.model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JFormattedTextField;
+
 public class Patient extends Client {
 	private int numSecuSocial;
 	private Mutuelle mutuelle;
@@ -27,7 +29,7 @@ public class Patient extends Client {
 	 * @param ordonnance
 	 */
 	public Patient(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email, Date dateNaissance, ArrayList<Medicament> listeMedicaments, int numSecuSocial,
+			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicaments, int numSecuSocial,
 			Mutuelle mutuelle, Medecin medecin, Specialiste specialiste, Ordonnance ordonnance) {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email, dateNaissance, listeMedicaments);
 		this.numSecuSocial = numSecuSocial;

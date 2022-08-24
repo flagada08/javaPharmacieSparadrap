@@ -15,7 +15,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
+import javax.swing.JButton;
 
+/**
+ * @author User-05
+ */
 public class PanelAchatAvecOrdonnance extends JPanel {
 	private JTextField tfAdresseClient;
 	private JTextField tfTelephoneClient;
@@ -28,69 +32,57 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	/**
-	 * Create the panel.
-	 */
+
 	public PanelAchatAvecOrdonnance() {
-		components();
+		initComposants();
+		createEvenements();
 	}
-	private void components() {
+	
+	/**
+	 * Création du panel
+	 */
+	private void initComposants() {
 		setBounds(0, 0, 600, 500);
 		setBorder(new TitledBorder(null, "Achat avec Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		
 		JLabel lblAdresseClient = new JLabel("Adresse du client");
-		lblAdresseClient.setBounds(16, 142, 108, 14);
 		
 		tfAdresseClient = new JTextField();
-		tfAdresseClient.setBounds(142, 139, 86, 20);
 		tfAdresseClient.setColumns(10);
 		
 		JLabel lblTelephoneClient = new JLabel("Téléphone du client");
-		lblTelephoneClient.setBounds(16, 186, 108, 14);
 		
 		tfTelephoneClient = new JTextField();
-		tfTelephoneClient.setBounds(142, 183, 86, 20);
 		tfTelephoneClient.setColumns(10);
 		
 		JLabel lblEmailClient = new JLabel("Email du client");
-		lblEmailClient.setBounds(16, 224, 108, 14);
 		
 		tfEmailClient = new JTextField();
-		tfEmailClient.setBounds(142, 221, 86, 20);
 		tfEmailClient.setColumns(10);
 		
 		JLabel lblNumSecuSocialClient = new JLabel("Numéro de sécurité social du client");
-		lblNumSecuSocialClient.setBounds(16, 262, 179, 14);
 		
 		tfNumSecuSocialClient = new JTextField();
-		tfNumSecuSocialClient.setBounds(213, 259, 86, 20);
 		tfNumSecuSocialClient.setColumns(10);
 		
 		cbChoixMutuelle = new JComboBox();
-		cbChoixMutuelle.setBounds(213, 341, 96, 20);
 		cbChoixMutuelle.setModel(new DefaultComboBoxModel(new String[] {"Choix Mutuelle"}));
 		
 		JLabel lblMutuelleDuClient = new JLabel("Mutuelle du client");
-		lblMutuelleDuClient.setBounds(16, 344, 179, 14);
 		
 		JLabel lblMedecinClient = new JLabel("Médecin du client");
-		lblMedecinClient.setBounds(338, 57, 108, 14);
 		
 		cbChoixMedecin = new JComboBox<>();
-		cbChoixMedecin.setBounds(464, 54, 95, 20);
 		cbChoixMedecin.setModel(new DefaultComboBoxModel(new String[] {"Choix Médecin"}));
 		
 		JLabel lblSpecialiste = new JLabel("Spécialiste (opt)");
-		lblSpecialiste.setBounds(338, 98, 108, 14);
 		
 		cbChoixSpecialite = new JComboBox();
-		cbChoixSpecialite.setBounds(464, 95, 95, 20);
 		cbChoixSpecialite.setModel(new DefaultComboBoxModel(new String[] {"Choix Spécialité"}));
 		
 		JLabel lblOrdonnance = new JLabel("Ordonnance");
-		lblOrdonnance.setBounds(338, 142, 108, 14);
 		
 		cbChoixOrdonnance = new JComboBox();
-		cbChoixOrdonnance.setBounds(464, 139, 95, 20);
 		cbChoixOrdonnance.setModel(new DefaultComboBoxModel(new String[] {"Choix Ordonnance"}));
 		
 		JLabel lblNomClient = new JLabel("Nom du client");
@@ -111,103 +103,145 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
 		
 		JComboBox cbChoixMédicaments = new JComboBox();
+		
+		JButton btnValider = new JButton("Valider");
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblEmailClient)
-						.addComponent(lblAdresseClient)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNumSecuSocialClient)
-								.addComponent(lblMutuelleDuClient))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(cbChoixMutuelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfNumSecuSocialClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(lblNomClient)
+							.addGap(118)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(62)
+							.addComponent(lblOrdonnance)
+							.addGap(41)
+							.addComponent(cbChoixOrdonnance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblNomClient, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-									.addGap(118)
-									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblPrenomClient, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-									.addGap(103)
-									.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblDateNaissanceClient, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-									.addGap(50)
-									.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblTelephoneClient)
-										.addComponent(lblListeMedicaments, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-									.addGap(89)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(tfTelephoneClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tfAdresseClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tfEmailClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-							.addGap(83)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblMedecinClient)
-								.addComponent(lblOrdonnance)
-								.addComponent(lblSpecialiste))
+							.addComponent(lblPrenomClient)
+							.addGap(103)
+							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(62)
+							.addComponent(lblMedecinClient)
 							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(cbChoixSpecialite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(cbChoixMedecin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(cbChoixOrdonnance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addComponent(cbChoixMedecin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblDateNaissanceClient)
+							.addGap(50)
+							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(62)
+							.addComponent(lblSpecialiste)
+							.addGap(23)
+							.addComponent(cbChoixSpecialite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblListeMedicaments)
+							.addGap(120)
+							.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblTelephoneClient)
+							.addGap(89)
+							.addComponent(tfTelephoneClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblAdresseClient)
+							.addGap(100)
+							.addComponent(tfAdresseClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblEmailClient)
+							.addGap(115)
+							.addComponent(tfEmailClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNumSecuSocialClient)
+							.addGap(18)
+							.addComponent(tfNumSecuSocialClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblMutuelleDuClient)
+							.addGap(100)
+							.addComponent(cbChoixMutuelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(513, Short.MAX_VALUE)
+					.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGap(34)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNomClient))
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNomClient)
-						.addComponent(lblOrdonnance)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblOrdonnance))
 						.addComponent(cbChoixOrdonnance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(15)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblPrenomClient))
 						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPrenomClient)
-						.addComponent(lblMedecinClient)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblMedecinClient))
 						.addComponent(cbChoixMedecin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(21)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblDateNaissanceClient))
 						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDateNaissanceClient)
-						.addComponent(lblSpecialiste)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblSpecialiste))
 						.addComponent(cbChoixSpecialite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(24)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblListeMedicaments))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblListeMedicaments))
+						.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tfTelephoneClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTelephoneClient))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblTelephoneClient))
+						.addComponent(tfTelephoneClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAdresseClient)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblAdresseClient))
 						.addComponent(tfAdresseClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblEmailClient)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblEmailClient))
 						.addComponent(tfEmailClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(21)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNumSecuSocialClient)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNumSecuSocialClient))
 						.addComponent(tfNumSecuSocialClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(17)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMutuelleDuClient)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblMutuelleDuClient))
 						.addComponent(cbChoixMutuelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(66, Short.MAX_VALUE))
+					.addGap(77)
+					.addComponent(btnValider)
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+	}
+	
+	private void createEvenements() {
+		
 	}
 }

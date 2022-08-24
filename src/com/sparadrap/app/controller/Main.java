@@ -6,6 +6,9 @@ import javax.swing.UIManager;
 
 import com.sparadrap.app.view.FenetrePrincipale;
 
+/**
+ * @author User-05
+ */
 public class Main {
 
 	public static void main(String[] args) {
@@ -17,7 +20,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetrePrincipale frame = new FenetrePrincipale();
+					FenetrePrincipale frame = new FenetrePrincipale(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -20,6 +20,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author User-05
+ */
 public class FenetrePrincipale extends JFrame {
 
 	private JPanel contentPane;
@@ -30,17 +33,17 @@ public class FenetrePrincipale extends JFrame {
 	private JButton btnHistoriqueOrdonnances;
 	private JButton btnDetailsClient;
 	private JButton btnQuitter;
-	private FenetreAchat fAchat = new FenetreAchat();
 
-	public FenetrePrincipale() {
-		initComponents();
-		createEvents(fAchat);
+	public FenetrePrincipale(FenetreAchat fAchat) {
+		fAchat = new FenetreAchat(null, null);
+		initComposants();
+		createEvenements(fAchat);
 	}
 	
 	/**
-	 * Create the frame.
+	 * Création de la frame principale
 	 */
-	private void initComponents() {
+	private void initComposants() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FenetrePrincipale.class.getResource("/com/sparadrap/resources/sparadrap_512.png")));
 		setTitle("PHARMACIE SPARADRAP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,8 +115,7 @@ public class FenetrePrincipale extends JFrame {
 	/**
 	 * @param pfAchat
 	 */
-	private void createEvents(FenetreAchat pfAchat) {
-		fAchat = pfAchat;
+	private void createEvenements(FenetreAchat pfAchat) {
 		
 		btnAcceuil.addMouseListener(new MouseAdapter() {
 			@Override
@@ -131,7 +133,7 @@ public class FenetrePrincipale extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1) {
-					System.out.println(pfAchat);
+					System.out.println("testFprincipaleBtnAchat");
 					contentPane.add(pfAchat);
 					contentPane.remove(lblAccueil);
 					contentPane.revalidate();

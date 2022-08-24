@@ -13,10 +13,13 @@ import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.Font;
+import java.awt.Color;
 
+/**
+ * @author User-05
+ */
 public class FenetreAchat extends JPanel {
-	private PanelAchatSansOrdonnance pAchatSansOrdonnance = new PanelAchatSansOrdonnance();
-	private PanelAchatAvecOrdonnance pAchatAvecOrdonnance = new PanelAchatAvecOrdonnance();
 	private JLabel lblTypeAchat;
 	private JComboBox cbTypeAchat;
 	private String[] sCbTypeAchat = {
@@ -25,46 +28,51 @@ public class FenetreAchat extends JPanel {
 			"Achat avec ordonnance"
 			};
 
-	public FenetreAchat() {
-		initComponents();
-		createEvents(pAchatSansOrdonnance, pAchatAvecOrdonnance);
+	public FenetreAchat(PanelAchatSansOrdonnance pAchatSansOrdonnance, PanelAchatAvecOrdonnance pAchatAvecOrdonnance) {
+		pAchatSansOrdonnance = new PanelAchatSansOrdonnance();
+		pAchatAvecOrdonnance = new PanelAchatAvecOrdonnance();
+		initComposants();
+		createEvenements(pAchatSansOrdonnance, pAchatAvecOrdonnance);
 	}
 	
 	/**
-	 * Create the panel.
+	 * Création du panel
 	 */
-	private void initComponents() {
-		
+	private void initComposants() {		
 		setBounds(50, 50, 600, 500);
 		setBorder(new TitledBorder(null, "Achat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		lblTypeAchat = new JLabel();
+		lblTypeAchat = new JLabel("[Sélectionner le type d'achat]");
+		lblTypeAchat.setForeground(new Color(0, 102, 0));
+		lblTypeAchat.setFont(new Font("Cooper Black", Font.PLAIN, 17));
 		cbTypeAchat = new JComboBox(sCbTypeAchat);
 		
-		JButton btnValider = new JButton("Valider");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
-					.addComponent(cbTypeAchat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(513)
-					.addComponent(btnValider))
+					.addComponent(cbTypeAchat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(lblTypeAchat))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(cbTypeAchat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(424)
-					.addComponent(btnValider))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(cbTypeAchat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTypeAchat))
+					.addGap(447))
 		);
 		setLayout(groupLayout);
 	}
 	
-	private void createEvents(PanelAchatSansOrdonnance pAchatSansOrdonnance, PanelAchatAvecOrdonnance pAchatAvecOrdonnance) {
-		this.pAchatSansOrdonnance = pAchatSansOrdonnance;
-		this.pAchatAvecOrdonnance = pAchatAvecOrdonnance;
+	/**
+	 * @param pAchatSansOrdonnance
+	 * @param pAchatAvecOrdonnance
+	 */
+	private void createEvenements(PanelAchatSansOrdonnance pAchatSansOrdonnance, PanelAchatAvecOrdonnance pAchatAvecOrdonnance) {
+		
 		cbTypeAchat.addItemListener(new ItemListener() {			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -74,17 +82,20 @@ public class FenetreAchat extends JPanel {
 					lblTypeAchat.setText("[" + cbTypeAchat.getSelectedItem() + "]");
 				}
 				if(string == cbTypeAchat.getItemAt(1)) {
+					System.out.println("testFachatSansOrdo");
 					add(pAchatSansOrdonnance);
-					System.out.println(pAchatSansOrdonnance);
 					remove(pAchatAvecOrdonnance);
 					revalidate();
 					repaint();
 				} else if(string == cbTypeAchat.getItemAt(2)) {
+					System.out.println("testFachatAvecOrdo");
 					add(pAchatAvecOrdonnance);
 					remove(pAchatSansOrdonnance);
 					revalidate();
 					repaint();
 				} else {
+					System.out.println("testFachatChoixOrdo");
+					lblTypeAchat.setText("[Sélectionner le type d'achat]");
 					remove(pAchatSansOrdonnance);
 					remove(pAchatAvecOrdonnance);
 					revalidate();
@@ -94,5 +105,4 @@ public class FenetreAchat extends JPanel {
 			}
 		});	
 	}
-	
 }

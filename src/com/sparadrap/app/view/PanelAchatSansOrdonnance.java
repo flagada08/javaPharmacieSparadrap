@@ -2,98 +2,167 @@ package com.sparadrap.app.view;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medicament;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DateFormatter;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.awt.event.ActionEvent;
 
+/**
+ * @author User-05
+ */
 public class PanelAchatSansOrdonnance extends JPanel {
 	private JTextField tfNomClient;
 	private JTextField tfPrenomClient;
-	private JTextField tfDateNaissanceClient;
+	private JFormattedTextField ftfDateNaissanceClient;
+	private SimpleDateFormat dfDateNaissanceClient;
+	private DateFormatter dformatterDateNaissanceClient;
+	private JButton btnValider;
 	private JComboBox<Medicament> cbChoixMédicaments;
-	/**
-	 * Create the panel.
-	 */
+	
 	public PanelAchatSansOrdonnance() {
-		components();
+		initComposants();
+		createEvenements(
+					tfNomClient, 
+					tfPrenomClient, 
+					ftfDateNaissanceClient, 
+					dfDateNaissanceClient,
+					cbChoixMédicaments
+				);
 	}
-	private void components() {
+	
+	/**
+	 * Création du panel
+	 */
+	private void initComposants() {
 		setBounds(0, 0, 600, 500);
 		setBorder(new TitledBorder(null, "Achat sans Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		
 		JLabel lblNomClient = new JLabel("Nom du client");
-		lblNomClient.setBounds(16, 57, 108, 14);
 		
 		tfNomClient = new JTextField();
-		tfNomClient.setBounds(142, 54, 86, 20);
+		
 		tfNomClient.setColumns(10);
 		
 		JLabel lblPrenomClient = new JLabel("Prénom du client");
-		lblPrenomClient.setBounds(16, 98, 108, 14);
 		
 		tfPrenomClient = new JTextField();
-		tfPrenomClient.setBounds(142, 95, 86, 20);
 		tfPrenomClient.setColumns(10);
 				
 		JLabel lblDateNaissanceClient = new JLabel("Date de Naissance du client");
-		lblDateNaissanceClient.setBounds(16, 300, 179, 14);
 		
-		tfDateNaissanceClient = new JTextField();
-		tfDateNaissanceClient.setBounds(213, 297, 86, 20);
-		tfDateNaissanceClient.setColumns(10);
+		dfDateNaissanceClient = new SimpleDateFormat("dd/MM/yyyy");
+		dformatterDateNaissanceClient = new DateFormatter(dfDateNaissanceClient);
+		ftfDateNaissanceClient = new JFormattedTextField(dformatterDateNaissanceClient);
+		ftfDateNaissanceClient.setColumns(10);
+		ftfDateNaissanceClient.setValue(new Date());
 				
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
-		lblListeMedicaments.setBounds(338, 344, 108, 14);
 		
 		cbChoixMédicaments = new JComboBox();
-		cbChoixMédicaments.setBounds(456, 341, 103, 20);
 		cbChoixMédicaments.setModel(new DefaultComboBoxModel(new String[] {"Choix Médicaments"}));
+		
+		btnValider = new JButton("Valider");
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDateNaissanceClient)
-								.addComponent(lblListeMedicaments))
-							.addGap(50))
-						.addComponent(lblPrenomClient)
-						.addComponent(lblNomClient))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(150, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNomClient)
+							.addGap(118)
+							.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblPrenomClient)
+							.addGap(103)
+							.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblDateNaissanceClient)
+							.addGap(50)
+							.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblListeMedicaments)
+							.addGap(120)
+							.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(513, Short.MAX_VALUE)
+					.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNomClient)
+					.addGap(34)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNomClient))
 						.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(15)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPrenomClient)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblPrenomClient))
 						.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(21)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDateNaissanceClient)
-						.addComponent(tfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblDateNaissanceClient))
+						.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(24)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblListeMedicaments)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblListeMedicaments))
 						.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(160, Short.MAX_VALUE))
+					.addGap(271)
+					.addComponent(btnValider)
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+	}
+	
+	private void createEvenements(
+			JTextField tfNomClient, 
+			JTextField tfPrenomClient, 
+			JFormattedTextField ftfDateNaissanceClient, 
+			SimpleDateFormat dfDateNaissanceClient,
+			JComboBox<Medicament> cbChoixMédicaments
+			) {
+		btnValider.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String stringTfNomClient = tfNomClient.getText();
+				String stringTfPrenomClient = tfPrenomClient.getText();
+				String stringftfDateNaissanceClient = ftfDateNaissanceClient.getText();
+				Client client = new Client(
+							stringTfNomClient, 
+							stringTfPrenomClient, 
+							ERROR, 
+							null, 
+							ALLBITS, 
+							null, 
+							ABORT, 
+							null, 
+							stringftfDateNaissanceClient, 
+							null
+						);
+				System.out.println(client);
+			}
+		});
 	}
 }

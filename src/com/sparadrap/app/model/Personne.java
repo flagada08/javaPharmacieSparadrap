@@ -127,5 +127,15 @@ public abstract class Personne {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Override
+	public String toString() {
+		return "Personne [nom=" + nom + ", prenom=" + prenom + ", numRue=" + numRue + ", nomRue=" + nomRue
+				+ ", codePostal=" + codePostal + ", nomVille=" + nomVille + ", numTelephone=" + numTelephone
+				+ ", email=" + email + ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getNumRue()="
+				+ getNumRue() + ", getNomRue()=" + getNomRue() + ", getCodePostal()=" + getCodePostal()
+				+ ", getNomVille()=" + getNomVille() + ", getNumTelephone()=" + getNumTelephone() + ", getEmail()="
+				+ getEmail() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 	
 }

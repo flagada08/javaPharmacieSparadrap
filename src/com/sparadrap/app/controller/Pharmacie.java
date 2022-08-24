@@ -9,6 +9,7 @@ import com.sparadrap.app.model.Specialiste;
 
 public class Pharmacie {
 	private int stockMedicament;
+	private Client client;
 	private ArrayList<Client> listeClients;
 	private ArrayList<Patient> listePatients;
 	private ArrayList<Medecin> listeMedecins;
@@ -20,10 +21,11 @@ public class Pharmacie {
 	 * @param listeMedecins
 	 * @param listeSpecialiste
 	 */
-	public Pharmacie(int stockMedicament, ArrayList<Client> listeClients, ArrayList<Patient> listePatients,
+	public Pharmacie(int stockMedicament, Client client, ArrayList<Client> listeClients, ArrayList<Patient> listePatients,
 			ArrayList<Medecin> listeMedecins, ArrayList<Specialiste> listeSpecialistes) {
 		super();
 		this.stockMedicament = stockMedicament;
+		this.client = client;
 		this.listeClients = listeClients;
 		this.listePatients = listePatients;
 		this.listeMedecins = listeMedecins;
@@ -42,6 +44,19 @@ public class Pharmacie {
 		this.stockMedicament = stockMedicament;
 	}
 	/**
+	 * @return the client
+	 */
+	public Client getClient() {
+		return client;
+	}
+	/**
+	 * @param client the client to set
+	 */
+	public void setClient(Client client) {
+		this.client = client;
+		client = new Client("test", null, 0, null, 0, null, 0, null, null, null);
+	}
+	/**
 	 * @return the listeClients
 	 */
 	public ArrayList<Client> getListeClients() {
@@ -52,6 +67,7 @@ public class Pharmacie {
 	 */
 	public void setListeClients(ArrayList<Client> listeClients) {
 		this.listeClients = listeClients;
+		listeClients.add(client);
 	}
 	/**
 	 * @return the listePatient
@@ -89,4 +105,15 @@ public class Pharmacie {
 	public void setListeSpecialistes(ArrayList<Specialiste> listeSpecialistes) {
 		this.listeSpecialistes = listeSpecialistes;
 	}
+	@Override
+	public String toString() {
+		return "Pharmacie [stockMedicament=" + stockMedicament + ", client=" + client + ", listeClients=" + listeClients
+				+ ", listePatients=" + listePatients + ", listeMedecins=" + listeMedecins + ", listeSpecialistes="
+				+ listeSpecialistes + ", getStockMedicament()=" + getStockMedicament() + ", getClient()=" + getClient()
+				+ ", getListeClients()=" + getListeClients() + ", getListePatients()=" + getListePatients()
+				+ ", getListeMedecins()=" + getListeMedecins() + ", getListeSpecialistes()=" + getListeSpecialistes()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+	
 }
