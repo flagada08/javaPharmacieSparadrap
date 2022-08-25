@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -33,17 +34,13 @@ public class FenetrePrincipale extends JFrame {
 	private JButton btnHistoriqueOrdonnances;
 	private JButton btnDetailsClient;
 	private JButton btnQuitter;
+	private FenetreAchat fAchat = new FenetreAchat();
 
-	public FenetrePrincipale(FenetreAchat fAchat) {
-		fAchat = new FenetreAchat(null, null);
-		initComposants();
-		createEvenements(fAchat);
-	}
-	
 	/**
 	 * Création de la frame principale
 	 */
-	private void initComposants() {
+	public FenetrePrincipale() {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FenetrePrincipale.class.getResource("/com/sparadrap/resources/sparadrap_512.png")));
 		setTitle("PHARMACIE SPARADRAP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,17 +108,12 @@ public class FenetrePrincipale extends JFrame {
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
-	}
-	/**
-	 * @param pfAchat
-	 */
-	private void createEvenements(FenetreAchat pfAchat) {
 		
 		btnAcceuil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1) {
-					contentPane.remove(pfAchat);
+					contentPane.remove(fAchat);
 					contentPane.add(lblAccueil);
 					contentPane.revalidate();
 					contentPane.repaint();
@@ -133,8 +125,7 @@ public class FenetrePrincipale extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1) {
-					System.out.println("testFprincipaleBtnAchat");
-					contentPane.add(pfAchat);
+					contentPane.add(fAchat);
 					contentPane.remove(lblAccueil);
 					contentPane.revalidate();
 					contentPane.repaint();
@@ -147,5 +138,7 @@ public class FenetrePrincipale extends JFrame {
 				System.exit(0);
 			}
 		});
+		
 	}
+
 }

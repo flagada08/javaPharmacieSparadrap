@@ -6,21 +6,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medecin;
-import com.sparadrap.app.model.Medicament;
 import com.sparadrap.app.model.Mutuelle;
 import com.sparadrap.app.model.Ordonnance;
+import com.sparadrap.app.model.Patient;
 import com.sparadrap.app.model.Specialite;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author User-05
  */
 public class PanelAchatAvecOrdonnance extends JPanel {
+	
+	private JTextField tfNomClient;
+	private JTextField tfPrenomClient;
+	private JTextField ftfDateNaissanceClient;
 	private JTextField tfAdresseClient;
 	private JTextField tfTelephoneClient;
 	private JTextField tfEmailClient;
@@ -29,19 +35,12 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	private JComboBox<Specialite> cbChoixSpecialite;
 	private JComboBox<Ordonnance> cbChoixOrdonnance;
 	private JComboBox<Mutuelle> cbChoixMutuelle;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-
-	public PanelAchatAvecOrdonnance() {
-		initComposants();
-		createEvenements();
-	}
 	
 	/**
 	 * Création du panel
 	 */
-	private void initComposants() {
+	public PanelAchatAvecOrdonnance() {
+
 		setBounds(0, 0, 600, 500);
 		setBorder(new TitledBorder(null, "Achat avec Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
@@ -87,25 +86,25 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		
 		JLabel lblNomClient = new JLabel("Nom du client");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		tfNomClient = new JTextField();
+		tfNomClient.setColumns(10);
 		
 		JLabel lblPrenomClient = new JLabel("Prénom du client");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		tfPrenomClient = new JTextField();
+		tfPrenomClient.setColumns(10);
 		
 		JLabel lblDateNaissanceClient = new JLabel("Date de Naissance du client");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		ftfDateNaissanceClient = new JTextField();
+		ftfDateNaissanceClient.setColumns(10);
 		
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
 		
 		JComboBox cbChoixMédicaments = new JComboBox();
 		
 		JButton btnValider = new JButton("Valider");
-		
+				
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -115,7 +114,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNomClient)
 							.addGap(118)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(62)
 							.addComponent(lblOrdonnance)
 							.addGap(41)
@@ -123,7 +122,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblPrenomClient)
 							.addGap(103)
-							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(62)
 							.addComponent(lblMedecinClient)
 							.addGap(18)
@@ -131,7 +130,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblDateNaissanceClient)
 							.addGap(50)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(62)
 							.addComponent(lblSpecialiste)
 							.addGap(23)
@@ -173,7 +172,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblNomClient))
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblOrdonnance))
@@ -183,7 +182,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblPrenomClient))
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblMedecinClient))
@@ -193,7 +192,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblDateNaissanceClient))
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblSpecialiste))
@@ -238,10 +237,32 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addComponent(btnValider)
 					.addContainerGap(20, Short.MAX_VALUE))
 		);
-		setLayout(groupLayout);
-	}
-	
-	private void createEvenements() {
+		setLayout(groupLayout);	
 		
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnValider) {
+					Client patient = new Patient(
+						tfNomClient.getText(), 
+						tfPrenomClient.getText(), 
+						ERROR, 
+						null, 
+						ALLBITS, 
+						null, 
+						ABORT, 
+						null, 
+						ftfDateNaissanceClient.getText(), 
+						null, 
+						0, 
+						null, 
+						null, 
+						null, 
+						null
+					);
+					System.out.println(patient);
+				}
+			}
+		});
 	}
+		
 }

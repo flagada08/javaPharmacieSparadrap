@@ -5,6 +5,18 @@ import java.util.ArrayList;
 public class Specialiste extends Medecin{
 	private Specialite specialite;
 	/**
+	 * @return the specialite
+	 */
+	public Specialite getSpecialite() {
+		return specialite;
+	}
+	/**
+	 * @param specialite the specialite to set
+	 */
+	public void setSpecialite(Specialite specialite) {
+		this.specialite = specialite;
+	}
+	/**
 	 * @param nom
 	 * @param prenom
 	 * @param numRue
@@ -25,16 +37,8 @@ public class Specialiste extends Medecin{
 				listOrdonnances);
 		this.specialite = specialite;
 	}
-	/**
-	 * @return the specialite
-	 */
-	public Specialite getSpecialite() {
-		return specialite;
-	}
-	/**
-	 * @param specialite the specialite to set
-	 */
-	public void setSpecialite(Specialite specialite) {
-		this.specialite = specialite;
+	@Override
+	public String toString() {
+		return "Specialiste [getSpecialite()=" + getSpecialite() + "]";
 	}
 }

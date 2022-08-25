@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import com.sparadrap.app.controller.Pharmacie;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
@@ -20,32 +22,24 @@ import java.awt.Color;
  * @author User-05
  */
 public class FenetreAchat extends JPanel {
+	
+	PanelAchatSansOrdonnance pAchatSansOrdonnance = new PanelAchatSansOrdonnance();
+	PanelAchatAvecOrdonnance pAchatAvecOrdonnance = new PanelAchatAvecOrdonnance();
 	private JLabel lblTypeAchat;
 	private JComboBox cbTypeAchat;
-	private String[] sCbTypeAchat = {
-			"Choix du type d'achat", 
-			"Achat sans ordonnance", 
-			"Achat avec ordonnance"
-			};
+	private String[] tabScbTypeAchat = {"Choix du type d'achat", "Achat sans ordonnance", "Achat avec ordonnance"};
 
-	public FenetreAchat(PanelAchatSansOrdonnance pAchatSansOrdonnance, PanelAchatAvecOrdonnance pAchatAvecOrdonnance) {
-		pAchatSansOrdonnance = new PanelAchatSansOrdonnance();
-		pAchatAvecOrdonnance = new PanelAchatAvecOrdonnance();
-		initComposants();
-		createEvenements(pAchatSansOrdonnance, pAchatAvecOrdonnance);
-	}
-	
 	/**
 	 * Création du panel
 	 */
-	private void initComposants() {		
+	public FenetreAchat() {
 		setBounds(50, 50, 600, 500);
 		setBorder(new TitledBorder(null, "Achat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		lblTypeAchat = new JLabel("[Sélectionner le type d'achat]");
 		lblTypeAchat.setForeground(new Color(0, 102, 0));
 		lblTypeAchat.setFont(new Font("Cooper Black", Font.PLAIN, 17));
-		cbTypeAchat = new JComboBox(sCbTypeAchat);
+		cbTypeAchat = new JComboBox(tabScbTypeAchat);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -65,13 +59,6 @@ public class FenetreAchat extends JPanel {
 					.addGap(447))
 		);
 		setLayout(groupLayout);
-	}
-	
-	/**
-	 * @param pAchatSansOrdonnance
-	 * @param pAchatAvecOrdonnance
-	 */
-	private void createEvenements(PanelAchatSansOrdonnance pAchatSansOrdonnance, PanelAchatAvecOrdonnance pAchatAvecOrdonnance) {
 		
 		cbTypeAchat.addItemListener(new ItemListener() {			
 			@Override
@@ -82,13 +69,11 @@ public class FenetreAchat extends JPanel {
 					lblTypeAchat.setText("[" + cbTypeAchat.getSelectedItem() + "]");
 				}
 				if(string == cbTypeAchat.getItemAt(1)) {
-					System.out.println("testFachatSansOrdo");
 					add(pAchatSansOrdonnance);
 					remove(pAchatAvecOrdonnance);
 					revalidate();
 					repaint();
 				} else if(string == cbTypeAchat.getItemAt(2)) {
-					System.out.println("testFachatAvecOrdo");
 					add(pAchatAvecOrdonnance);
 					remove(pAchatSansOrdonnance);
 					revalidate();
@@ -105,4 +90,5 @@ public class FenetreAchat extends JPanel {
 			}
 		});	
 	}
+	
 }

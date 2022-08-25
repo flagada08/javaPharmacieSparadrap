@@ -10,7 +10,7 @@ import com.sparadrap.app.view.FenetrePrincipale;
  * @author User-05
  */
 public class Main {
-
+	
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -20,7 +20,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetrePrincipale frame = new FenetrePrincipale(null);
+					FenetrePrincipale frame = new FenetrePrincipale();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -28,5 +28,5 @@ public class Main {
 			}
 		});
 	}
-
+	
 }

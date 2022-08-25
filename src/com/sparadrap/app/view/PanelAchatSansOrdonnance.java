@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.sparadrap.app.controller.Pharmacie;
 import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medicament;
 import javax.swing.GroupLayout;
@@ -16,6 +17,7 @@ import javax.swing.text.DateFormatter;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -23,6 +25,7 @@ import java.awt.event.ActionEvent;
  * @author User-05
  */
 public class PanelAchatSansOrdonnance extends JPanel {
+	
 	private JTextField tfNomClient;
 	private JTextField tfPrenomClient;
 	private JFormattedTextField ftfDateNaissanceClient;
@@ -31,21 +34,11 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	private JButton btnValider;
 	private JComboBox<Medicament> cbChoixMédicaments;
 	
-	public PanelAchatSansOrdonnance() {
-		initComposants();
-		createEvenements(
-					tfNomClient, 
-					tfPrenomClient, 
-					ftfDateNaissanceClient, 
-					dfDateNaissanceClient,
-					cbChoixMédicaments
-				);
-	}
-	
 	/**
 	 * Création du panel
 	 */
-	private void initComposants() {
+	public PanelAchatSansOrdonnance() {		
+		Pharmacie.ajoutMedicament();
 		setBounds(0, 0, 600, 500);
 		setBorder(new TitledBorder(null, "Achat sans Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
@@ -70,8 +63,12 @@ public class PanelAchatSansOrdonnance extends JPanel {
 				
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
 		
-		cbChoixMédicaments = new JComboBox();
-		cbChoixMédicaments.setModel(new DefaultComboBoxModel(new String[] {"Choix Médicaments"}));
+		cbChoixMédicaments = new JComboBox<Medicament>();
+		for(Medicament medoc : Pharmacie.getListeMedicaments()) {
+			System.out.println(medoc.getNom() + medoc.getPrix());
+			cbChoixMédicaments.addItem(medoc);
+		}
+//		cbChoixMédicaments.setModel(new DefaultComboBoxModel());
 		
 		btnValider = new JButton("Valider");
 		
@@ -134,35 +131,27 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
-	}
 	
-	private void createEvenements(
-			JTextField tfNomClient, 
-			JTextField tfPrenomClient, 
-			JFormattedTextField ftfDateNaissanceClient, 
-			SimpleDateFormat dfDateNaissanceClient,
-			JComboBox<Medicament> cbChoixMédicaments
-			) {
 		btnValider.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				String stringTfNomClient = tfNomClient.getText();
-				String stringTfPrenomClient = tfPrenomClient.getText();
-				String stringftfDateNaissanceClient = ftfDateNaissanceClient.getText();
-				Client client = new Client(
-							stringTfNomClient, 
-							stringTfPrenomClient, 
-							ERROR, 
-							null, 
-							ALLBITS, 
-							null, 
-							ABORT, 
-							null, 
-							stringftfDateNaissanceClient, 
-							null
-						);
-				System.out.println(client);
+			public void actionPerformed(ActionEvent e) {				
+				if(e.getSource() == btnValider) {
+					Client client = new Client(
+						tfNomClient.getText(), 
+						tfPrenomClient.getText(), 
+						ERROR, 
+						null, 
+						ALLBITS, 
+						null, 
+						ABORT, 
+						null, 
+						ftfDateNaissanceClient.getText(), 
+						Pharmacie.getListeMedicaments()
+					);
+					System.out.println(client);
+				}
 			}
 		});
 	}
+	
 }

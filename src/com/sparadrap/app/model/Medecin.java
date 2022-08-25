@@ -7,27 +7,6 @@ public class Medecin extends Personne{
 	private ArrayList<Patient> listePatients;
 	private ArrayList<Ordonnance> listOrdonnances;
 	/**
-	 * @param nom
-	 * @param prenom
-	 * @param numRue
-	 * @param nomRue
-	 * @param codePostal
-	 * @param nomVille
-	 * @param numTelephone
-	 * @param email
-	 * @param numAgrement
-	 * @param listPatients
-	 * @param listOrdonnances
-	 */
-	public Medecin(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email, int numAgrement, ArrayList<Patient> listPatients,
-			ArrayList<Ordonnance> listOrdonnances) {
-		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
-		this.numAgrement = numAgrement;
-		this.listePatients = listPatients;
-		this.listOrdonnances = listOrdonnances;
-	}
-	/**
 	 * @return the numAgrement
 	 */
 	public int getNumAgrement() {
@@ -62,5 +41,31 @@ public class Medecin extends Personne{
 	 */
 	public void setListOrdonnances(ArrayList<Ordonnance> listOrdonnances) {
 		this.listOrdonnances = listOrdonnances;
+	}
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @param numRue
+	 * @param nomRue
+	 * @param codePostal
+	 * @param nomVille
+	 * @param numTelephone
+	 * @param email
+	 * @param numAgrement
+	 * @param listPatients
+	 * @param listOrdonnances
+	 */
+	public Medecin(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
+			int numTelephone, String email, int numAgrement, ArrayList<Patient> listPatients,
+			ArrayList<Ordonnance> listOrdonnances) {
+		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
+		this.numAgrement = numAgrement;
+		this.listePatients = listPatients;
+		this.listOrdonnances = listOrdonnances;
+	}
+	@Override
+	public String toString() {
+		return "Medecin [getNumAgrement()=" + getNumAgrement() + ", getListPatients()=" + getListPatients()
+				+ ", getListOrdonnances()=" + getListOrdonnances() + "]";
 	}
 }

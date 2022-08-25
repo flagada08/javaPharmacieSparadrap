@@ -1,6 +1,7 @@
 package com.sparadrap.app.model;
 
 public abstract class Personne {
+	
 	private String nom;
 	private String prenom;
 	private int numRue;
@@ -9,28 +10,7 @@ public abstract class Personne {
 	private String nomVille;
 	private int numTelephone;
 	private String email;
-	/**
-	 * @param nom
-	 * @param prenom
-	 * @param numRue
-	 * @param nomRue
-	 * @param codePostal
-	 * @param nomVille
-	 * @param numTelephone
-	 * @param email
-	 */
-	public Personne(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.numRue = numRue;
-		this.nomRue = nomRue;
-		this.codePostal = codePostal;
-		this.nomVille = nomVille;
-		this.numTelephone = numTelephone;
-		this.email = email;
-	}
+	
 	/**
 	 * @return the nom
 	 */
@@ -127,11 +107,33 @@ public abstract class Personne {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @param numRue
+	 * @param nomRue
+	 * @param codePostal
+	 * @param nomVille
+	 * @param numTelephone
+	 * @param email
+	 */
+	public Personne(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
+			int numTelephone, String email) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.numRue = numRue;
+		this.nomRue = nomRue;
+		this.codePostal = codePostal;
+		this.nomVille = nomVille;
+		this.numTelephone = numTelephone;
+		this.email = email;
+	}
+	
 	@Override
 	public String toString() {
-		return "Personne [nom=" + nom + ", prenom=" + prenom + ", numRue=" + numRue + ", nomRue=" + nomRue
-				+ ", codePostal=" + codePostal + ", nomVille=" + nomVille + ", numTelephone=" + numTelephone
-				+ ", email=" + email + ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getNumRue()="
+		return "Personne [getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getNumRue()="
 				+ getNumRue() + ", getNomRue()=" + getNomRue() + ", getCodePostal()=" + getCodePostal()
 				+ ", getNomVille()=" + getNomVille() + ", getNumTelephone()=" + getNumTelephone() + ", getEmail()="
 				+ getEmail() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="

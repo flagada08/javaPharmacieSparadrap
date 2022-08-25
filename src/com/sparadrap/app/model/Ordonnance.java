@@ -6,7 +6,7 @@ import java.util.Date;
 public class Ordonnance {
 	private Date date;
 	private Medecin medecin;
-	private Client patient;
+	private Patient patient;
 	private ArrayList<Medicament> listeMedicamentsOrdonnances;
 	private Specialiste specialiste;
 	/**
@@ -16,7 +16,7 @@ public class Ordonnance {
 	 * @param listeMedicaments
 	 * @param specialiste
 	 */
-	public Ordonnance(Date date, Medecin medecin, Client patient, ArrayList<Medicament> listeMedicamentsOrdonnances,
+	public Ordonnance(Date date, Medecin medecin, Patient patient, ArrayList<Medicament> listeMedicamentsOrdonnances,
 			Specialiste specialiste) {
 		super();
 		this.date = date;
@@ -58,7 +58,7 @@ public class Ordonnance {
 	/**
 	 * @param patient the patient to set
 	 */
-	public void setPatient(Client patient) {
+	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
 	/**
