@@ -65,7 +65,8 @@ public class Medecin extends Personne{
 	}
 	@Override
 	public String toString() {
-		return "Medecin [getNumAgrement()=" + getNumAgrement() + ", getListPatients()=" + getListPatients()
+		return "Medecin [getNumAgrement()=" + getNumAgrement() 
+				+ ", getListPatients()=" + getListPatients()
 				+ ", getListOrdonnances()=" + getListOrdonnances() + "]";
 	}
 }

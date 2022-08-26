@@ -1,6 +1,5 @@
 package com.sparadrap.app.view;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -8,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.sparadrap.app.controller.Pharmacie;
+import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medicament;
 import javax.swing.GroupLayout;
@@ -16,6 +16,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.DateFormatter;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,12 +35,62 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	private DateFormatter dformatterDateNaissanceClient;
 	private JButton btnValider;
 	private JComboBox<Medicament> cbChoixMédicaments;
+	private ArrayList<Achat> listeAchats = new ArrayList<>();
+	private JLabel lblSelectionMedicament;
+	private JLabel lblSelectionMedicamentTitre;
+	protected Medicament medicament;
+	protected Client client;
 	
 	/**
 	 * Création du panel
 	 */
-	public PanelAchatSansOrdonnance() {		
+	public PanelAchatSansOrdonnance() {
 		Pharmacie.ajoutMedicament();
+		initComposants();
+		createEvenements();
+	}
+	
+	private void createEvenements() {
+		Medicament selectionMedicament = (Medicament) cbChoixMédicaments.getSelectedItem();
+		cbChoixMédicaments.addItemListener(new ItemListener() {			
+			@Override
+			public void itemStateChanged(ItemEvent e) {				
+				if(e.getSource() == cbChoixMédicaments) {
+					lblSelectionMedicament.setText("[" + cbChoixMédicaments.getSelectedItem() + "]");
+				}
+			}
+		});
+		btnValider.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cbChoixMédicaments.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						lblSelectionMedicament.setText(selectionMedicament.toString());
+					}
+				});
+				if(e.getSource() == btnValider) {
+					client = new Client(
+						tfNomClient.getText(), 
+						tfPrenomClient.getText(), 
+						ERROR, 
+						null, 
+						ALLBITS, 
+						null, 
+						ABORT, 
+						null, 
+						ftfDateNaissanceClient.getText(), 
+						null
+					);
+					System.out.println(client);
+					listeAchats.add(new Achat(null, client, null, null, null, selectionMedicament, null, null));
+					System.out.println(listeAchats);
+					System.out.println(selectionMedicament);
+				}
+			}
+		});
+	}
+
+	private void initComposants() {		
 		setBounds(0, 0, 600, 500);
 		setBorder(new TitledBorder(null, "Achat sans Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
@@ -64,40 +116,48 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
 		
 		cbChoixMédicaments = new JComboBox<Medicament>();
+		
 		for(Medicament medoc : Pharmacie.getListeMedicaments()) {
 			System.out.println(medoc.getNom() + medoc.getPrix());
 			cbChoixMédicaments.addItem(medoc);
 		}
-//		cbChoixMédicaments.setModel(new DefaultComboBoxModel());
 		
 		btnValider = new JButton("Valider");
 		
+		lblSelectionMedicament = new JLabel("[Sélectionner un médicament]");
+		
+		lblSelectionMedicamentTitre = new JLabel("Médicaments séléctionnés");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNomClient)
-							.addGap(118)
-							.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblPrenomClient)
-							.addGap(103)
-							.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblDateNaissanceClient)
-							.addGap(50)
-							.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblListeMedicaments)
-							.addGap(120)
-							.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(513, Short.MAX_VALUE)
-					.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addComponent(lblNomClient)
+					.addGap(118)
+					.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
+					.addComponent(lblPrenomClient)
+					.addGap(103)
+					.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
+					.addComponent(lblDateNaissanceClient)
+					.addGap(50)
+					.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
+					.addComponent(lblListeMedicaments)
+					.addGap(120)
+					.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
+					.addComponent(lblSelectionMedicamentTitre)
+					.addGap(58)
+					.addComponent(lblSelectionMedicament))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(513)
+					.addComponent(btnValider))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -126,32 +186,13 @@ public class PanelAchatSansOrdonnance extends JPanel {
 							.addGap(3)
 							.addComponent(lblListeMedicaments))
 						.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(271)
-					.addComponent(btnValider)
-					.addContainerGap(20, Short.MAX_VALUE))
+					.addGap(22)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblSelectionMedicamentTitre)
+						.addComponent(lblSelectionMedicament))
+					.addGap(235)
+					.addComponent(btnValider))
 		);
 		setLayout(groupLayout);
-	
-		btnValider.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {				
-				if(e.getSource() == btnValider) {
-					Client client = new Client(
-						tfNomClient.getText(), 
-						tfPrenomClient.getText(), 
-						ERROR, 
-						null, 
-						ALLBITS, 
-						null, 
-						ABORT, 
-						null, 
-						ftfDateNaissanceClient.getText(), 
-						Pharmacie.getListeMedicaments()
-					);
-					System.out.println(client);
-				}
-			}
-		});
 	}
-	
 }

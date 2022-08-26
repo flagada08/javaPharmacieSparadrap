@@ -35,12 +35,45 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	private JComboBox<Specialite> cbChoixSpecialite;
 	private JComboBox<Ordonnance> cbChoixOrdonnance;
 	private JComboBox<Mutuelle> cbChoixMutuelle;
+	private JButton btnValider;
 	
 	/**
 	 * Création du panel
 	 */
 	public PanelAchatAvecOrdonnance() {
+		initComposants();
+		creteEvenements();
+	}
 
+	private void creteEvenements() {
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnValider) {
+					Client patient = new Patient(
+						tfNomClient.getText(), 
+						tfPrenomClient.getText(), 
+						ERROR, 
+						null, 
+						ALLBITS, 
+						null, 
+						ABORT, 
+						null, 
+						ftfDateNaissanceClient.getText(), 
+						null, 
+						0, 
+						null, 
+						null, 
+						null, 
+						null, 
+						null
+					);
+					System.out.println(patient);
+				}
+			}
+		});
+	}
+
+	private void initComposants() {
 		setBounds(0, 0, 600, 500);
 		setBorder(new TitledBorder(null, "Achat avec Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
@@ -103,7 +136,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		
 		JComboBox cbChoixMédicaments = new JComboBox();
 		
-		JButton btnValider = new JButton("Valider");
+		btnValider = new JButton("Valider");
 				
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -238,31 +271,6 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);	
-		
-		btnValider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == btnValider) {
-					Client patient = new Patient(
-						tfNomClient.getText(), 
-						tfPrenomClient.getText(), 
-						ERROR, 
-						null, 
-						ALLBITS, 
-						null, 
-						ABORT, 
-						null, 
-						ftfDateNaissanceClient.getText(), 
-						null, 
-						0, 
-						null, 
-						null, 
-						null, 
-						null
-					);
-					System.out.println(patient);
-				}
-			}
-		});
 	}
 		
 }

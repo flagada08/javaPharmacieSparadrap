@@ -33,6 +33,43 @@ public class FenetreAchat extends JPanel {
 	 * Création du panel
 	 */
 	public FenetreAchat() {
+		initComposants();
+		createEvenements();
+	}
+
+	private void createEvenements() {
+		cbTypeAchat.addItemListener(new ItemListener() {			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				String string = (String) cbTypeAchat.getSelectedItem();
+				
+				if(e.getSource() == cbTypeAchat) {
+					lblTypeAchat.setText("[" + cbTypeAchat.getSelectedItem() + "]");
+				}
+				
+				if(string == cbTypeAchat.getItemAt(1)) {
+					add(pAchatSansOrdonnance);
+					remove(pAchatAvecOrdonnance);
+					revalidate();
+					repaint();
+				} else if(string == cbTypeAchat.getItemAt(2)) {
+					add(pAchatAvecOrdonnance);
+					remove(pAchatSansOrdonnance);
+					revalidate();
+					repaint();
+				} else {
+					lblTypeAchat.setText("[Sélectionner le type d'achat]");
+					remove(pAchatSansOrdonnance);
+					remove(pAchatAvecOrdonnance);
+					revalidate();
+					repaint();
+				}
+				
+			}
+		});			
+	}
+
+	private void initComposants() {
 		setBounds(50, 50, 600, 500);
 		setBorder(new TitledBorder(null, "Achat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
@@ -58,37 +95,7 @@ public class FenetreAchat extends JPanel {
 						.addComponent(lblTypeAchat))
 					.addGap(447))
 		);
-		setLayout(groupLayout);
-		
-		cbTypeAchat.addItemListener(new ItemListener() {			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				String string = (String) cbTypeAchat.getSelectedItem();
-				
-				if(e.getSource() == cbTypeAchat) {
-					lblTypeAchat.setText("[" + cbTypeAchat.getSelectedItem() + "]");
-				}
-				if(string == cbTypeAchat.getItemAt(1)) {
-					add(pAchatSansOrdonnance);
-					remove(pAchatAvecOrdonnance);
-					revalidate();
-					repaint();
-				} else if(string == cbTypeAchat.getItemAt(2)) {
-					add(pAchatAvecOrdonnance);
-					remove(pAchatSansOrdonnance);
-					revalidate();
-					repaint();
-				} else {
-					System.out.println("testFachatChoixOrdo");
-					lblTypeAchat.setText("[Sélectionner le type d'achat]");
-					remove(pAchatSansOrdonnance);
-					remove(pAchatAvecOrdonnance);
-					revalidate();
-					repaint();
-				}
-				
-			}
-		});	
+		setLayout(groupLayout);		
 	}
-	
+		
 }

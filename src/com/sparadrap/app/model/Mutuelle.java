@@ -8,23 +8,6 @@ public class Mutuelle {
 	private String email;
 	private int tauxRemboursement;
 	/**
-	 * @param nom
-	 * @param siege
-	 * @param departement
-	 * @param numTelephone
-	 * @param email
-	 * @param tauxRemboursement
-	 */
-	public Mutuelle(String nom, String siege, int departement, int numTelephone, String email, int tauxRemboursement) {
-		super();
-		this.nom = nom;
-		this.siege = siege;
-		this.departement = departement;
-		this.numTelephone = numTelephone;
-		this.email = email;
-		this.tauxRemboursement = tauxRemboursement;
-	}
-	/**
 	 * @return the nom
 	 */
 	public String getNom() {
@@ -95,5 +78,31 @@ public class Mutuelle {
 	 */
 	public void setTauxRemboursement(int tauxRemboursement) {
 		this.tauxRemboursement = tauxRemboursement;
+	}
+	/**
+	 * @param nom
+	 * @param siege
+	 * @param departement
+	 * @param numTelephone
+	 * @param email
+	 * @param tauxRemboursement
+	 */
+	public Mutuelle(String nom, String siege, int departement, int numTelephone, String email, int tauxRemboursement) {
+		super();
+		this.nom = nom;
+		this.siege = siege;
+		this.departement = departement;
+		this.numTelephone = numTelephone;
+		this.email = email;
+		this.tauxRemboursement = tauxRemboursement;
+	}
+	@Override
+	public String toString() {
+		return "Mutuelle [getNom()=" + getNom() 
+				+ ", getSiege()=" + getSiege() 
+				+ ", getDepartement()=" + getDepartement() 
+				+ ", getNumTelephone()=" + getNumTelephone()
+				+ ", getEmail()=" + getEmail() 
+				+ ", getTauxRemboursement()=" + getTauxRemboursement() + "]";
 	}
 }

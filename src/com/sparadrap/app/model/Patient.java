@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Patient extends Client {
 	
-	private int numSecuSocial;
-	private Mutuelle mutuelle;
+	private long numSecuSocial;
+	private ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
+	private ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
 	private Medecin medecin;
 	private Specialiste specialiste;
 	private Ordonnance ordonnance;
@@ -13,29 +14,43 @@ public class Patient extends Client {
 	/**
 	 * @return the numSecuSocial
 	 */
-	public int getNumSecuSocial() {
+	public long getNumSecuSocial() {
 		return numSecuSocial;
 	}
 
 	/**
 	 * @param numSecuSocial the numSecuSocial to set
 	 */
-	public void setNumSecuSocial(int numSecuSocial) {
+	public void setNumSecuSocial(long numSecuSocial) {
 		this.numSecuSocial = numSecuSocial;
 	}
 
 	/**
-	 * @return the mutuelle
+	 * @return the listeMutuelles
 	 */
-	public Mutuelle getMutuelle() {
-		return mutuelle;
+	public ArrayList<Mutuelle> getListeMutuelles() {
+		return listeMutuelles;
 	}
 
 	/**
-	 * @param mutuelle the mutuelle to set
+	 * @param listeMutuelles the listeMutuelles to set
 	 */
-	public void setMutuelle(Mutuelle mutuelle) {
-		this.mutuelle = mutuelle;
+	public void setListeMutuelles(ArrayList<Mutuelle> listeMutuelles) {
+		this.listeMutuelles = listeMutuelles;
+	}
+
+	/**
+	 * @return the listeMedecins
+	 */
+	public ArrayList<Medecin> getListeMedecins() {
+		return listeMedecins;
+	}
+
+	/**
+	 * @param listeMedecins the listeMedecins to set
+	 */
+	public void setListeMedecins(ArrayList<Medecin> listeMedecins) {
+		this.listeMedecins = listeMedecins;
 	}
 
 	/**
@@ -99,10 +114,11 @@ public class Patient extends Client {
 	 */
 	public Patient(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
 			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicaments,
-			int numSecuSocial, Mutuelle mutuelle, Medecin medecin, Specialiste specialiste, Ordonnance ordonnance) {
+			long numSecuSocial, ArrayList<Mutuelle> ListeMutuelles, ArrayList<Medecin> listeMedecins, Medecin medecin, Specialiste specialiste, Ordonnance ordonnance) {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email, dateNaissance, listeMedicaments);
 		this.numSecuSocial = numSecuSocial;
-		this.mutuelle = mutuelle;
+		this.listeMutuelles = ListeMutuelles;
+		this.listeMedecins = listeMedecins;
 		this.medecin = medecin;
 		this.specialiste = specialiste;
 		this.ordonnance = ordonnance;
@@ -110,7 +126,12 @@ public class Patient extends Client {
 
 	@Override
 	public String toString() {
-		return "Patient [nom=" + super.getNom() + ", prenom=" + super.getPrenom() + ", numSecuSocial=" + getNumSecuSocial() + ", mutuelle=" + getMutuelle() + ", medecin=" + getMedecin()
-				+ ", specialiste=" + getSpecialiste() + ", ordonnance=" + getOrdonnance() + "]";
+		return "Patient [nom=" + super.getNom() 
+				+ ", prenom=" + super.getPrenom() 
+				+ ", numSecuSocial=" + getNumSecuSocial() 
+				+ ", mutuelle=" + getListeMutuelles() 
+				+ ", medecin=" + getListeMedecins()
+				+ ", specialiste=" + getSpecialiste() 
+				+ ", ordonnance=" + getOrdonnance() + "]";
 	}
 }

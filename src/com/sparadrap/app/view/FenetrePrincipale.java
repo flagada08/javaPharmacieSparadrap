@@ -40,7 +40,43 @@ public class FenetrePrincipale extends JFrame {
 	 * Création de la frame principale
 	 */
 	public FenetrePrincipale() {
+		initComposants();
+		createEvenements();
+	}
+	
+	private void createEvenements() {
+		btnAcceuil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.getButton() == MouseEvent.BUTTON1) {
+					contentPane.remove(fAchat);
+					contentPane.add(lblAccueil);
+					contentPane.revalidate();
+					contentPane.repaint();
+				}
+			}
+		});
+
+		btnAchat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.getButton() == MouseEvent.BUTTON1) {
+					contentPane.add(fAchat);
+					contentPane.remove(lblAccueil);
+					contentPane.revalidate();
+					contentPane.repaint();
+				}
+			}
+		});
 		
+		btnQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+	
+	private void initComposants() {		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FenetrePrincipale.class.getResource("/com/sparadrap/resources/sparadrap_512.png")));
 		setTitle("PHARMACIE SPARADRAP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,37 +144,6 @@ public class FenetrePrincipale extends JFrame {
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
-		
-		btnAcceuil.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if(e.getButton() == MouseEvent.BUTTON1) {
-					contentPane.remove(fAchat);
-					contentPane.add(lblAccueil);
-					contentPane.revalidate();
-					contentPane.repaint();
-				}
-			}
-		});
-
-		btnAchat.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if(e.getButton() == MouseEvent.BUTTON1) {
-					contentPane.add(fAchat);
-					contentPane.remove(lblAccueil);
-					contentPane.revalidate();
-					contentPane.repaint();
-				}
-			}
-		});
-		
-		btnQuitter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		
 	}
-
+	
 }

@@ -133,11 +133,17 @@ public abstract class Personne {
 	
 	@Override
 	public String toString() {
-		return "Personne [getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getNumRue()="
-				+ getNumRue() + ", getNomRue()=" + getNomRue() + ", getCodePostal()=" + getCodePostal()
-				+ ", getNomVille()=" + getNomVille() + ", getNumTelephone()=" + getNumTelephone() + ", getEmail()="
-				+ getEmail() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+		return "Personne [getNom()=" + getNom() 
+				+ ", getPrenom()=" + getPrenom() 
+				+ ", getNumRue()=" + getNumRue() 
+				+ ", getNomRue()=" + getNomRue() 
+				+ ", getCodePostal()=" + getCodePostal()
+				+ ", getNomVille()=" + getNomVille() 
+				+ ", getNumTelephone()=" + getNumTelephone() 
+				+ ", getEmail()=" + getEmail() 
+				+ ", getClass()=" + getClass() 
+				+ ", hashCode()=" + hashCode() 
+				+ ", toString()=" + super.toString() + "]";
 	}
 	
 }

@@ -7,21 +7,25 @@ import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medecin;
 import com.sparadrap.app.model.Medicament;
+import com.sparadrap.app.model.Mutuelle;
+import com.sparadrap.app.model.Ordonnance;
 import com.sparadrap.app.model.Patient;
 import com.sparadrap.app.model.Specialiste;
 
 public class Pharmacie {
 	private static ArrayList<Client> listeClients = new ArrayList<Client>();
 	private static ArrayList<Patient> listePatients = new ArrayList<Patient>();
+	private static ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
 	private static ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
 	private static ArrayList<Specialiste> listeSpecialistes = new ArrayList<Specialiste>();
 	private static ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
 	private static ArrayList<Achat> listeAchats = new ArrayList<Achat>();
+	private static Ordonnance ordonnance;
 	
 	/**
 	 * @return the listeClients
 	 */
-	public ArrayList<Client> getListeClients() {
+	public static ArrayList<Client> getListeClients() {
 		return listeClients;
 	}
 
@@ -35,7 +39,7 @@ public class Pharmacie {
 	/**
 	 * @return the listePatients
 	 */
-	public ArrayList<Patient> getListePatients() {
+	public static ArrayList<Patient> getListePatients() {
 		return listePatients;
 	}
 
@@ -47,9 +51,23 @@ public class Pharmacie {
 	}
 
 	/**
+	 * @return the listeMutuelles
+	 */
+	public static ArrayList<Mutuelle> getListeMutuelles() {
+		return listeMutuelles;
+	}
+
+	/**
+	 * @param listeMutuelles the listeMutuelles to set
+	 */
+	public static void setListeMutuelles(ArrayList<Mutuelle> listeMutuelles) {
+		Pharmacie.listeMutuelles = listeMutuelles;
+	}
+
+	/**
 	 * @return the listeMedecins
 	 */
-	public ArrayList<Medecin> getListeMedecins() {
+	public static ArrayList<Medecin> getListeMedecins() {
 		return listeMedecins;
 	}
 
@@ -103,6 +121,20 @@ public class Pharmacie {
 	}
 
 	/**
+	 * @return the ordonnance
+	 */
+	public static Ordonnance getOrdonnance() {
+		return ordonnance;
+	}
+
+	/**
+	 * @param ordonnance the ordonnance to set
+	 */
+	public static void setOrdonnance(Ordonnance ordonnance) {
+		Pharmacie.ordonnance = ordonnance;
+	}
+
+	/**
 	 * @param medicament
 	 * @param listeClients
 	 * @param listePatients
@@ -110,22 +142,95 @@ public class Pharmacie {
 	 * @param listeSpecialistes
 	 * @param listeMedicaments
 	 */
-	public Pharmacie(ArrayList<Client> plisteClients, ArrayList<Patient> plistePatients,
-			ArrayList<Medecin> plisteMedecins, ArrayList<Specialiste> plisteSpecialistes,
-			ArrayList<Medicament> plisteMedicaments) {
-		super();
-		listeClients = plisteClients;
-		listePatients = plistePatients;
-		listeMedecins = plisteMedecins;
-		listeSpecialistes = plisteSpecialistes;
-		listeMedicaments = plisteMedicaments;
+	public Pharmacie() {
+		
+	}
+	
+	public static void ajoutClient() {
+		getListeClients().add(new Client(
+					"testNomClient1", 
+					"testPrenomClient1", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity", 
+					1234567890 , 
+					"testClient1@test.st", 
+					"31/12/1234", 
+					getListeMedicaments()
+				));
+		getListeClients().add(new Client(
+					"testNomClient2", 
+					"testPrenomClient2", 
+					2, 
+					"rue du test", 
+					12345, 
+					"testCity", 
+					1234567890 , 
+					"testClient2@test.st", 
+					"31/12/1234", 
+					getListeMedicaments()
+				));
+		getListeClients().add(new Client(
+					"testNomClient3", 
+					"testPrenomClient3", 
+					3, 
+					"rue du test", 
+					12345, 
+					"testCity", 
+					1234567890 , 
+					"testClient3@test.st", 
+					"31/12/1234", 
+					getListeMedicaments()
+				));
+	}
+	
+	public static void ajoutPatient() {
+		getListePatients().add(new Patient(
+					"testNomPatient1", 
+					"testPrenomClient1", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity", 
+					1234567890, 
+					"testPatient1@test.st", 
+					"31/12/1234", 
+					getListeMedicaments(), 
+					1234567890, 
+					getListeMutuelles(), 
+					getListeMedecins(),
+					null,
+					null, 
+					getOrdonnance()
+				));
 	}
 	
 	public static void ajoutMedicament() {
-		getListeMedicaments().add(new Medicament("testMedoc1", null, 10, new Date(), 50));
-		getListeMedicaments().add(new Medicament("testMedoc2", null, 5, new Date(), 100));
-		getListeMedicaments().add(new Medicament("testMedoc3", null, 25, new Date(), 150));
+		getListeMedicaments().add(new Medicament(
+					"testMedoc1", 
+					null, 
+					10, 
+					new Date(), 
+					50
+				));
+		getListeMedicaments().add(new Medicament(
+					"testMedoc2", 
+					null, 
+					5, 
+					new Date(), 
+					100
+				));
+		getListeMedicaments().add(new Medicament(
+					"testMedoc3", 
+					null, 
+					25, 
+					new Date(), 
+					150
+				));
 	}
+	
+	
 
 	@Override
 	public String toString() {

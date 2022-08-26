@@ -51,7 +51,6 @@ public class Client extends Personne {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
 		this.dateNaissance = dateNaissance;
 		this.listeMedicaments = listeMedicaments;
-		System.out.println(getListeMedicaments());
 	}
 
 	@Override
