@@ -55,7 +55,7 @@ public class Client extends Personne {
 
 	@Override
 	public String toString() {
-		return "Client [dateNaissance=" + dateNaissance 
+		return "Client [dateNaissance=" + getDateNaissance() 
 				+ " nom=" + super.getNom() 
 				+ " prenom=" + super.getPrenom() 
 				+ " medicament=" + getListeMedicaments() + "]";

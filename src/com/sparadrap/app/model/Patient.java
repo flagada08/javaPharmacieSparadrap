@@ -132,6 +132,7 @@ public class Patient extends Client {
 				+ ", mutuelle=" + getListeMutuelles() 
 				+ ", medecin=" + getListeMedecins()
 				+ ", specialiste=" + getSpecialiste() 
+				+ ", medicament=" + getListeMedicaments() 
 				+ ", ordonnance=" + getOrdonnance() + "]";
 	}
 }

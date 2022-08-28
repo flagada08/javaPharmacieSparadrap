@@ -27,13 +27,16 @@ import java.awt.event.ActionEvent;
 public class FenetrePrincipale extends JFrame {
 
 	private JPanel contentPane;
+	
 	private JLabel lblAccueil;
+	
 	private JButton btnAcceuil;
 	private JButton btnAchat;
 	private JButton btnHistoriqueAchats;
 	private JButton btnHistoriqueOrdonnances;
 	private JButton btnDetailsClient;
 	private JButton btnQuitter;
+	
 	private FenetreAchat fAchat = new FenetreAchat();
 
 	/**

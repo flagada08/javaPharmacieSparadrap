@@ -1,6 +1,6 @@
 package com.sparadrap.app.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class Achat {
@@ -10,8 +10,8 @@ public class Achat {
 	private Medecin medecin;
 	private Specialiste specialiste;
 	private Medicament medicament;
-	private ArrayList<Ordonnance> listeOrdonnances = new ArrayList<>();
-	private ArrayList<Medicament> listeMedicaments = new ArrayList<>();
+	private ArrayList<Ordonnance> listeOrdonnances;
+	private ArrayList<Medicament> listeMedicaments;
 	/**
 	 * @return the dateAchat
 	 */
@@ -136,7 +136,7 @@ public class Achat {
 				+ ", getPatient()=" + getPatient() 
 				+ ", getMedecin()=" + getMedecin() 
 				+ ", getSpecialiste()=" + getSpecialiste()
-				+ ", getSpecialiste()=" + getMedicament()
+				+ ", getMedicament()=" + getMedicament()
 				+ ", getListeOrdonnances()=" + getListeOrdonnances() 
 				+ ", getListeMedicaments()=" + getListeMedicaments() + "]";
 	}

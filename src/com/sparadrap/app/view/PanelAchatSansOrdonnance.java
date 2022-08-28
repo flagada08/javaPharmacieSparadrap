@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * @author User-05
@@ -30,28 +32,36 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	
 	private JTextField tfNomClient;
 	private JTextField tfPrenomClient;
+	
 	private JFormattedTextField ftfDateNaissanceClient;
 	private SimpleDateFormat dfDateNaissanceClient;
 	private DateFormatter dformatterDateNaissanceClient;
-	private JButton btnValider;
-	private JComboBox<Medicament> cbChoixMédicaments;
-	private ArrayList<Achat> listeAchats = new ArrayList<>();
-	private JLabel lblSelectionMedicament;
+	
+	private Date dateDuJour;
+	
 	private JLabel lblSelectionMedicamentTitre;
-	protected Medicament medicament;
+	private JLabel lblSelectionMedicament;
+	
+	private JButton btnValider;
+	
+	private JComboBox<Medicament> cbChoixMédicaments;
+	
+	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
+	private ArrayList<Client> listeClients = new ArrayList<Client>();
+	
 	protected Client client;
+	protected Medicament Medicament;
+	protected String selectionMedicament;
 	
 	/**
 	 * Création du panel
 	 */
 	public PanelAchatSansOrdonnance() {
-		Pharmacie.ajoutMedicament();
 		initComposants();
 		createEvenements();
 	}
 	
 	private void createEvenements() {
-		Medicament selectionMedicament = (Medicament) cbChoixMédicaments.getSelectedItem();
 		cbChoixMédicaments.addItemListener(new ItemListener() {			
 			@Override
 			public void itemStateChanged(ItemEvent e) {				
@@ -63,13 +73,9 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		btnValider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cbChoixMédicaments.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						lblSelectionMedicament.setText(selectionMedicament.toString());
-					}
-				});
+				selectionMedicament = lblSelectionMedicament.getText();
 				if(e.getSource() == btnValider) {
-					client = new Client(
+					listeClients.add(new Client(
 						tfNomClient.getText(), 
 						tfPrenomClient.getText(), 
 						ERROR, 
@@ -79,13 +85,19 @@ public class PanelAchatSansOrdonnance extends JPanel {
 						ABORT, 
 						null, 
 						ftfDateNaissanceClient.getText(), 
-						null
+						null)
 					);
-					System.out.println(client);
-					listeAchats.add(new Achat(null, client, null, null, null, selectionMedicament, null, null));
+					listeAchats.add(new Achat(new Date(), client, null, null, null, Medicament, null, null));
+					System.out.println(listeClients);
 					System.out.println(listeAchats);
 					System.out.println(selectionMedicament);
 				}
+			}
+		});
+		lblSelectionMedicament.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblSelectionMedicament.remove(lblSelectionMedicament);
 			}
 		});
 	}
@@ -124,9 +136,10 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		
 		btnValider = new JButton("Valider");
 		
-		lblSelectionMedicament = new JLabel("[Sélectionner un médicament]");
-		
 		lblSelectionMedicamentTitre = new JLabel("Médicaments séléctionnés");
+		
+		lblSelectionMedicament = new JLabel("[Sélectionner un médicament]");
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -180,13 +193,13 @@ public class PanelAchatSansOrdonnance extends JPanel {
 							.addGap(3)
 							.addComponent(lblDateNaissanceClient))
 						.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(24)
+					.addGap(23)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
+							.addGap(4)
 							.addComponent(lblListeMedicaments))
 						.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(22)
+					.addGap(23)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblSelectionMedicamentTitre)
 						.addComponent(lblSelectionMedicament))

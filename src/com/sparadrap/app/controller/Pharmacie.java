@@ -102,7 +102,7 @@ public class Pharmacie {
 	/**
 	 * @param listeMedicaments the listeMedicaments to set
 	 */
-	public void setListeMedicaments(ArrayList<Medicament> plisteMedicaments) {
+	public static void setListeMedicaments(ArrayList<Medicament> plisteMedicaments) {
 		listeMedicaments = plisteMedicaments;
 	}
 
@@ -134,14 +134,6 @@ public class Pharmacie {
 		Pharmacie.ordonnance = ordonnance;
 	}
 
-	/**
-	 * @param medicament
-	 * @param listeClients
-	 * @param listePatients
-	 * @param listeMedecins
-	 * @param listeSpecialistes
-	 * @param listeMedicaments
-	 */
 	public Pharmacie() {
 		
 	}
