@@ -127,7 +127,8 @@ public class Patient extends Client {
 
 	@Override
 	public String toString() {
-		return "Patient [\nnom=" + super.getNom() 
+		return "Patient ["
+				+ "\nnom=" + super.getNom() 
 				+ "\nprenom=" + super.getPrenom() 
 				+ "\ndateNaissance=" + super.getDateNaissance() 
 				+ "\nmedicament=" + super.getMedicament() 
@@ -138,6 +139,7 @@ public class Patient extends Client {
 				+ "\nmutuelle=" + getListeMutuelles() 
 				+ "\nmedecin=" + getListeMedecins()
 				+ "\nspecialiste=" + getSpecialiste() 
-				+ "\nordonnance=" + getOrdonnance() + "\n]";
+				+ "\nordonnance=" + getOrdonnance() 
+				+ "\n]";
 	}
 }

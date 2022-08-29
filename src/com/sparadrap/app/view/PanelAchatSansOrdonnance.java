@@ -108,7 +108,6 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					JOptionPane.showMessageDialog(null, listeClients, "Liste clients", 1);
 					JOptionPane.showMessageDialog(null, listeAchats, "Liste achats", 1);
 					JOptionPane.showMessageDialog(null, listeMedicaments, "Liste Médicaments", 1);
-					JOptionPane.showMessageDialog(null, Medicament, "Médicament sélectionné", 1);
 				}
 			}
 		});

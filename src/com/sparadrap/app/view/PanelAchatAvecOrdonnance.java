@@ -68,10 +68,12 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	private JComboBox<Mutuelle> cbChoixMutuelle;
 	
 	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
+	private ArrayList<Client> listeClients = new ArrayList<Client>();
 	private ArrayList<Patient> listePatients = new ArrayList<Patient>();
 	private ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
 	
 	private Achat achat;
+	private Client client;
 	private Patient patient;
 	private Medicament Medicament;
 	protected String selectionMedicament;
@@ -93,8 +95,6 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					lblSelectionMedicament.setText("[" + cbChoixMédicaments.getSelectedItem() + "]");
 					selectionMedicament = cbChoixMédicaments.getSelectedItem().toString();
 				}
-				Medicament = (Medicament) cbChoixMédicaments.getSelectedItem();
-				listeMedicaments.add(Medicament);
 			}
 		});
 		btnValider.addActionListener(new ActionListener() {
@@ -103,6 +103,19 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 				intTfTelephoneClient = Integer.parseInt(txtTfTelephoneClient);
 				txtTfNumSecuSocialClient = tfNumSecuSocialClient.getText();
 				intTfNumSecuSocialClient = Long.parseLong(txtTfNumSecuSocialClient);
+				Medicament = (Medicament) cbChoixMédicaments.getSelectedItem();
+				client = new Client(
+						tfNomClient.getText(), 
+						tfPrenomClient.getText(), 
+						0, 
+						null, 
+						0, 
+						null, 
+						0, 
+						null, 
+						ftfDateNaissanceClient.getText(), 
+						Medicament
+						);
 				patient = new Patient(
 						tfNomClient.getText(), 
 						tfPrenomClient.getText(), 
@@ -124,21 +137,21 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						);
 				achat = new Achat(
 						new Date(), 
-						patient, 
 						null, 
+						patient, 
 						null, 
 						null, 
 						Medicament, 
 						null
 						);
 				if(e.getSource() == btnValider) {
+					listeMedicaments.add(Medicament);
 					listePatients.add(patient);
 					listeAchats.add(achat);
 					new JOptionPane();
 					JOptionPane.showMessageDialog(null,listePatients,"Liste patients", 1);
 					JOptionPane.showMessageDialog(null,listeAchats,"Liste achats", 1);
 					JOptionPane.showMessageDialog(null, listeMedicaments, "Liste Médicaments", 1);
-					JOptionPane.showMessageDialog(null,Medicament,"Médicament sélectionné", 1);
 				}
 			}
 		});

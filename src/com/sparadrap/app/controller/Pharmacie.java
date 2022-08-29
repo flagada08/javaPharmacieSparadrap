@@ -227,11 +227,13 @@ public class Pharmacie {
 
 	@Override
 	public String toString() {
-		return "Pharmacie [getListeClients()=" + getListeClients()
+		return "Pharmacie ["
+				+ "getListeClients()=" + getListeClients()
 				+ "\ngetListePatients()=" + getListePatients() 
 				+ "\ngetListeMedecins()=" + getListeMedecins()
 				+ "\ngetListeSpecialistes()=" + getListeSpecialistes() 
-				+ "\ngetListeMedicaments()=" + getListeMedicaments() + "]";
+				+ "\ngetListeMedicaments()=" + getListeMedicaments() 
+				+ "]";
 	}
 	
 }

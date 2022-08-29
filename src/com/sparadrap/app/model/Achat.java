@@ -1,7 +1,6 @@
 package com.sparadrap.app.model;
 
 import java.util.Date;
-import java.util.ArrayList;
 
 public class Achat {
 	private Date dateAchat;
@@ -120,11 +119,11 @@ public class Achat {
 		return "Achat ["
 				+ "\n" + getDateAchat() 
 				+ "\n" + getClient() 
-				+ "\ngetPatient()=" + getPatient() 
-				+ "\ngetMedecin()=" + getMedecin() 
-				+ "\ngetSpecialiste()=" + getSpecialiste()
-				+ "\ngetMedicament()=" + getMedicament()
-				+ "\ngetOrdonnance()=" + getOrdonnance() 
+				+ "\n" + getPatient() 
+				+ "\n" + getMedecin() 
+				+ "\n" + getSpecialiste()
+				+ "\n" + getMedicament()
+				+ "\n" + getOrdonnance() 
 				+ "\n]";
 	}
 }

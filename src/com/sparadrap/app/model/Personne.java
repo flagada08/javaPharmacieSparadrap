@@ -133,7 +133,8 @@ public abstract class Personne {
 	
 	@Override
 	public String toString() {
-		return "Personne [getNom()=" + getNom() 
+		return "Personne ["
+				+ "getNom()=" + getNom() 
 				+ ", getPrenom()=" + getPrenom() 
 				+ ", getNumRue()=" + getNumRue() 
 				+ ", getNomRue()=" + getNomRue() 
@@ -143,7 +144,8 @@ public abstract class Personne {
 				+ ", getEmail()=" + getEmail() 
 				+ ", getClass()=" + getClass() 
 				+ ", hashCode()=" + hashCode() 
-				+ ", toString()=" + super.toString() + "]";
+				+ ", toString()=" + super.toString() 
+				+ "]";
 	}
 	
 }
