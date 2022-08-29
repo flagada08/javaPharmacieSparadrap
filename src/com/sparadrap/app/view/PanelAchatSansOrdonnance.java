@@ -3,6 +3,7 @@ package com.sparadrap.app.view;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -36,9 +37,7 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	private JFormattedTextField ftfDateNaissanceClient;
 	private SimpleDateFormat dfDateNaissanceClient;
 	private DateFormatter dformatterDateNaissanceClient;
-	
-	private Date dateDuJour;
-	
+		
 	private JLabel lblSelectionMedicamentTitre;
 	private JLabel lblSelectionMedicament;
 	
@@ -48,9 +47,11 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	
 	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
 	private ArrayList<Client> listeClients = new ArrayList<Client>();
+	private ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
 	
-	protected Client client;
-	protected Medicament Medicament;
+	private Achat achat;
+	private Client client;
+	private Medicament Medicament;
 	protected String selectionMedicament;
 	
 	/**
@@ -62,35 +63,52 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	}
 	
 	private void createEvenements() {
+				
 		cbChoixMédicaments.addItemListener(new ItemListener() {			
 			@Override
-			public void itemStateChanged(ItemEvent e) {				
+			public void itemStateChanged(ItemEvent e) {
 				if(e.getSource() == cbChoixMédicaments) {
 					lblSelectionMedicament.setText("[" + cbChoixMédicaments.getSelectedItem() + "]");
+					selectionMedicament = cbChoixMédicaments.getSelectedItem().toString();
 				}
 			}
 		});
+		
 		btnValider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				selectionMedicament = lblSelectionMedicament.getText();
-				if(e.getSource() == btnValider) {
-					listeClients.add(new Client(
+				Medicament = (Medicament) cbChoixMédicaments.getSelectedItem();
+				client = new Client(
 						tfNomClient.getText(), 
 						tfPrenomClient.getText(), 
-						ERROR, 
+						0, 
 						null, 
-						ALLBITS, 
+						0, 
 						null, 
-						ABORT, 
+						0, 
 						null, 
 						ftfDateNaissanceClient.getText(), 
-						null)
-					);
-					listeAchats.add(new Achat(new Date(), client, null, null, null, Medicament, null, null));
-					System.out.println(listeClients);
-					System.out.println(listeAchats);
-					System.out.println(selectionMedicament);
+						Medicament
+						);
+				achat = new Achat(
+						new Date(), 
+						client, 
+						null, 
+						null, 
+						null, 
+						Medicament, 
+						null
+						);
+				if(e.getSource() == btnValider) {
+					listeMedicaments.add(Medicament);
+					listeClients.add(client);
+					listeAchats.add(achat);
+					
+					new JOptionPane();
+					JOptionPane.showMessageDialog(null, listeClients, "Liste clients", 1);
+					JOptionPane.showMessageDialog(null, listeAchats, "Liste achats", 1);
+					JOptionPane.showMessageDialog(null, listeMedicaments, "Liste Médicaments", 1);
+					JOptionPane.showMessageDialog(null, Medicament, "Médicament sélectionné", 1);
 				}
 			}
 		});
@@ -130,7 +148,6 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		cbChoixMédicaments = new JComboBox<Medicament>();
 		
 		for(Medicament medoc : Pharmacie.getListeMedicaments()) {
-			System.out.println(medoc.getNom() + medoc.getPrix());
 			cbChoixMédicaments.addItem(medoc);
 		}
 		

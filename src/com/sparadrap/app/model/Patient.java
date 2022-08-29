@@ -7,9 +7,9 @@ public class Patient extends Client {
 	private long numSecuSocial;
 	private ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
 	private ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
+	private ArrayList<Ordonnance> listeOrdonnances = new ArrayList<Ordonnance>();
 	private Medecin medecin;
 	private Specialiste specialiste;
-	private Ordonnance ordonnance;
 	
 	/**
 	 * @return the numSecuSocial
@@ -84,15 +84,15 @@ public class Patient extends Client {
 	/**
 	 * @return the ordonnance
 	 */
-	public Ordonnance getOrdonnance() {
-		return ordonnance;
+	public ArrayList<Ordonnance> getOrdonnance() {
+		return listeOrdonnances;
 	}
 
 	/**
 	 * @param ordonnance the ordonnance to set
 	 */
-	public void setOrdonnance(Ordonnance ordonnance) {
-		this.ordonnance = ordonnance;
+	public void setOrdonnance(ArrayList<Ordonnance> ordonnance) {
+		this.listeOrdonnances = ordonnance;
 	}
 
 	/**
@@ -106,33 +106,38 @@ public class Patient extends Client {
 	 * @param email
 	 * @param dateNaissance
 	 * @param listeMedicaments
+	 * @param medicament 
 	 * @param numSecuSocial
 	 * @param mutuelle
 	 * @param medecin
 	 * @param specialiste
 	 * @param ordonnance
 	 */
-	public Patient(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicaments,
-			long numSecuSocial, ArrayList<Mutuelle> ListeMutuelles, ArrayList<Medecin> listeMedecins, Medecin medecin, Specialiste specialiste, Ordonnance ordonnance) {
-		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email, dateNaissance, listeMedicaments);
+	public Patient(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille, int numTelephone, String email, 
+			String dateNaissance, ArrayList<Medicament> listeMedicaments, long numSecuSocial, ArrayList<Mutuelle> ListeMutuelles, 
+			ArrayList<Medecin> listeMedecins, Medecin medecin, Specialiste specialiste, ArrayList<Ordonnance> listeOrdonnances, Medicament medicament) {
+		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email, dateNaissance, medicament);
 		this.numSecuSocial = numSecuSocial;
 		this.listeMutuelles = ListeMutuelles;
 		this.listeMedecins = listeMedecins;
 		this.medecin = medecin;
 		this.specialiste = specialiste;
-		this.ordonnance = ordonnance;
+		this.listeOrdonnances = listeOrdonnances;
 	}
 
 	@Override
 	public String toString() {
-		return "Patient [nom=" + super.getNom() 
-				+ ", prenom=" + super.getPrenom() 
-				+ ", numSecuSocial=" + getNumSecuSocial() 
-				+ ", mutuelle=" + getListeMutuelles() 
-				+ ", medecin=" + getListeMedecins()
-				+ ", specialiste=" + getSpecialiste() 
-				+ ", medicament=" + getListeMedicaments() 
-				+ ", ordonnance=" + getOrdonnance() + "]";
+		return "Patient [\nnom=" + super.getNom() 
+				+ "\nprenom=" + super.getPrenom() 
+				+ "\ndateNaissance=" + super.getDateNaissance() 
+				+ "\nmedicament=" + super.getMedicament() 
+				+ "\nnumTelephone=" + super.getNumTelephone() 
+				+ "\nnumRue=" + super.getNumRue() 
+				+ "\nadresse=" + super.getNomRue() 
+				+ "\nnumSecuSocial=" + getNumSecuSocial() 
+				+ "\nmutuelle=" + getListeMutuelles() 
+				+ "\nmedecin=" + getListeMedecins()
+				+ "\nspecialiste=" + getSpecialiste() 
+				+ "\nordonnance=" + getOrdonnance() + "\n]";
 	}
 }

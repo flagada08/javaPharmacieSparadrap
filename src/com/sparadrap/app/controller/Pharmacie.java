@@ -13,14 +13,28 @@ import com.sparadrap.app.model.Patient;
 import com.sparadrap.app.model.Specialiste;
 
 public class Pharmacie {
+	private static ArrayList<Achat> listeAchats = new ArrayList<Achat>();
 	private static ArrayList<Client> listeClients = new ArrayList<Client>();
 	private static ArrayList<Patient> listePatients = new ArrayList<Patient>();
 	private static ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
 	private static ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
 	private static ArrayList<Specialiste> listeSpecialistes = new ArrayList<Specialiste>();
 	private static ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
-	private static ArrayList<Achat> listeAchats = new ArrayList<Achat>();
-	private static Ordonnance ordonnance;
+	private static ArrayList<Ordonnance> listeOrdonnance = new ArrayList<Ordonnance>();
+	
+	/**
+	 * @return the listeAchats
+	 */
+	public static ArrayList<Achat> getListeAchats() {
+		return listeAchats;
+	}
+	
+	/**
+	 * @param listeAchats the listeAchats to set
+	 */
+	public void setListeAchats(ArrayList<Achat> plisteAchats) {
+		listeAchats = plisteAchats;
+	}
 	
 	/**
 	 * @return the listeClients
@@ -81,7 +95,7 @@ public class Pharmacie {
 	/**
 	 * @return the listeSpecialistes
 	 */
-	public ArrayList<Specialiste> getListeSpecialistes() {
+	public static ArrayList<Specialiste> getListeSpecialistes() {
 		return listeSpecialistes;
 	}
 
@@ -107,31 +121,17 @@ public class Pharmacie {
 	}
 
 	/**
-	 * @return the listeAchats
-	 */
-	public ArrayList<Achat> getListeAchats() {
-		return listeAchats;
-	}
-
-	/**
-	 * @param listeAchats the listeAchats to set
-	 */
-	public void setListeAchats(ArrayList<Achat> plisteAchats) {
-		listeAchats = plisteAchats;
-	}
-
-	/**
 	 * @return the ordonnance
 	 */
-	public static Ordonnance getOrdonnance() {
-		return ordonnance;
+	public static ArrayList<Ordonnance> getListeOrdonnances() {
+		return listeOrdonnance;
 	}
 
 	/**
 	 * @param ordonnance the ordonnance to set
 	 */
-	public static void setOrdonnance(Ordonnance ordonnance) {
-		Pharmacie.ordonnance = ordonnance;
+	public static void setListeOrdonnances(ArrayList<Ordonnance> plisteOrdonnance) {
+		listeOrdonnance = plisteOrdonnance;
 	}
 
 	public Pharmacie() {
@@ -149,7 +149,7 @@ public class Pharmacie {
 					1234567890 , 
 					"testClient1@test.st", 
 					"31/12/1234", 
-					getListeMedicaments()
+					null
 				));
 		getListeClients().add(new Client(
 					"testNomClient2", 
@@ -160,8 +160,8 @@ public class Pharmacie {
 					"testCity", 
 					1234567890 , 
 					"testClient2@test.st", 
-					"31/12/1234", 
-					getListeMedicaments()
+					"31/12/1234",
+					null
 				));
 		getListeClients().add(new Client(
 					"testNomClient3", 
@@ -173,7 +173,7 @@ public class Pharmacie {
 					1234567890 , 
 					"testClient3@test.st", 
 					"31/12/1234", 
-					getListeMedicaments()
+					null
 				));
 	}
 	
@@ -194,7 +194,8 @@ public class Pharmacie {
 					getListeMedecins(),
 					null,
 					null, 
-					getOrdonnance()
+					getListeOrdonnances(), 
+					null
 				));
 	}
 	
@@ -227,10 +228,10 @@ public class Pharmacie {
 	@Override
 	public String toString() {
 		return "Pharmacie [getListeClients()=" + getListeClients()
-				+ ", getListePatients()=" + getListePatients() 
-				+ ", getListeMedecins()=" + getListeMedecins()
-				+ ", getListeSpecialistes()=" + getListeSpecialistes() 
-				+ ", getListeMedicaments()=" + getListeMedicaments() + "]";
+				+ "\ngetListePatients()=" + getListePatients() 
+				+ "\ngetListeMedecins()=" + getListeMedecins()
+				+ "\ngetListeSpecialistes()=" + getListeSpecialistes() 
+				+ "\ngetListeMedicaments()=" + getListeMedicaments() + "]";
 	}
 	
 }

@@ -1,10 +1,8 @@
 package com.sparadrap.app.model;
 
-import java.util.ArrayList;
-
 public class Client extends Personne {
 	private String dateNaissance;
-	private ArrayList<Medicament> listeMedicaments;
+	private Medicament medicament;
 	
 	/**
 	 * @return the dateNaissance
@@ -21,17 +19,17 @@ public class Client extends Personne {
 	}
 
 	/**
-	 * @return the listeMedicaments
+	 * @return the medicament
 	 */
-	public ArrayList<Medicament> getListeMedicaments() {
-		return listeMedicaments;
+	public Medicament getMedicament() {
+		return medicament;
 	}
 
 	/**
-	 * @param listeMedicaments the listeMedicaments to set
+	 * @param medicament the medicament to set
 	 */
-	public void setListeMedicaments(ArrayList<Medicament> listeMedicaments) {
-		this.listeMedicaments = listeMedicaments;
+	public void setMedicament(Medicament medicament) {
+		this.medicament = medicament;
 	}
 
 	/**
@@ -47,17 +45,19 @@ public class Client extends Personne {
 	 * @param listeMedicaments
 	 */
 	public Client(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicaments) {
+			int numTelephone, String email, String dateNaissance, Medicament medicament) {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
 		this.dateNaissance = dateNaissance;
-		this.listeMedicaments = listeMedicaments;
+		this.medicament = medicament;
 	}
 
 	@Override
 	public String toString() {
-		return "Client [dateNaissance=" + getDateNaissance() 
-				+ " nom=" + super.getNom() 
-				+ " prenom=" + super.getPrenom() 
-				+ " medicament=" + getListeMedicaments() + "]";
+		return "Client ["
+				+ "\nnom=" + super.getNom() 
+				+ "\nprenom=" + super.getPrenom() 
+				+ "\ndateNaissance=" + getDateNaissance() 
+				+ "\nmedicament=" + getMedicament() 
+				+ "\n]";
 	}
 }

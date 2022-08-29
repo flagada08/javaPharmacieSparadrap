@@ -10,8 +10,7 @@ public class Achat {
 	private Medecin medecin;
 	private Specialiste specialiste;
 	private Medicament medicament;
-	private ArrayList<Ordonnance> listeOrdonnances;
-	private ArrayList<Medicament> listeMedicaments;
+	private Ordonnance ordonnance;
 	/**
 	 * @return the dateAchat
 	 */
@@ -87,27 +86,16 @@ public class Achat {
 	/**
 	 * @return the listeOrdonnances
 	 */
-	public ArrayList<Ordonnance> getListeOrdonnances() {
-		return listeOrdonnances;
+	public Ordonnance getOrdonnance() {
+		return ordonnance;
 	}
 	/**
 	 * @param listeOrdonnances the listeOrdonnances to set
 	 */
-	public void setListeOrdonnances(ArrayList<Ordonnance> listeOrdonnances) {
-		this.listeOrdonnances = listeOrdonnances;
+	public void setOrdonnance(Ordonnance ordonnance) {
+		this.ordonnance = ordonnance;
 	}
-	/**
-	 * @return the listeMedicaments
-	 */
-	public ArrayList<Medicament> getListeMedicaments() {
-		return listeMedicaments;
-	}
-	/**
-	 * @param listeMedicaments the listeMedicaments to set
-	 */
-	public void setListeMedicaments(ArrayList<Medicament> listeMedicaments) {
-		this.listeMedicaments = listeMedicaments;
-	}
+	
 	/**
 	 * @param dateAchat
 	 * @param client
@@ -118,7 +106,7 @@ public class Achat {
 	 * @param listeMedicaments
 	 */
 	public Achat(Date dateAchat, Client client, Patient patient, Medecin medecin, Specialiste specialiste,
-			Medicament medicament, ArrayList<Ordonnance> listeOrdonnances, ArrayList<Medicament> listeMedicaments) {
+			Medicament medicament, Ordonnance ordonnance) {
 		super();
 		this.dateAchat = dateAchat;
 		this.client = client;
@@ -126,18 +114,17 @@ public class Achat {
 		this.medecin = medecin;
 		this.specialiste = specialiste;
 		this.medicament = medicament;
-		this.listeOrdonnances = listeOrdonnances;
-		this.listeMedicaments = listeMedicaments;
 	}
 	@Override
 	public String toString() {
-		return "Achat [getDateAchat()=" + getDateAchat() 
-				+ ", getClient()=" + getClient() 
-				+ ", getPatient()=" + getPatient() 
-				+ ", getMedecin()=" + getMedecin() 
-				+ ", getSpecialiste()=" + getSpecialiste()
-				+ ", getMedicament()=" + getMedicament()
-				+ ", getListeOrdonnances()=" + getListeOrdonnances() 
-				+ ", getListeMedicaments()=" + getListeMedicaments() + "]";
+		return "Achat ["
+				+ "\n" + getDateAchat() 
+				+ "\n" + getClient() 
+				+ "\ngetPatient()=" + getPatient() 
+				+ "\ngetMedecin()=" + getMedecin() 
+				+ "\ngetSpecialiste()=" + getSpecialiste()
+				+ "\ngetMedicament()=" + getMedicament()
+				+ "\ngetOrdonnance()=" + getOrdonnance() 
+				+ "\n]";
 	}
 }

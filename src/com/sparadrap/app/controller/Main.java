@@ -14,6 +14,8 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Pharmacie.ajoutMedicament();
+			Pharmacie.ajoutClient();
+			Pharmacie.ajoutPatient();
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Throwable e) {
 			e.printStackTrace();
