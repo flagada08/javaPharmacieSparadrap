@@ -9,13 +9,11 @@ import javax.swing.JTextField;
 
 import com.sparadrap.app.controller.Pharmacie;
 import com.sparadrap.app.model.Achat;
-import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medecin;
 import com.sparadrap.app.model.Medicament;
 import com.sparadrap.app.model.Mutuelle;
 import com.sparadrap.app.model.Ordonnance;
 import com.sparadrap.app.model.Patient;
-import com.sparadrap.app.model.Personne;
 import com.sparadrap.app.model.Specialite;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -28,7 +26,6 @@ import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
@@ -63,19 +60,18 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	
 	private JComboBox<Medecin> cbChoixMedecin;
 	private JComboBox<Specialite> cbChoixSpecialite;
-	private JComboBox<Medicament> cbChoixMédicaments;
+	private JComboBox<Medicament> cbChoixMedicament;
 	private JComboBox<Ordonnance> cbChoixOrdonnance;
 	private JComboBox<Mutuelle> cbChoixMutuelle;
 	
 	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
-	private ArrayList<Client> listeClients = new ArrayList<Client>();
 	private ArrayList<Patient> listePatients = new ArrayList<Patient>();
-	private ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
+	private ArrayList<Medicament> listeMedicamentsClient = new ArrayList<Medicament>();
 	
 	private Achat achat;
-	private Client client;
 	private Patient patient;
-	private Medicament Medicament;
+	private Medicament medicament;
+	private Mutuelle mutuelle;
 	protected String selectionMedicament;
 	
 	/**
@@ -88,34 +84,26 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 
 	private void createEvenements() {
 				
-		cbChoixMédicaments.addItemListener(new ItemListener() {			
+		cbChoixMedicament.addItemListener(new ItemListener() {			
 			@Override
 			public void itemStateChanged(ItemEvent e) {				
-				if(e.getSource() == cbChoixMédicaments) {
-					lblSelectionMedicament.setText("[" + cbChoixMédicaments.getSelectedItem() + "]");
-					selectionMedicament = cbChoixMédicaments.getSelectedItem().toString();
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					medicament = (Medicament) cbChoixMedicament.getSelectedItem();					
+					listeMedicamentsClient.add(medicament);
+					lblSelectionMedicament.setText("[" + listeMedicamentsClient + "]");
 				}
 			}
 		});
 		btnValider.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				txtTfTelephoneClient = tfTelephoneClient.getText();
 				intTfTelephoneClient = Integer.parseInt(txtTfTelephoneClient);
 				txtTfNumSecuSocialClient = tfNumSecuSocialClient.getText();
 				intTfNumSecuSocialClient = Long.parseLong(txtTfNumSecuSocialClient);
-				Medicament = (Medicament) cbChoixMédicaments.getSelectedItem();
-				client = new Client(
-						tfNomClient.getText(), 
-						tfPrenomClient.getText(), 
-						0, 
-						null, 
-						0, 
-						null, 
-						0, 
-						null, 
-						ftfDateNaissanceClient.getText(), 
-						Medicament
-						);
+
+				mutuelle = (Mutuelle) cbChoixMutuelle.getSelectedItem();
+				
 				patient = new Patient(
 						tfNomClient.getText(), 
 						tfPrenomClient.getText(), 
@@ -126,32 +114,28 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						intTfTelephoneClient, 
 						null, 
 						ftfDateNaissanceClient.getText(), 
-						null, 
 						intTfNumSecuSocialClient, 
+						mutuelle, 
 						null, 
 						null, 
-						null, 
-						null, 
-						null, 
-						Medicament
+						listeMedicamentsClient
 						);
+				
 				achat = new Achat(
 						new Date(), 
 						null, 
 						patient, 
-						null, 
-						null, 
-						Medicament, 
+						null,
 						null
 						);
+				
 				if(e.getSource() == btnValider) {
-					listeMedicaments.add(Medicament);
 					listePatients.add(patient);
 					listeAchats.add(achat);
 					new JOptionPane();
-					JOptionPane.showMessageDialog(null,listePatients,"Liste patients", 1);
-					JOptionPane.showMessageDialog(null,listeAchats,"Liste achats", 1);
-					JOptionPane.showMessageDialog(null, listeMedicaments, "Liste Médicaments", 1);
+					JOptionPane.showMessageDialog(null, listePatients,"Liste patients", 1);
+					JOptionPane.showMessageDialog(null, listeAchats,"Liste achats", 1);
+					JOptionPane.showMessageDialog(null, listeMedicamentsClient, "Liste Médicaments", 1);
 				}
 			}
 		});
@@ -181,14 +165,18 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		tfNumSecuSocialClient = new JTextField();
 		tfNumSecuSocialClient.setColumns(10);
 		
-		cbChoixMutuelle = new JComboBox();
-		cbChoixMutuelle.setModel(new DefaultComboBoxModel(new String[] {"Choix Mutuelle"}));
-		
 		JLabel lblMutuelleDuClient = new JLabel("Mutuelle du client");
+		
+		cbChoixMutuelle = new JComboBox<Mutuelle>();
+		cbChoixMutuelle.setModel(new DefaultComboBoxModel(new String[] {"Choix Mutuelle"}));
+		for(Mutuelle mutuelle : Pharmacie.getListeMutuelles()) {
+			System.out.println(mutuelle.getNom() + mutuelle.getSiege());
+			cbChoixMutuelle.addItem(mutuelle);
+		}
 		
 		JLabel lblMedecinClient = new JLabel("Médecin du client");
 		
-		cbChoixMedecin = new JComboBox<>();
+		cbChoixMedecin = new JComboBox<Medecin>();
 		cbChoixMedecin.setModel(new DefaultComboBoxModel(new String[] {"Choix Médecin"}));
 		
 		JLabel lblSpecialiste = new JLabel("Spécialiste (opt)");
@@ -221,11 +209,11 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
 		
-		cbChoixMédicaments = new JComboBox<Medicament>();
-		
+		cbChoixMedicament = new JComboBox<Medicament>();
+		cbChoixMedicament.setModel(new DefaultComboBoxModel(new String[] {"Choix Médicament"}));
 		for(Medicament medoc : Pharmacie.getListeMedicaments()) {
 			System.out.println(medoc.getNom() + medoc.getPrix());
-			cbChoixMédicaments.addItem(medoc);
+			cbChoixMedicament.addItem(medoc);
 		}
 		
 		btnValider = new JButton("Valider");
@@ -267,7 +255,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addGap(19)
 					.addComponent(lblListeMedicaments)
 					.addGap(120)
-					.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(cbChoixMedicament, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
 					.addComponent(lblTelephoneClient)
@@ -299,7 +287,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addGap(58)
 					.addComponent(lblSelectionMedicament))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(513)
+					.addGap(519)
 					.addComponent(btnValider))
 		);
 		groupLayout.setVerticalGroup(
@@ -340,7 +328,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(4)
 							.addComponent(lblListeMedicaments))
-						.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(cbChoixMedicament, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(14)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -375,7 +363,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblSelectionMedicamentTitre)
 						.addComponent(lblSelectionMedicament))
-					.addGap(38)
+					.addGap(46)
 					.addComponent(btnValider))
 		);
 		setLayout(groupLayout);

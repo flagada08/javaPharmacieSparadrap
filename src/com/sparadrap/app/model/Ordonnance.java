@@ -8,7 +8,6 @@ public class Ordonnance {
 	private Medecin medecin;
 	private Patient patient;
 	private ArrayList<Medicament> listeMedicamentsOrdonnances;
-	private Specialiste specialiste;
 	/**
 	 * @return the date
 	 */
@@ -58,39 +57,25 @@ public class Ordonnance {
 		this.listeMedicamentsOrdonnances = listeMedicamentsOrdonnances;
 	}
 	/**
-	 * @return the specialiste
-	 */
-	public Specialiste getSpecialiste() {
-		return specialiste;
-	}
-	/**
-	 * @param specialiste the specialiste to set
-	 */
-	public void setSpecialiste(Specialiste specialiste) {
-		this.specialiste = specialiste;
-	}
-	/**
 	 * @param date
 	 * @param medecin
 	 * @param patient
 	 * @param listeMedicaments
-	 * @param specialiste
 	 */
-	public Ordonnance(Date date, Medecin medecin, Patient patient, ArrayList<Medicament> listeMedicamentsOrdonnances,
-			Specialiste specialiste) {
+	public Ordonnance(Date date, Medecin medecin, Patient patient, ArrayList<Medicament> listeMedicamentsOrdonnances) {
 		super();
 		this.date = date;
 		this.medecin = medecin;
 		this.patient = patient;
 		this.listeMedicamentsOrdonnances = listeMedicamentsOrdonnances;
-		this.specialiste = specialiste;
 	}
 	@Override
 	public String toString() {
-		return "Ordonnance [date=" + date 
+		return "Ordonnance ["
+				+ "date=" + date 
 				+ ", medecin=" + medecin 
 				+ ", patient=" + patient
 				+ ", listeMedicamentsOrdonnances=" + listeMedicamentsOrdonnances 
-				+ ", specialiste=" + specialiste + "]";
+				+ "]";
 	}
 }

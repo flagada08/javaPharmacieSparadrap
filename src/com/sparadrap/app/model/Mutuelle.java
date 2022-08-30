@@ -98,11 +98,9 @@ public class Mutuelle {
 	}
 	@Override
 	public String toString() {
-		return "Mutuelle [getNom()=" + getNom() 
-				+ ", getSiege()=" + getSiege() 
-				+ ", getDepartement()=" + getDepartement() 
-				+ ", getNumTelephone()=" + getNumTelephone()
-				+ ", getEmail()=" + getEmail() 
-				+ ", getTauxRemboursement()=" + getTauxRemboursement() + "]";
+		return "["
+				+ getNom() 
+				+ " Siege=" +getSiege() 
+				+ "]";
 	}
 }

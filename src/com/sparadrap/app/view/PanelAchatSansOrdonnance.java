@@ -11,6 +11,8 @@ import com.sparadrap.app.controller.Pharmacie;
 import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medicament;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.TitledBorder;
@@ -41,18 +43,18 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	private JLabel lblSelectionMedicamentTitre;
 	private JLabel lblSelectionMedicament;
 	
-	private JButton btnValider;
+	protected JButton btnValider;
 	
-	private JComboBox<Medicament> cbChoixMédicaments;
+	private JComboBox<Medicament> cbChoixMedicament;
 	
 	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
 	private ArrayList<Client> listeClients = new ArrayList<Client>();
-	private ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
+	private ArrayList<Medicament> listeMedicamentsClient = new ArrayList<Medicament>();
 	
 	private Achat achat;
 	private Client client;
-	private Medicament Medicament;
-	protected String selectionMedicament;
+	private Medicament medicament;
+	protected int medicIndex;
 	
 	/**
 	 * Création du panel
@@ -62,22 +64,28 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		createEvenements();
 	}
 	
+	public void changePanels(JPanel component_to_add, JPanel component_to_remove){
+		  this.remove(component_to_remove);
+		  this.add(component_to_add);
+		}
+		
 	private void createEvenements() {
 				
-		cbChoixMédicaments.addItemListener(new ItemListener() {			
+		cbChoixMedicament.addItemListener(new ItemListener() {			
 			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getSource() == cbChoixMédicaments) {
-					lblSelectionMedicament.setText("[" + cbChoixMédicaments.getSelectedItem() + "]");
-					selectionMedicament = cbChoixMédicaments.getSelectedItem().toString();
+			public void itemStateChanged(ItemEvent e) {	
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					medicament = (Medicament) cbChoixMedicament.getSelectedItem();					
+					listeMedicamentsClient.add(medicament);
+					lblSelectionMedicament.setText("[" + listeMedicamentsClient + "]");
 				}
+				
 			}
 		});
 		
 		btnValider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Medicament = (Medicament) cbChoixMédicaments.getSelectedItem();
 				client = new Client(
 						tfNomClient.getText(), 
 						tfPrenomClient.getText(), 
@@ -88,33 +96,32 @@ public class PanelAchatSansOrdonnance extends JPanel {
 						0, 
 						null, 
 						ftfDateNaissanceClient.getText(), 
-						Medicament
+						listeMedicamentsClient
 						);
 				achat = new Achat(
 						new Date(), 
 						client, 
 						null, 
 						null, 
-						null, 
-						Medicament, 
 						null
 						);
 				if(e.getSource() == btnValider) {
-					listeMedicaments.add(Medicament);
 					listeClients.add(client);
 					listeAchats.add(achat);
-					
+					Pharmacie.ajoutClient(client);
+					Pharmacie.ajoutAchat(achat);
 					new JOptionPane();
-					JOptionPane.showMessageDialog(null, listeClients, "Liste clients", 1);
-					JOptionPane.showMessageDialog(null, listeAchats, "Liste achats", 1);
-					JOptionPane.showMessageDialog(null, listeMedicaments, "Liste Médicaments", 1);
+					JOptionPane.showMessageDialog(null, Pharmacie.getListeClients(), "Liste clients", 1);
+					JOptionPane.showMessageDialog(null, Pharmacie.getListeAchats(), "Liste achats", 1);
+					JOptionPane.showMessageDialog(null, listeMedicamentsClient, "Liste Médicaments Clients", 1);
 				}
 			}
 		});
+		
 		lblSelectionMedicament.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblSelectionMedicament.remove(lblSelectionMedicament);
+				medicIndex = listeMedicamentsClient.size() -1;				
 			}
 		});
 	}
@@ -144,10 +151,10 @@ public class PanelAchatSansOrdonnance extends JPanel {
 				
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
 		
-		cbChoixMédicaments = new JComboBox<Medicament>();
-		
+		cbChoixMedicament = new JComboBox<Medicament>();
+		cbChoixMedicament.setModel(new DefaultComboBoxModel(new String[] {"Choix Médicament"}));
 		for(Medicament medoc : Pharmacie.getListeMedicaments()) {
-			cbChoixMédicaments.addItem(medoc);
+			cbChoixMedicament.addItem(medoc);
 		}
 		
 		btnValider = new JButton("Valider");
@@ -155,7 +162,7 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		lblSelectionMedicamentTitre = new JLabel("Médicaments séléctionnés");
 		
 		lblSelectionMedicament = new JLabel("[Sélectionner un médicament]");
-
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -178,14 +185,14 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					.addGap(19)
 					.addComponent(lblListeMedicaments)
 					.addGap(120)
-					.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(cbChoixMedicament, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
 					.addComponent(lblSelectionMedicamentTitre)
 					.addGap(58)
 					.addComponent(lblSelectionMedicament))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(513)
+					.addGap(519)
 					.addComponent(btnValider))
 		);
 		groupLayout.setVerticalGroup(
@@ -214,12 +221,12 @@ public class PanelAchatSansOrdonnance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(4)
 							.addComponent(lblListeMedicaments))
-						.addComponent(cbChoixMédicaments, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(cbChoixMedicament, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(23)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblSelectionMedicamentTitre)
 						.addComponent(lblSelectionMedicament))
-					.addGap(235)
+					.addGap(238)
 					.addComponent(btnValider))
 		);
 		setLayout(groupLayout);

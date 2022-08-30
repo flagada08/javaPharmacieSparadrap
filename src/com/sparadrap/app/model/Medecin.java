@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Medecin extends Personne{
 	private int numAgrement;
 	private ArrayList<Patient> listePatients;
-	private ArrayList<Ordonnance> listOrdonnances;
+	private ArrayList<Ordonnance> listeOrdonnances;
+	private Specialite specialite;
 	/**
 	 * @return the numAgrement
 	 */
@@ -21,26 +22,38 @@ public class Medecin extends Personne{
 	/**
 	 * @return the listPatients
 	 */
-	public ArrayList<Patient> getListPatients() {
+	public ArrayList<Patient> getListePatients() {
 		return listePatients;
 	}
 	/**
 	 * @param listPatients the listPatients to set
 	 */
-	public void setListPatients(ArrayList<Patient> listPatients) {
-		this.listePatients = listPatients;
+	public void setListePatients(ArrayList<Patient> listePatients) {
+		this.listePatients = listePatients;
 	}
 	/**
 	 * @return the listOrdonnances
 	 */
-	public ArrayList<Ordonnance> getListOrdonnances() {
-		return listOrdonnances;
+	public ArrayList<Ordonnance> getListeOrdonnances() {
+		return listeOrdonnances;
 	}
 	/**
 	 * @param listOrdonnances the listOrdonnances to set
 	 */
-	public void setListOrdonnances(ArrayList<Ordonnance> listOrdonnances) {
-		this.listOrdonnances = listOrdonnances;
+	public void setListeOrdonnances(ArrayList<Ordonnance> listeOrdonnances) {
+		this.listeOrdonnances = listeOrdonnances;
+	}
+	/**
+	 * @return the specialite
+	 */
+	public Specialite getSpecialite() {
+		return specialite;
+	}
+	/**
+	 * @param specialite the specialite to set
+	 */
+	public void setSpecialite(Specialite specialite) {
+		this.specialite = specialite;
 	}
 	/**
 	 * @param nom
@@ -52,21 +65,26 @@ public class Medecin extends Personne{
 	 * @param numTelephone
 	 * @param email
 	 * @param numAgrement
-	 * @param listPatients
-	 * @param listOrdonnances
+	 * @param listePatients
+	 * @param listeOrdonnances
+	 * @param specialite
 	 */
 	public Medecin(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email, int numAgrement, ArrayList<Patient> listPatients,
-			ArrayList<Ordonnance> listOrdonnances) {
+			int numTelephone, String email, int numAgrement, ArrayList<Patient> listePatients,
+			ArrayList<Ordonnance> listeOrdonnances, Specialite specialite) {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
 		this.numAgrement = numAgrement;
-		this.listePatients = listPatients;
-		this.listOrdonnances = listOrdonnances;
+		this.listePatients = listePatients;
+		this.listeOrdonnances = listeOrdonnances;
+		this.specialite = specialite;
 	}
 	@Override
 	public String toString() {
-		return "Medecin [getNumAgrement()=" + getNumAgrement() 
-				+ ", getListPatients()=" + getListPatients()
-				+ ", getListOrdonnances()=" + getListOrdonnances() + "]";
+		return "Medecin ["
+				+ "getNumAgrement()=" + getNumAgrement() 
+				+ ", getListPatients()=" + getListePatients()
+				+ ", getListOrdonnances()=" + getListeOrdonnances() 
+				+ ", getSpecialite()=" + getSpecialite() 
+				+ "]";
 	}
 }

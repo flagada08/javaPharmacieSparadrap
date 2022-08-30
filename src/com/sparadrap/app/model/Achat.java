@@ -7,8 +7,6 @@ public class Achat {
 	private Client client;
 	private Patient patient;
 	private Medecin medecin;
-	private Specialiste specialiste;
-	private Medicament medicament;
 	private Ordonnance ordonnance;
 	/**
 	 * @return the dateAchat
@@ -59,30 +57,6 @@ public class Achat {
 		this.medecin = medecin;
 	}
 	/**
-	 * @return the medicaments
-	 */
-	public Medicament getMedicament() {
-		return medicament;
-	}
-	/**
-	 * @param medicaments the medicaments to set
-	 */
-	public void setMedicament(Medicament medicament) {
-		this.medicament = medicament;
-	}
-	/**
-	 * @return the specialiste
-	 */
-	public Specialiste getSpecialiste() {
-		return specialiste;
-	}
-	/**
-	 * @param specialiste the specialiste to set
-	 */
-	public void setSpecialiste(Specialiste specialiste) {
-		this.specialiste = specialiste;
-	}
-	/**
 	 * @return the listeOrdonnances
 	 */
 	public Ordonnance getOrdonnance() {
@@ -94,25 +68,20 @@ public class Achat {
 	public void setOrdonnance(Ordonnance ordonnance) {
 		this.ordonnance = ordonnance;
 	}
-	
 	/**
 	 * @param dateAchat
 	 * @param client
 	 * @param patient
 	 * @param medecin
-	 * @param specialiste
-	 * @param listeOrdonnances
-	 * @param listeMedicaments
+	 * @param medicament
+	 * @param ordonnance
 	 */
-	public Achat(Date dateAchat, Client client, Patient patient, Medecin medecin, Specialiste specialiste,
-			Medicament medicament, Ordonnance ordonnance) {
+	public Achat(Date dateAchat, Client client, Patient patient, Medecin medecin, Ordonnance ordonnance) {
 		super();
 		this.dateAchat = dateAchat;
 		this.client = client;
 		this.patient = patient;
 		this.medecin = medecin;
-		this.specialiste = specialiste;
-		this.medicament = medicament;
 	}
 	@Override
 	public String toString() {
@@ -121,8 +90,6 @@ public class Achat {
 				+ "\n" + getClient() 
 				+ "\n" + getPatient() 
 				+ "\n" + getMedecin() 
-				+ "\n" + getSpecialiste()
-				+ "\n" + getMedicament()
 				+ "\n" + getOrdonnance() 
 				+ "\n]";
 	}

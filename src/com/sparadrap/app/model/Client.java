@@ -1,8 +1,10 @@
 package com.sparadrap.app.model;
 
+import java.util.ArrayList;
+
 public class Client extends Personne {
 	private String dateNaissance;
-	private Medicament medicament;
+	private ArrayList<Medicament> listeMedicamentsClient;
 	
 	/**
 	 * @return the dateNaissance
@@ -19,17 +21,17 @@ public class Client extends Personne {
 	}
 
 	/**
-	 * @return the medicament
+	 * @return the listeMedicamentsClient
 	 */
-	public Medicament getMedicament() {
-		return medicament;
+	public ArrayList<Medicament> getListeMedicamentsClient() {
+		return listeMedicamentsClient;
 	}
 
 	/**
-	 * @param medicament the medicament to set
+	 * @param listeMedicamentsClient the listeMedicaments to set
 	 */
-	public void setMedicament(Medicament medicament) {
-		this.medicament = medicament;
+	public void setListeMedicamentsClient(ArrayList<Medicament> listeMedicamentsClient) {
+		this.listeMedicamentsClient = listeMedicamentsClient;
 	}
 
 	/**
@@ -42,13 +44,13 @@ public class Client extends Personne {
 	 * @param numTelephone
 	 * @param email
 	 * @param dateNaissance
-	 * @param listeMedicaments
+	 * @param listeMedicamentsClient
 	 */
 	public Client(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email, String dateNaissance, Medicament medicament) {
+			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicamentsClient) {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
 		this.dateNaissance = dateNaissance;
-		this.medicament = medicament;
+		this.listeMedicamentsClient = listeMedicamentsClient;
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class Client extends Personne {
 				+ "\nnom=" + super.getNom() 
 				+ "\nprenom=" + super.getPrenom() 
 				+ "\ndateNaissance=" + getDateNaissance() 
-				+ "\nmedicament=" + getMedicament() 
+				+ "\nmedicaments=" + getListeMedicamentsClient() 
 				+ "\n]";
 	}
 }

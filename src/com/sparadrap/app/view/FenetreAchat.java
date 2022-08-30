@@ -1,10 +1,8 @@
 package com.sparadrap.app.view;
 
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.sparadrap.app.controller.Pharmacie;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -12,7 +10,6 @@ import javax.swing.JComboBox;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.JButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
@@ -29,9 +26,6 @@ public class FenetreAchat extends JPanel {
 	private JComboBox cbTypeAchat;
 	private String[] tabScbTypeAchat = {"Choix du type d'achat", "Achat sans ordonnance", "Achat avec ordonnance"};
 
-	/**
-	 * Création du panel
-	 */
 	public FenetreAchat() {
 		initComposants();
 		createEvenements();
@@ -41,18 +35,18 @@ public class FenetreAchat extends JPanel {
 		cbTypeAchat.addItemListener(new ItemListener() {			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				String string = (String) cbTypeAchat.getSelectedItem();
+				String stringCbTypeAchat = (String) cbTypeAchat.getSelectedItem();
 				
-				if(e.getSource() == cbTypeAchat) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
 					lblTypeAchat.setText("[" + cbTypeAchat.getSelectedItem() + "]");
 				}
 				
-				if(string == cbTypeAchat.getItemAt(1)) {
+				if(stringCbTypeAchat == cbTypeAchat.getItemAt(1)) {
 					add(pAchatSansOrdonnance);
 					remove(pAchatAvecOrdonnance);
 					revalidate();
 					repaint();
-				} else if(string == cbTypeAchat.getItemAt(2)) {
+				} else if(stringCbTypeAchat == cbTypeAchat.getItemAt(2)) {
 					add(pAchatAvecOrdonnance);
 					remove(pAchatSansOrdonnance);
 					revalidate();
@@ -66,9 +60,13 @@ public class FenetreAchat extends JPanel {
 				}
 				
 			}
-		});			
+		});	
+		
 	}
 
+	/**
+	 * Création du panel
+	 */
 	private void initComposants() {
 		setBounds(50, 50, 600, 500);
 		setBorder(new TitledBorder(null, "Achat", TitledBorder.LEADING, TitledBorder.TOP, null, null));

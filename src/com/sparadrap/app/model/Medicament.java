@@ -98,7 +98,10 @@ public class Medicament {
 	
 	@Override
 	public String toString() {
-		return "[" + getNom() + " Prix=" + getPrix() + "]";
+		return "[" 
+				+ getNom() 
+				+ " Prix=" + getPrix() 
+				+ "]";
 	}
 	
 }

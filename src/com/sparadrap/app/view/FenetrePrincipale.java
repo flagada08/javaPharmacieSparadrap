@@ -13,7 +13,6 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -25,7 +24,7 @@ import java.awt.event.ActionEvent;
  * @author User-05
  */
 public class FenetrePrincipale extends JFrame {
-
+	
 	private JPanel contentPane;
 	
 	private JLabel lblAccueil;
@@ -64,7 +63,7 @@ public class FenetrePrincipale extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1) {
-					contentPane.add(fAchat);
+					contentPane.add(fAchat = new FenetreAchat());
 					contentPane.remove(lblAccueil);
 					contentPane.revalidate();
 					contentPane.repaint();
@@ -73,6 +72,7 @@ public class FenetrePrincipale extends JFrame {
 		});
 		
 		btnQuitter.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}

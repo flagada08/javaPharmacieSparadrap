@@ -5,11 +5,9 @@ import java.util.ArrayList;
 public class Patient extends Client {
 	
 	private long numSecuSocial;
-	private ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
-	private ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
-	private ArrayList<Ordonnance> listeOrdonnances = new ArrayList<Ordonnance>();
 	private Medecin medecin;
-	private Specialiste specialiste;
+	private Mutuelle mutuelle;
+	private ArrayList<Ordonnance> listeOrdonnances = new ArrayList<Ordonnance>();
 	
 	/**
 	 * @return the numSecuSocial
@@ -26,31 +24,17 @@ public class Patient extends Client {
 	}
 
 	/**
-	 * @return the listeMutuelles
+	 * @return the mutuelle
 	 */
-	public ArrayList<Mutuelle> getListeMutuelles() {
-		return listeMutuelles;
+	public Mutuelle getMutuelle() {
+		return mutuelle;
 	}
 
 	/**
-	 * @param listeMutuelles the listeMutuelles to set
+	 * @param mutuelle the mutuelle to set
 	 */
-	public void setListeMutuelles(ArrayList<Mutuelle> listeMutuelles) {
-		this.listeMutuelles = listeMutuelles;
-	}
-
-	/**
-	 * @return the listeMedecins
-	 */
-	public ArrayList<Medecin> getListeMedecins() {
-		return listeMedecins;
-	}
-
-	/**
-	 * @param listeMedecins the listeMedecins to set
-	 */
-	public void setListeMedecins(ArrayList<Medecin> listeMedecins) {
-		this.listeMedecins = listeMedecins;
+	public void setMutuelle(Mutuelle mutuelle) {
+		this.mutuelle = mutuelle;
 	}
 
 	/**
@@ -68,20 +52,6 @@ public class Patient extends Client {
 	}
 
 	/**
-	 * @return the specialiste
-	 */
-	public Specialiste getSpecialiste() {
-		return specialiste;
-	}
-
-	/**
-	 * @param specialiste the specialiste to set
-	 */
-	public void setSpecialiste(Specialiste specialiste) {
-		this.specialiste = specialiste;
-	}
-
-	/**
 	 * @return the ordonnance
 	 */
 	public ArrayList<Ordonnance> getOrdonnance() {
@@ -94,7 +64,7 @@ public class Patient extends Client {
 	public void setOrdonnance(ArrayList<Ordonnance> ordonnance) {
 		this.listeOrdonnances = ordonnance;
 	}
-
+	
 	/**
 	 * @param nom
 	 * @param prenom
@@ -105,23 +75,19 @@ public class Patient extends Client {
 	 * @param numTelephone
 	 * @param email
 	 * @param dateNaissance
-	 * @param listeMedicaments
-	 * @param medicament 
 	 * @param numSecuSocial
 	 * @param mutuelle
 	 * @param medecin
-	 * @param specialiste
-	 * @param ordonnance
+	 * @param listeOrdonnances
+	 * @param listeMedicamentsClient
 	 */
 	public Patient(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille, int numTelephone, String email, 
-			String dateNaissance, ArrayList<Medicament> listeMedicaments, long numSecuSocial, ArrayList<Mutuelle> ListeMutuelles, 
-			ArrayList<Medecin> listeMedecins, Medecin medecin, Specialiste specialiste, ArrayList<Ordonnance> listeOrdonnances, Medicament medicament) {
-		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email, dateNaissance, medicament);
+			String dateNaissance, long numSecuSocial, Mutuelle mutuelle, Medecin medecin, ArrayList<Ordonnance> listeOrdonnances, 
+			ArrayList<Medicament> listeMedicamentsClient) {
+		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email, dateNaissance, listeMedicamentsClient);
 		this.numSecuSocial = numSecuSocial;
-		this.listeMutuelles = ListeMutuelles;
-		this.listeMedecins = listeMedecins;
+		this.mutuelle = mutuelle;
 		this.medecin = medecin;
-		this.specialiste = specialiste;
 		this.listeOrdonnances = listeOrdonnances;
 	}
 
@@ -131,14 +97,12 @@ public class Patient extends Client {
 				+ "\nnom=" + super.getNom() 
 				+ "\nprenom=" + super.getPrenom() 
 				+ "\ndateNaissance=" + super.getDateNaissance() 
-				+ "\nmedicament=" + super.getMedicament() 
+				+ "\nmedicament=" + super.getListeMedicamentsClient() 
 				+ "\nnumTelephone=" + super.getNumTelephone() 
 				+ "\nnumRue=" + super.getNumRue() 
 				+ "\nadresse=" + super.getNomRue() 
 				+ "\nnumSecuSocial=" + getNumSecuSocial() 
-				+ "\nmutuelle=" + getListeMutuelles() 
-				+ "\nmedecin=" + getListeMedecins()
-				+ "\nspecialiste=" + getSpecialiste() 
+				+ "\nmutuelle=" + getMutuelle() 
 				+ "\nordonnance=" + getOrdonnance() 
 				+ "\n]";
 	}
