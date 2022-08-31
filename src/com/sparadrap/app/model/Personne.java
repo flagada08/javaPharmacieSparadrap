@@ -1,5 +1,7 @@
 package com.sparadrap.app.model;
 
+import com.sparadrap.app.exception.PharmaException;
+
 public abstract class Personne {
 	
 	private String nom;
@@ -19,8 +21,10 @@ public abstract class Personne {
 	}
 	/**
 	 * @param nom the nom to set
+	 * @throws PharmaException 
 	 */
-	public void setNom(String nom) {
+	public void setNom(String nom) throws PharmaException {
+		if(nom == null || nom.trim().isEmpty()) throw new PharmaException("Nom obligatoire");
 		this.nom = nom;
 	}
 	/**
@@ -31,8 +35,10 @@ public abstract class Personne {
 	}
 	/**
 	 * @param prenom the prenom to set
+	 * @throws PharmaException 
 	 */
-	public void setPrenom(String prenom) {
+	public void setPrenom(String prenom) throws PharmaException {
+		if(prenom == null || prenom.trim().isEmpty()) throw new PharmaException("Prénom obligatoire");
 		this.prenom = prenom;
 	}
 	/**
@@ -117,13 +123,14 @@ public abstract class Personne {
 	 * @param nomVille
 	 * @param numTelephone
 	 * @param email
+	 * @throws PharmaException 
 	 */
 	public Personne(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email) {
+			int numTelephone, String email) throws PharmaException {
 		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.numRue = numRue;
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setNomRue(nomRue);
 		this.nomRue = nomRue;
 		this.codePostal = codePostal;
 		this.nomVille = nomVille;

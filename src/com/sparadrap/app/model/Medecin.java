@@ -2,6 +2,8 @@ package com.sparadrap.app.model;
 
 import java.util.ArrayList;
 
+import com.sparadrap.app.exception.PharmaException;
+
 public class Medecin extends Personne{
 	private int numAgrement;
 	private ArrayList<Patient> listePatients;
@@ -68,10 +70,11 @@ public class Medecin extends Personne{
 	 * @param listePatients
 	 * @param listeOrdonnances
 	 * @param specialite
+	 * @throws PharmaException 
 	 */
 	public Medecin(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
 			int numTelephone, String email, int numAgrement, ArrayList<Patient> listePatients,
-			ArrayList<Ordonnance> listeOrdonnances, Specialite specialite) {
+			ArrayList<Ordonnance> listeOrdonnances, Specialite specialite) throws PharmaException {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
 		this.numAgrement = numAgrement;
 		this.listePatients = listePatients;
@@ -80,11 +83,8 @@ public class Medecin extends Personne{
 	}
 	@Override
 	public String toString() {
-		return "Medecin ["
-				+ "getNumAgrement()=" + getNumAgrement() 
-				+ ", getListPatients()=" + getListePatients()
-				+ ", getListOrdonnances()=" + getListeOrdonnances() 
-				+ ", getSpecialite()=" + getSpecialite() 
+		return "["
+				+ super.getNom()
 				+ "]";
 	}
 }

@@ -2,6 +2,8 @@ package com.sparadrap.app.model;
 
 import java.util.ArrayList;
 
+import com.sparadrap.app.exception.PharmaException;
+
 public class Client extends Personne {
 	private String dateNaissance;
 	private ArrayList<Medicament> listeMedicamentsClient;
@@ -45,9 +47,10 @@ public class Client extends Personne {
 	 * @param email
 	 * @param dateNaissance
 	 * @param listeMedicamentsClient
+	 * @throws PharmaException 
 	 */
 	public Client(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
-			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicamentsClient) {
+			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicamentsClient) throws PharmaException {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
 		this.dateNaissance = dateNaissance;
 		this.listeMedicamentsClient = listeMedicamentsClient;

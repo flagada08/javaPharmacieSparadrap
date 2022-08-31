@@ -3,6 +3,7 @@ package com.sparadrap.app.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.sparadrap.app.exception.PharmaException;
 import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medecin;
@@ -19,53 +20,8 @@ public class Pharmacie {
 	private static ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
 	private static ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
 	private static ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
-	private static ArrayList<Medicament> listeMedicamentsClient = new ArrayList<Medicament>();
-	private static ArrayList<Medicament> listeMedicamentsPatient = new ArrayList<Medicament>();
+	private static ArrayList<Medicament> listeMedicamentsVendus = new ArrayList<Medicament>();
 	private static ArrayList<Ordonnance> listeOrdonnances = new ArrayList<Ordonnance>();
-	private static Medecin medecin1 = new Medecin(
-			"testNomMedecin1", 
-			"testPrenomMedecin1", 
-			1, 
-			"rue du test", 
-			12345, 
-			"testCity1", 
-			1234567890, 
-			"testMedecin1@test.st", 
-			12345678, 
-			listePatients, 
-			listeOrdonnances, 
-			Specialite.GYNECO
-		);
-	private static Medecin medecin2 = new Medecin(
-			"testNomMedecin2", 
-			"testPrenomMedecin2", 
-			1, 
-			"rue du test", 
-			12345, 
-			"testCity2", 
-			1234567890, 
-			"testMedecin1@test.st", 
-			12345678, 
-			listePatients, 
-			listeOrdonnances, 
-			Specialite.CARDIO
-			);
-	private static Mutuelle mutuelle1 = new Mutuelle(
-			"testMutuelle1", 
-			"testCity1", 
-			11, 
-			1234567890, 
-			"testMutuelle1@test.st", 
-			50
-		);
-	private static Mutuelle mutuelle2 = new Mutuelle(
-			"testMutuelle2", 
-			"testCity2", 
-			11, 
-			1234567890, 
-			"testMutuelle2@test.st", 
-			50
-		);
 	
 	/**
 	 * @return the listeAchats
@@ -152,31 +108,17 @@ public class Pharmacie {
 	}
 
 	/**
-	 * @return the listeMedicamentsClient
+	 * @return the listeMedicamentsVendus
 	 */
-	public static ArrayList<Medicament> getListeMedicamentsClient() {
-		return listeMedicamentsClient;
+	public static ArrayList<Medicament> getListeMedicamentsVendus() {
+		return listeMedicamentsVendus;
 	}
 
 	/**
-	 * @param listeMedicamentsClient the listeMedicamentsClient to set
+	 * @param listeMedicamentsVendus the listeMedicamentsVendus to set
 	 */
-	public static void setListeMedicamentsClient(ArrayList<Medicament> listeMedicamentsClient) {
-		Pharmacie.listeMedicamentsClient = listeMedicamentsClient;
-	}
-
-	/**
-	 * @return the listeMedicaments
-	 */
-	public static ArrayList<Medicament> getListeMedicamentsPatient() {
-		return listeMedicamentsPatient;
-	}
-
-	/**
-	 * @param listeMedicaments the listeMedicaments to set
-	 */
-	public static void setListeMedicamentsPatient(ArrayList<Medicament> pListeMedicamentsPatient) {
-		listeMedicamentsPatient = pListeMedicamentsPatient;
+	public static void setListeMedicamentsVendus(ArrayList<Medicament> listeMedicamentsVendus) {
+		Pharmacie.listeMedicamentsVendus = listeMedicamentsVendus;
 	}
 
 	/**
@@ -241,7 +183,8 @@ public class Pharmacie {
 //				));
 	}
 	
-	public static void ajoutPatient() {
+	public static void ajoutPatient(Patient patient) {
+		getListePatients().add(patient);
 //		getListePatients().add(new Patient(
 //					"testNomPatient1", 
 //					"testPrenomPatient1", 
@@ -253,16 +196,88 @@ public class Pharmacie {
 //					"testPatient1@test.st", 
 //					"31/12/1234", 
 //					1234567890123456L, 
-//					mutuelle1, 
-//					medecin1,
+//					null, 
+//					null,
+//					getListeOrdonnances(), 
+//					null
+//				));
+//		getListePatients().add(new Patient(
+//					"testNomPatient2", 
+//					"testPrenomPatient2", 
+//					1, 
+//					"rue du test", 
+//					12345, 
+//					"testCity2", 
+//					1234567890, 
+//					"testPatient1@test.st", 
+//					"31/12/1234", 
+//					1234567890123456L, 
+//					null, 
+//					null,
+//					getListeOrdonnances(), 
+//					null
+//				));
+//		getListePatients().add(new Patient(
+//					"testNomPatient3", 
+//					"testPrenomPatient3", 
+//					1, 
+//					"rue du test", 
+//					12345, 
+//					"testCity3", 
+//					1234567890, 
+//					"testPatient1@test.st", 
+//					"31/12/1234", 
+//					1234567890123456L, 
+//					null, 
+//					null,
 //					getListeOrdonnances(), 
 //					null
 //				));
 	}
 	
-	public static void ajoutMedecin() {
-		getListeMedecins().add(medecin1);
-		getListeMedecins().add(medecin2);
+	public static void ajoutMedecin() throws PharmaException {
+		getListeMedecins().add(new Medecin(
+					"testNomMedecin1", 
+					"testPrenomMedecin1", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity1", 
+					1234567890, 
+					"testMedecin1@test.st", 
+					12345678, 
+					listePatients, 
+					listeOrdonnances, 
+					Specialite.GYNECO
+				));
+		getListeMedecins().add(new Medecin(
+					"testNomMedecin2", 
+					"testPrenomMedecin2", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity2", 
+					1234567890, 
+					"testMedecin1@test.st", 
+					12345678, 
+					listePatients, 
+					listeOrdonnances, 
+					Specialite.CARDIO
+				));
+		getListeMedecins().add(new Medecin(
+					"testNomMedecin3", 
+					"testPrenomMedecin3", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity3", 
+					1234567890, 
+					"testMedecin1@test.st", 
+					12345678, 
+					listePatients, 
+					listeOrdonnances, 
+					Specialite.DERMATO
+				));
 	}
 	
 	public static void ajoutMedicament() {
@@ -289,9 +304,35 @@ public class Pharmacie {
 				));
 	}
 	
+	public static void ajoutMedicamentVendu(ArrayList<Medicament> listeMedicamentsClients) {
+		getListeMedicamentsVendus().addAll(listeMedicamentsClients);
+	}
+	
 	public static void ajoutMutuelle() {
-		getListeMutuelles().add(mutuelle1);
-		getListeMutuelles().add(mutuelle2);
+		getListeMutuelles().add(new Mutuelle(
+					"testMutuelle1", 
+					"testCity1", 
+					11, 
+					1234567890, 
+					"testMutuelle1@test.st", 
+					50
+				));
+		getListeMutuelles().add(new Mutuelle(
+					"testMutuelle2", 
+					"testCity2", 
+					11, 
+					1234567890, 
+					"testMutuelle2@test.st", 
+					50
+				));
+		getListeMutuelles().add(new Mutuelle(
+				"testMutuelle3", 
+				"testCity3", 
+				11, 
+				1234567890, 
+				"testMutuelle2@test.st", 
+				50
+				));
 	}
 
 	@Override

@@ -2,12 +2,14 @@ package com.sparadrap.app.view;
 
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.sparadrap.app.controller.Pharmacie;
+import com.sparadrap.app.exception.PharmaException;
 import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medicament;
@@ -25,14 +27,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * @author User-05
  */
 public class PanelAchatSansOrdonnance extends JPanel {
-	
+		
 	private JTextField tfNomClient;
 	private JTextField tfPrenomClient;
 	
@@ -46,10 +46,7 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	protected JButton btnValider;
 	
 	private JComboBox<Medicament> cbChoixMedicament;
-	
-	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
-	private ArrayList<Client> listeClients = new ArrayList<Client>();
-	private ArrayList<Medicament> listeMedicamentsClient = new ArrayList<Medicament>();
+	private ArrayList<Medicament> listeMedicamentsClient = new ArrayList<>();
 	
 	private Achat achat;
 	private Client client;
@@ -63,19 +60,21 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		initComposants();
 		createEvenements();
 	}
-	
-	public void changePanels(JPanel component_to_add, JPanel component_to_remove){
-		  this.remove(component_to_remove);
-		  this.add(component_to_add);
-		}
 		
+//	public void resetComposants() {
+//		this.removeAll();
+//		this.repaint();
+//		this.revalidate();
+//		new FenetreAchat();
+//	}
+	
 	private void createEvenements() {
-				
+		
 		cbChoixMedicament.addItemListener(new ItemListener() {			
 			@Override
 			public void itemStateChanged(ItemEvent e) {	
 				if(e.getStateChange() == ItemEvent.SELECTED) {
-					medicament = (Medicament) cbChoixMedicament.getSelectedItem();					
+					medicament = (Medicament) cbChoixMedicament.getSelectedItem();
 					listeMedicamentsClient.add(medicament);
 					lblSelectionMedicament.setText("[" + listeMedicamentsClient + "]");
 				}
@@ -86,47 +85,66 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		btnValider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				client = new Client(
-						tfNomClient.getText(), 
-						tfPrenomClient.getText(), 
-						0, 
-						null, 
-						0, 
-						null, 
-						0, 
-						null, 
-						ftfDateNaissanceClient.getText(), 
-						listeMedicamentsClient
-						);
-				achat = new Achat(
-						new Date(), 
-						client, 
-						null, 
-						null, 
-						null
-						);
-				if(e.getSource() == btnValider) {
-					listeClients.add(client);
-					listeAchats.add(achat);
+				Client client = null;
+				try {
+					client = new Client(
+							tfNomClient.getText(), 
+							tfPrenomClient.getText(), 
+							0, 
+							null, 
+							0, 
+							null, 
+							0, 
+							null, 
+							ftfDateNaissanceClient.getText(), 
+							listeMedicamentsClient
+							);
+				} catch (PharmaException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, e2.getMessage());
+				}
+				Achat achat = null;
+				try {
+					achat = new Achat(
+							new Date(), 
+							client, 
+							null, 
+							null, 
+							null
+							);
+				} catch (PharmaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+//				if(e.getSource() == btnValider) {
 					Pharmacie.ajoutClient(client);
 					Pharmacie.ajoutAchat(achat);
+					Pharmacie.ajoutMedicamentVendu(listeMedicamentsClient);
+					
 					new JOptionPane();
 					JOptionPane.showMessageDialog(null, Pharmacie.getListeClients(), "Liste clients", 1);
 					JOptionPane.showMessageDialog(null, Pharmacie.getListeAchats(), "Liste achats", 1);
-					JOptionPane.showMessageDialog(null, listeMedicamentsClient, "Liste Médicaments Clients", 1);
-				}
+					JOptionPane.showMessageDialog(null, listeMedicamentsClient, "Liste Médicaments du Client", 1);
+					JOptionPane.showMessageDialog(null, Pharmacie.getListeMedicamentsVendus(), "Total médicaments vendus", 1);
+				
+					tfNomClient.setText("");
+					tfPrenomClient.setText("");
+					lblSelectionMedicament.setText("");
+//					resetComposants();
+//				}
 			}
 		});
 		
-		lblSelectionMedicament.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				medicIndex = listeMedicamentsClient.size() -1;				
-			}
-		});
+//		lblSelectionMedicament.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				medicIndex = listeMedicamentsClient.size() -1;				
+//			}
+//		});
 	}
 
-	private void initComposants() {		
+	private void initComposants() {	
 		setBounds(0, 0, 600, 500);
 		setBorder(new TitledBorder(null, "Achat sans Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		

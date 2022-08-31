@@ -36,12 +36,13 @@ public class FenetrePrincipale extends JFrame {
 	private JButton btnDetailsClient;
 	private JButton btnQuitter;
 	
-	private FenetreAchat fAchat = new FenetreAchat();
+	private FenetreAchat fAchat;
 
 	/**
 	 * Création de la frame principale
 	 */
 	public FenetrePrincipale() {
+		fAchat = new FenetreAchat();
 		initComposants();
 		createEvenements();
 	}

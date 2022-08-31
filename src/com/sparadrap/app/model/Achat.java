@@ -2,6 +2,8 @@ package com.sparadrap.app.model;
 
 import java.util.Date;
 
+import com.sparadrap.app.exception.PharmaException;
+
 public class Achat {
 	private Date dateAchat;
 	private Client client;
@@ -17,7 +19,8 @@ public class Achat {
 	/**
 	 * @param dateAchat the dateAchat to set
 	 */
-	public void setDateAchat(Date dateAchat) {
+	public void setDateAchat(Date dateAchat) throws PharmaException {
+		if(dateAchat == null) throw new PharmaException("La date est null");
 		this.dateAchat = dateAchat;
 	}
 	/**
@@ -75,10 +78,11 @@ public class Achat {
 	 * @param medecin
 	 * @param medicament
 	 * @param ordonnance
+	 * @throws PharmaException 
 	 */
-	public Achat(Date dateAchat, Client client, Patient patient, Medecin medecin, Ordonnance ordonnance) {
+	public Achat(Date dateAchat, Client client, Patient patient, Medecin medecin, Ordonnance ordonnance) throws PharmaException {
 		super();
-		this.dateAchat = dateAchat;
+		this.setDateAchat(dateAchat);
 		this.client = client;
 		this.patient = patient;
 		this.medecin = medecin;

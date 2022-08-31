@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.sparadrap.app.controller.Pharmacie;
+import com.sparadrap.app.exception.PharmaException;
 import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Medecin;
 import com.sparadrap.app.model.Medicament;
@@ -60,18 +61,17 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	
 	private JComboBox<Medecin> cbChoixMedecin;
 	private JComboBox<Specialite> cbChoixSpecialite;
-	private JComboBox<Medicament> cbChoixMedicament;
 	private JComboBox<Ordonnance> cbChoixOrdonnance;
 	private JComboBox<Mutuelle> cbChoixMutuelle;
 	
-	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
-	private ArrayList<Patient> listePatients = new ArrayList<Patient>();
-	private ArrayList<Medicament> listeMedicamentsClient = new ArrayList<Medicament>();
+	private JComboBox<Medicament> cbChoixMedicament;
+	private ArrayList<Medicament> listeMedicamentsPatient = new ArrayList<>();
 	
 	private Achat achat;
 	private Patient patient;
 	private Medicament medicament;
-	private Mutuelle mutuelle;
+	private Mutuelle mutuelle; 
+	private Medecin medecin; 
 	protected String selectionMedicament;
 	
 	/**
@@ -81,6 +81,13 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		initComposants();
 		createEvenements();
 	}
+	
+	public void resetComposants(PanelAchatSansOrdonnance panelAchatAvecOrdonnance, FenetreAchat fenetreAchat) {
+		this.remove(panelAchatAvecOrdonnance);
+		this.add(fenetreAchat);
+		revalidate();
+		repaint();
+	}
 
 	private void createEvenements() {
 				
@@ -89,8 +96,8 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 			public void itemStateChanged(ItemEvent e) {				
 				if(e.getStateChange() == ItemEvent.SELECTED) {
 					medicament = (Medicament) cbChoixMedicament.getSelectedItem();					
-					listeMedicamentsClient.add(medicament);
-					lblSelectionMedicament.setText("[" + listeMedicamentsClient + "]");
+					listeMedicamentsPatient.add(medicament);
+					lblSelectionMedicament.setText("[" + listeMedicamentsPatient + "]");
 				}
 			}
 		});
@@ -103,39 +110,52 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 				intTfNumSecuSocialClient = Long.parseLong(txtTfNumSecuSocialClient);
 
 				mutuelle = (Mutuelle) cbChoixMutuelle.getSelectedItem();
+				medecin = (Medecin) cbChoixMedecin.getSelectedItem();
 				
-				patient = new Patient(
-						tfNomClient.getText(), 
-						tfPrenomClient.getText(), 
-						0, 
-						tfAdresseClient.getText(), 
-						ALLBITS, 
-						null, 
-						intTfTelephoneClient, 
-						null, 
-						ftfDateNaissanceClient.getText(), 
-						intTfNumSecuSocialClient, 
-						mutuelle, 
-						null, 
-						null, 
-						listeMedicamentsClient
-						);
+				try {
+					patient = new Patient(
+							tfNomClient.getText(), 
+							tfPrenomClient.getText(), 
+							0, 
+							tfAdresseClient.getText(), 
+							ALLBITS, 
+							null, 
+							intTfTelephoneClient, 
+							null, 
+							ftfDateNaissanceClient.getText(), 
+							intTfNumSecuSocialClient, 
+							mutuelle, 
+							medecin, 
+							null, 
+							listeMedicamentsPatient
+							);
+				} catch (PharmaException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				
-				achat = new Achat(
-						new Date(), 
-						null, 
-						patient, 
-						null,
-						null
-						);
+				try {
+					achat = new Achat(
+							new Date(), 
+							null, 
+							patient, 
+							null,
+							null
+							);
+				} catch (PharmaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				if(e.getSource() == btnValider) {
-					listePatients.add(patient);
-					listeAchats.add(achat);
+					Pharmacie.ajoutAchat(achat);
+					Pharmacie.ajoutPatient(patient);
+					Pharmacie.ajoutMedicamentVendu(listeMedicamentsPatient);
 					new JOptionPane();
-					JOptionPane.showMessageDialog(null, listePatients,"Liste patients", 1);
-					JOptionPane.showMessageDialog(null, listeAchats,"Liste achats", 1);
-					JOptionPane.showMessageDialog(null, listeMedicamentsClient, "Liste Médicaments", 1);
+					JOptionPane.showMessageDialog(null, Pharmacie.getListePatients(),"Liste patients", 1);
+					JOptionPane.showMessageDialog(null, Pharmacie.getListeAchats(),"Liste achats", 1);
+					JOptionPane.showMessageDialog(null, listeMedicamentsPatient, "Liste Médicaments", 1);
+					JOptionPane.showMessageDialog(null, Pharmacie.getListeMedicamentsVendus(), "Total médicaments vendus", 1);
 				}
 			}
 		});
@@ -178,6 +198,10 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		
 		cbChoixMedecin = new JComboBox<Medecin>();
 		cbChoixMedecin.setModel(new DefaultComboBoxModel(new String[] {"Choix Médecin"}));
+		for(Medecin medecin : Pharmacie.getListeMedecins()) {
+			System.out.println(medecin.getNom());
+			cbChoixMedecin.addItem(medecin);
+		}
 		
 		JLabel lblSpecialiste = new JLabel("Spécialiste (opt)");
 		
