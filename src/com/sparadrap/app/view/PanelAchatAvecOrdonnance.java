@@ -154,7 +154,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					new JOptionPane();
 					JOptionPane.showMessageDialog(null, Pharmacie.getListePatients(),"Liste patients", 1);
 					JOptionPane.showMessageDialog(null, Pharmacie.getListeAchats(),"Liste achats", 1);
-					JOptionPane.showMessageDialog(null, listeMedicamentsPatient, "Liste Médicaments", 1);
+					JOptionPane.showMessageDialog(null, listeMedicamentsPatient, "Liste médicaments du patient", 1);
 					JOptionPane.showMessageDialog(null, Pharmacie.getListeMedicamentsVendus(), "Total médicaments vendus", 1);
 				}
 			}

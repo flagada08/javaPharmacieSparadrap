@@ -64,7 +64,7 @@ public class FenetrePrincipale extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1) {
-					contentPane.add(fAchat = new FenetreAchat());
+					contentPane.add(fAchat);
 					contentPane.remove(lblAccueil);
 					contentPane.revalidate();
 					contentPane.repaint();
