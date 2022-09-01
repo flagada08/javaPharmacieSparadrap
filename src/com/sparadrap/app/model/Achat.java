@@ -1,10 +1,16 @@
 package com.sparadrap.app.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.sparadrap.app.exception.PharmaException;
 
-public class Achat {
+public class Achat implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6849310115158301924L;
+	
 	private Date dateAchat;
 	private Client client;
 	private Patient patient;

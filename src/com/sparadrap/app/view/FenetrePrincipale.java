@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.GroupLayout;
@@ -37,12 +38,15 @@ public class FenetrePrincipale extends JFrame {
 	private JButton btnQuitter;
 	
 	private FenetreAchat fAchat;
+	private FenetreHistoriqueAchat fHistoriqueAchat;
 
 	/**
 	 * Création de la frame principale
 	 */
 	public FenetrePrincipale() {
+		contentPane = new JPanel();
 		fAchat = new FenetreAchat();
+		fHistoriqueAchat = new FenetreHistoriqueAchat();
 		initComposants();
 		createEvenements();
 	}
@@ -53,6 +57,7 @@ public class FenetrePrincipale extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1) {
 					contentPane.remove(fAchat);
+					contentPane.remove(fHistoriqueAchat);
 					contentPane.add(lblAccueil);
 					contentPane.revalidate();
 					contentPane.repaint();
@@ -64,8 +69,22 @@ public class FenetrePrincipale extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON1) {
-					contentPane.add(fAchat);
 					contentPane.remove(lblAccueil);
+					contentPane.remove(fHistoriqueAchat);
+					contentPane.add(fAchat);
+					contentPane.revalidate();
+					contentPane.repaint();
+				}
+			}
+		});
+		
+		btnHistoriqueAchats.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.getButton() == MouseEvent.BUTTON1) {
+					contentPane.remove(fAchat);
+					contentPane.remove(lblAccueil);
+					contentPane.add(fHistoriqueAchat);
 					contentPane.revalidate();
 					contentPane.repaint();
 				}
@@ -80,12 +99,11 @@ public class FenetrePrincipale extends JFrame {
 		});
 	}
 	
-	private void initComposants() {		
+	private void initComposants() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FenetrePrincipale.class.getResource("/com/sparadrap/resources/sparadrap_512.png")));
 		setTitle("PHARMACIE SPARADRAP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 700);
-		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
@@ -121,15 +139,14 @@ public class FenetrePrincipale extends JFrame {
 					.addGap(5)
 					.addComponent(btnHistoriqueAchats)
 					.addGap(5)
-					.addComponent(btnDetailsClient)
-					.addGap(72))
+					.addComponent(btnDetailsClient))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(75)
 					.addComponent(lblAccueil))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(597, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(602, Short.MAX_VALUE)
 					.addComponent(btnQuitter)
-					.addContainerGap())
+					.addGap(5))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -141,11 +158,11 @@ public class FenetrePrincipale extends JFrame {
 						.addComponent(btnHistoriqueOrdonnances)
 						.addComponent(btnHistoriqueAchats)
 						.addComponent(btnDetailsClient))
-					.addGap(5)
+					.addGap(22)
 					.addComponent(lblAccueil)
-					.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
 					.addComponent(btnQuitter)
-					.addContainerGap())
+					.addGap(6))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

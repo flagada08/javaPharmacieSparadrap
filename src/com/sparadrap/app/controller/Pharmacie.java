@@ -1,5 +1,12 @@
 package com.sparadrap.app.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,7 +20,12 @@ import com.sparadrap.app.model.Ordonnance;
 import com.sparadrap.app.model.Patient;
 import com.sparadrap.app.model.Specialite;
 
-public class Pharmacie {
+public class Pharmacie implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3950418334702262358L;
 	private static ArrayList<Achat> listeAchats = new ArrayList<Achat>();
 	private static ArrayList<Client> listeClients = new ArrayList<Client>();
 	private static ArrayList<Patient> listePatients = new ArrayList<Patient>();
@@ -26,7 +38,7 @@ public class Pharmacie {
 	/**
 	 * @return the listeAchats
 	 */
-	public static ArrayList<Achat> getListeAchats() {
+	public ArrayList<Achat> getListeAchats() {
 		return listeAchats;
 	}
 	
@@ -40,7 +52,7 @@ public class Pharmacie {
 	/**
 	 * @return the listeClients
 	 */
-	public static ArrayList<Client> getListeClients() {
+	public ArrayList<Client> getListeClients() {
 		return listeClients;
 	}
 
@@ -54,7 +66,7 @@ public class Pharmacie {
 	/**
 	 * @return the listePatients
 	 */
-	public static ArrayList<Patient> getListePatients() {
+	public ArrayList<Patient> getListePatients() {
 		return listePatients;
 	}
 
@@ -96,7 +108,7 @@ public class Pharmacie {
 	/**
 	 * @return the listeMedicaments
 	 */
-	public static ArrayList<Medicament> getListeMedicaments() {
+	public ArrayList<Medicament> getListeMedicaments() {
 		return listeMedicaments;
 	}
 
@@ -110,7 +122,7 @@ public class Pharmacie {
 	/**
 	 * @return the listeMedicamentsVendus
 	 */
-	public static ArrayList<Medicament> getListeMedicamentsVendus() {
+	public ArrayList<Medicament> getListeMedicamentsVendus() {
 		return listeMedicamentsVendus;
 	}
 
@@ -139,103 +151,159 @@ public class Pharmacie {
 		
 	}
 	
-	public static void ajoutAchat(Achat achat) {
+//	public void sauveFichier(Object objet) {
+//		//écriture
+//		try {
+//		       FileOutputStream fileOut = new FileOutputStream("Sauvegarde");
+//		       ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//		       out.writeObject(objet);
+//		       out.close();
+//		       fileOut.close();
+//		       System.out.println("\nSerialisation terminée avec succès...\n");
+//		 
+//		     } catch (FileNotFoundException e) {
+//		       e.printStackTrace();
+//		     } catch (IOException e) {
+//		       e.printStackTrace();
+//		     }
+//	}
+//	
+//	public static void chargeFichier(String string) {
+//		//lecture
+//	    Object obj = null;
+//	    try {
+//	      FileInputStream fileIn = new FileInputStream(string);
+//	      ObjectInputStream ois = new ObjectInputStream(fileIn);
+//	      obj = ois.readObject();
+//	      ois.close();
+//	      fileIn.close();
+//	    } catch (FileNotFoundException e) {
+//	      e.printStackTrace();
+//	    } catch (IOException e) {
+//	      e.printStackTrace();
+//	    } catch (ClassNotFoundException e) {
+//	      // TODO Auto-generated catch block
+//	       e.printStackTrace();
+//	    }
+//
+//	    System.out.println("Lire les données: \n");
+//	    
+//	      System.out.println(obj);
+//	}
+	
+	public void ajoutAchat(Achat achat) throws PharmaException {
 		getListeAchats().add(achat);
+		getListeAchats().add(new Achat(new Date(),
+					new Client(
+							"testNomClient1", 
+							"testPrenomClient1", 
+							0, 
+							null, 
+							0, 
+							null,
+							0,
+							null,
+							null, 
+							getListeMedicaments()), 
+					null, 
+					null, 
+					null
+				));
 	}
 	
-	public static void ajoutClient(Client client) {
+	public void ajoutClient(Client client) throws PharmaException {
 		getListeClients().add(client);
-//		getListeClients().add(new Client(
-//					"testNomClient1", 
-//					"testPrenomClient1", 
-//					1, 
-//					"rue du test", 
-//					12345, 
-//					"testCity1", 
-//					1234567890 , 
-//					"testClient1@test.st", 
-//					"31/12/1234", 
-//					null
-//				));
-//		getListeClients().add(new Client(
-//					"testNomClient2", 
-//					"testPrenomClient2", 
-//					2, 
-//					"rue du test", 
-//					12345, 
-//					"testCity2", 
-//					1234567890 , 
-//					"testClient2@test.st", 
-//					"31/12/1234",
-//					null
-//				));
-//		getListeClients().add(new Client(
-//					"testNomClient3", 
-//					"testPrenomClient3", 
-//					3, 
-//					"rue du test", 
-//					12345, 
-//					"testCity3", 
-//					1234567890 , 
-//					"testClient3@test.st", 
-//					"31/12/1234", 
-//					null
-//				));
+		getListeClients().add(new Client(
+					"testNomClient1", 
+					"testPrenomClient1", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity1", 
+					1234567890 , 
+					"testClient1@test.st", 
+					"31/12/1234", 
+					getListeMedicaments()
+				));
+		getListeClients().add(new Client(
+					"testNomClient2", 
+					"testPrenomClient2", 
+					2, 
+					"rue du test", 
+					12345, 
+					"testCity2", 
+					1234567890 , 
+					"testClient2@test.st", 
+					"31/12/1234",
+					getListeMedicaments()
+				));
+		getListeClients().add(new Client(
+					"testNomClient3", 
+					"testPrenomClient3", 
+					3, 
+					"rue du test", 
+					12345, 
+					"testCity3", 
+					1234567890 , 
+					"testClient3@test.st", 
+					"31/12/1234", 
+					getListeMedicaments()
+				));
 	}
 	
-	public static void ajoutPatient(Patient patient) {
+	public void ajoutPatient(Patient patient) throws PharmaException {
 		getListePatients().add(patient);
-//		getListePatients().add(new Patient(
-//					"testNomPatient1", 
-//					"testPrenomPatient1", 
-//					1, 
-//					"rue du test", 
-//					12345, 
-//					"testCity1", 
-//					1234567890, 
-//					"testPatient1@test.st", 
-//					"31/12/1234", 
-//					1234567890123456L, 
-//					null, 
-//					null,
-//					getListeOrdonnances(), 
-//					null
-//				));
-//		getListePatients().add(new Patient(
-//					"testNomPatient2", 
-//					"testPrenomPatient2", 
-//					1, 
-//					"rue du test", 
-//					12345, 
-//					"testCity2", 
-//					1234567890, 
-//					"testPatient1@test.st", 
-//					"31/12/1234", 
-//					1234567890123456L, 
-//					null, 
-//					null,
-//					getListeOrdonnances(), 
-//					null
-//				));
-//		getListePatients().add(new Patient(
-//					"testNomPatient3", 
-//					"testPrenomPatient3", 
-//					1, 
-//					"rue du test", 
-//					12345, 
-//					"testCity3", 
-//					1234567890, 
-//					"testPatient1@test.st", 
-//					"31/12/1234", 
-//					1234567890123456L, 
-//					null, 
-//					null,
-//					getListeOrdonnances(), 
-//					null
-//				));
+		getListePatients().add(new Patient(
+					"testNomPatient1", 
+					"testPrenomPatient1", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity1", 
+					1234567890, 
+					"testPatient1@test.st", 
+					"31/12/1234", 
+					1234567890123456L, 
+					null, 
+					null,
+					getListeOrdonnances(), 
+					null
+				));
+		getListePatients().add(new Patient(
+					"testNomPatient2", 
+					"testPrenomPatient2", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity2", 
+					1234567890, 
+					"testPatient1@test.st", 
+					"31/12/1234", 
+					1234567890123456L, 
+					null, 
+					null,
+					getListeOrdonnances(), 
+					null
+				));
+		getListePatients().add(new Patient(
+					"testNomPatient3", 
+					"testPrenomPatient3", 
+					1, 
+					"rue du test", 
+					12345, 
+					"testCity3", 
+					1234567890, 
+					"testPatient1@test.st", 
+					"31/12/1234", 
+					1234567890123456L, 
+					null, 
+					null,
+					getListeOrdonnances(), 
+					null
+				));
 	}
 	
-	public static void ajoutMedecin() throws PharmaException {
+	public void ajoutMedecin() throws PharmaException {
 		getListeMedecins().add(new Medecin(
 					"testNomMedecin1", 
 					"testPrenomMedecin1", 
@@ -280,7 +348,7 @@ public class Pharmacie {
 				));
 	}
 	
-	public static void ajoutMedicament() {
+	public void ajoutMedicament() {
 		getListeMedicaments().add(new Medicament(
 					"testMedoc1", 
 					null, 
@@ -304,11 +372,11 @@ public class Pharmacie {
 				));
 	}
 	
-	public static void ajoutMedicamentVendu(ArrayList<Medicament> listeMedicamentsClients) {
+	public void ajoutMedicamentVendu(ArrayList<Medicament> listeMedicamentsClients) {
 		getListeMedicamentsVendus().addAll(listeMedicamentsClients);
 	}
 	
-	public static void ajoutMutuelle() {
+	public void ajoutMutuelle() {
 		getListeMutuelles().add(new Mutuelle(
 					"testMutuelle1", 
 					"testCity1", 
