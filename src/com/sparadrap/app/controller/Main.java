@@ -2,9 +2,13 @@ package com.sparadrap.app.controller;
 
 import java.awt.EventQueue;
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.swing.UIManager;
 
+import com.sparadrap.app.exception.PharmaException;
+import com.sparadrap.app.model.Achat;
+import com.sparadrap.app.model.Client;
 import com.sparadrap.app.view.FenetrePrincipale;
 
 /**
@@ -15,6 +19,7 @@ public class Main implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8989197673410509830L;
+	
 	private static Pharmacie pharmacie = new Pharmacie();
 
 	/**
@@ -25,6 +30,7 @@ public class Main implements Serializable {
 	}
 
 	public static void main(String[] args) {
+		
 		try {
 			getPharmacie().ajoutMedicament();
 			getPharmacie().ajoutMutuelle();

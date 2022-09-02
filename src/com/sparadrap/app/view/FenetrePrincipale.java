@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,6 +16,9 @@ import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 
 import java.awt.Font;
+
+import static com.sparadrap.app.controller.Main.getPharmacie;
+
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -71,7 +76,7 @@ public class FenetrePrincipale extends JFrame {
 				if(e.getButton() == MouseEvent.BUTTON1) {
 					contentPane.remove(lblAccueil);
 					contentPane.remove(fHistoriqueAchat);
-					contentPane.add(fAchat);
+					contentPane.add(fAchat = new FenetreAchat());
 					contentPane.revalidate();
 					contentPane.repaint();
 				}
@@ -84,7 +89,7 @@ public class FenetrePrincipale extends JFrame {
 				if(e.getButton() == MouseEvent.BUTTON1) {
 					contentPane.remove(fAchat);
 					contentPane.remove(lblAccueil);
-					contentPane.add(fHistoriqueAchat);
+					contentPane.add(fHistoriqueAchat = new FenetreHistoriqueAchat());
 					contentPane.revalidate();
 					contentPane.repaint();
 				}

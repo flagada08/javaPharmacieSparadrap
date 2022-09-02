@@ -193,22 +193,6 @@ public class Pharmacie implements Serializable {
 	
 	public void ajoutAchat(Achat achat) throws PharmaException {
 		getListeAchats().add(achat);
-		getListeAchats().add(new Achat(new Date(),
-					new Client(
-							"testNomClient1", 
-							"testPrenomClient1", 
-							0, 
-							null, 
-							0, 
-							null,
-							0,
-							null,
-							null, 
-							getListeMedicaments()), 
-					null, 
-					null, 
-					null
-				));
 	}
 	
 	public void ajoutClient(Client client) throws PharmaException {

@@ -130,12 +130,12 @@ public abstract class Personne {
 		super();
 		this.setNom(nom);
 		this.setPrenom(prenom);
+		this.setNumRue(numRue);
 		this.setNomRue(nomRue);
-		this.nomRue = nomRue;
-		this.codePostal = codePostal;
-		this.nomVille = nomVille;
-		this.numTelephone = numTelephone;
-		this.email = email;
+		this.setCodePostal(codePostal);
+		this.setNomVille(nomVille);
+		this.setNumTelephone(numTelephone);
+		this.setEmail(email);
 	}
 	
 	@Override

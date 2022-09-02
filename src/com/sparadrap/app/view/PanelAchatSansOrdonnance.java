@@ -78,9 +78,8 @@ public class PanelAchatSansOrdonnance extends JPanel {
 				if(e.getStateChange() == ItemEvent.SELECTED) {
 					medicament = (Medicament) cbChoixMedicament.getSelectedItem();
 					listeMedicamentsClient.add(medicament);
-					lblSelectionMedicament.setText("[" + listeMedicamentsClient + "]");
+					lblSelectionMedicament.setText(listeMedicamentsClient.toString());
 				}
-				
 			}
 		});
 		
@@ -134,11 +133,7 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					
 //					getPharmacie().sauveFichier(getPharmacie());
 					
-								
-					JOptionPane.showMessageDialog(null, getPharmacie().getListeClients(), "Liste clients", 1);
-					JOptionPane.showMessageDialog(null, getPharmacie().getListeAchats(), "Liste achats", 1);
-					JOptionPane.showMessageDialog(null, listeMedicamentsClient, "Liste médicaments du client", 1);
-					JOptionPane.showMessageDialog(null, getPharmacie().getListeMedicamentsVendus(), "Total médicaments vendus", 1);
+					JOptionPane.showMessageDialog(null, "Achat ajouté : " + listeMedicamentsClient, "Achat", 1);
 				
 					resetComposants();
 //				}

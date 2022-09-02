@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import com.sparadrap.app.controller.Pharmacie;
 import com.sparadrap.app.exception.PharmaException;
 import com.sparadrap.app.model.Achat;
+import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medecin;
 import com.sparadrap.app.model.Medicament;
 import com.sparadrap.app.model.Mutuelle;
@@ -70,6 +71,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	private ArrayList<Medicament> listeMedicamentsPatient = new ArrayList<>();
 	
 	private Achat achat;
+	private Client client;
 	private Patient patient;
 	private Medicament medicament;
 	private Mutuelle mutuelle; 
@@ -103,6 +105,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 				}
 			}
 		});
+		
 		btnValider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -113,7 +116,18 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 
 				mutuelle = (Mutuelle) cbChoixMutuelle.getSelectedItem();
 				medecin = (Medecin) cbChoixMedecin.getSelectedItem();
-				
+				client = client = new Client(
+						tfNomClient.getText(), 
+						tfPrenomClient.getText(), 
+						0, 
+						null, 
+						0, 
+						null, 
+						0, 
+						null, 
+						ftfDateNaissanceClient.getText(), 
+						listeMedicamentsPatient
+						);
 				try {
 					patient = new Patient(
 							tfNomClient.getText(), 
@@ -164,10 +178,7 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					}
 					getPharmacie().ajoutMedicamentVendu(listeMedicamentsPatient);
 					
-					JOptionPane.showMessageDialog(null, getPharmacie().getListePatients(),"Liste patients", 1);
-					JOptionPane.showMessageDialog(null, getPharmacie().getListeAchats(),"Liste achats", 1);
-					JOptionPane.showMessageDialog(null, listeMedicamentsPatient, "Liste médicaments du patient", 1);
-					JOptionPane.showMessageDialog(null, getPharmacie().getListeMedicamentsVendus(), "Total médicaments vendus", 1);
+					JOptionPane.showMessageDialog(null, "Achat ajouté : " + listeMedicamentsPatient, "Achat", 1);
 					
 					resetComposants();
 //				}
