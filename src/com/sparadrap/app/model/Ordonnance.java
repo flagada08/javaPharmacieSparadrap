@@ -45,37 +45,32 @@ public class Ordonnance {
 		this.patient = patient;
 	}
 	/**
-	 * @return the listeMedicaments
+	 * @return the listeMedicamentsOrdonnances
 	 */
-	public ArrayList<Medicament> getListeMedicaments() {
+	public ArrayList<Medicament> getListeMedicamentsOrdonnances() {
 		return listeMedicamentsOrdonnances;
 	}
 	/**
-	 * @param listeMedicaments the listeMedicaments to set
+	 * @param listeMedicamentsOrdonnances the listeMedicamentsOrdonnances to set
 	 */
-	public void setListeMedicaments(ArrayList<Medicament> listeMedicamentsOrdonnances) {
+	public void setListeMedicamentsOrdonnances(ArrayList<Medicament> listeMedicamentsOrdonnances) {
 		this.listeMedicamentsOrdonnances = listeMedicamentsOrdonnances;
 	}
 	/**
 	 * @param date
 	 * @param medecin
 	 * @param patient
-	 * @param listeMedicaments
+	 * @param listeMedicamentsOrdonnances
 	 */
 	public Ordonnance(Date date, Medecin medecin, Patient patient, ArrayList<Medicament> listeMedicamentsOrdonnances) {
 		super();
-		this.date = date;
-		this.medecin = medecin;
-		this.patient = patient;
-		this.listeMedicamentsOrdonnances = listeMedicamentsOrdonnances;
+		this.setDate(date);
+		this.setMedecin(medecin);
+		this.setPatient(patient);
+		this.setListeMedicamentsOrdonnances(listeMedicamentsOrdonnances);
 	}
 	@Override
 	public String toString() {
-		return "Ordonnance ["
-				+ "date=" + date 
-				+ ", medecin=" + medecin 
-				+ ", patient=" + patient
-				+ ", listeMedicamentsOrdonnances=" + listeMedicamentsOrdonnances 
-				+ "]";
+		return getMedecin().getNom() + ", " + getPatient().getNom();
 	}
 }

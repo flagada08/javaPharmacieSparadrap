@@ -23,7 +23,9 @@ public class Achat implements Serializable {
 		return dateAchat;
 	}
 	/**
-	 * @param dateAchat the dateAchat to set
+	 * @param dateAchat
+	 * @throws PharmaException
+	 * Exception Perso
 	 */
 	public void setDateAchat(Date dateAchat) throws PharmaException {
 		if(dateAchat == null) throw new PharmaException("La date est null");
@@ -72,7 +74,7 @@ public class Achat implements Serializable {
 		return ordonnance;
 	}
 	/**
-	 * @param listeOrdonnances the listeOrdonnances to set
+	 * @param ordonnance the ordonnance to set
 	 */
 	public void setOrdonnance(Ordonnance ordonnance) {
 		this.ordonnance = ordonnance;
@@ -82,9 +84,9 @@ public class Achat implements Serializable {
 	 * @param client
 	 * @param patient
 	 * @param medecin
-	 * @param medicament
 	 * @param ordonnance
-	 * @throws PharmaException 
+	 * @throws PharmaException
+	 * Exception perso
 	 */
 	public Achat(Date dateAchat, Client client, Patient patient, Medecin medecin, Ordonnance ordonnance) throws PharmaException {
 		super();

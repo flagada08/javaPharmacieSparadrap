@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.sparadrap.app.controller.Pharmacie;
 import com.sparadrap.app.exception.PharmaException;
 import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Client;
 import com.sparadrap.app.model.Medicament;
+import com.sparadrap.app.model.Patient;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -35,6 +35,14 @@ import java.awt.event.ActionEvent;
  */
 public class PanelAchatSansOrdonnance extends JPanel {
 		
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 2909415582367966966L;
+	
+	/**
+	 * Attributs de classe
+	 */
 	private JTextField tfNomClient;
 	private JTextField tfPrenomClient;
 	
@@ -52,17 +60,22 @@ public class PanelAchatSansOrdonnance extends JPanel {
 	
 	private Achat achat;
 	private Client client;
+	private Patient patient;
 	private Medicament medicament;
 	protected int medicIndex;
 	
 	/**
-	 * Création du panel
+	 * Constructeur du JPanel.
 	 */
 	public PanelAchatSansOrdonnance() {
 		initComposants();
 		createEvenements();
 	}
-		
+	
+	/**
+	 * Fonction qui vide les composants et réinitialise la liste des médicaments
+	 * pour le prochain patient qui sera renseigné
+	 */
 	public void resetComposants() {
 		tfNomClient.setText("");
 		tfPrenomClient.setText("");
@@ -82,7 +95,7 @@ public class PanelAchatSansOrdonnance extends JPanel {
 				}
 			}
 		});
-		
+
 		btnValider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -105,10 +118,31 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					JOptionPane.showMessageDialog(null, e2.getMessage());
 				}
 				try {
+					patient = new Patient(
+							tfNomClient.getText(), 
+							tfPrenomClient.getText(), 
+							0, 
+							null, 
+							0, 
+							null, 
+							0, 
+							null, 
+							null, 
+							0, 
+							null, 
+							null, 
+							null, 
+							null
+							);
+				} catch (PharmaException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
 					achat = new Achat(
 							new Date(), 
 							client, 
-							null, 
+							patient, 
 							null, 
 							null
 							);
@@ -133,7 +167,20 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					
 //					getPharmacie().sauveFichier(getPharmacie());
 					
-					JOptionPane.showMessageDialog(null, "Achat ajouté : " + listeMedicamentsClient, "Achat", 1);
+					// Diminution du stock de médicaments à chaque achats
+					if(medicament.getStock() > 0)
+					medicament.setStock(medicament.getStock()-1);
+					
+					JOptionPane.showMessageDialog(
+								null, 
+								"Achat ajouté\n" 
+								+ "\nNom du client : " + tfNomClient.getText().toUpperCase() 
+								+ "\nPrénom : " + tfPrenomClient.getText() 
+								+ "\nMédicament(s) acheté(s) : " + listeMedicamentsClient, 
+								"ACHAT", 1
+							);
+//					
+//					JOptionPane.showMessageDialog(null, getPharmacie().getListeClients());
 				
 					resetComposants();
 //				}
@@ -147,9 +194,13 @@ public class PanelAchatSansOrdonnance extends JPanel {
 //			}
 //		});
 	}
-
+	
+	/**
+	 * Création du panel
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initComposants() {	
-		setBounds(0, 0, 600, 500);
+		setBounds(0, 0, 700, 500);
 		setBorder(new TitledBorder(null, "Achat sans Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JLabel lblNomClient = new JLabel("Nom du client");
@@ -184,7 +235,6 @@ public class PanelAchatSansOrdonnance extends JPanel {
 		lblSelectionMedicamentTitre = new JLabel("Médicaments séléctionnés");
 		
 		lblSelectionMedicament = new JLabel("[Sélectionner un médicament]");
-		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -214,8 +264,8 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					.addGap(58)
 					.addComponent(lblSelectionMedicament))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(519)
-					.addComponent(btnValider))
+					.addGap(609)
+					.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -248,7 +298,7 @@ public class PanelAchatSansOrdonnance extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblSelectionMedicamentTitre)
 						.addComponent(lblSelectionMedicament))
-					.addGap(238)
+					.addGap(240)
 					.addComponent(btnValider))
 		);
 		setLayout(groupLayout);

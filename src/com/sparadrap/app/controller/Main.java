@@ -2,13 +2,8 @@ package com.sparadrap.app.controller;
 
 import java.awt.EventQueue;
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.swing.UIManager;
 
-import com.sparadrap.app.exception.PharmaException;
-import com.sparadrap.app.model.Achat;
-import com.sparadrap.app.model.Client;
 import com.sparadrap.app.view.FenetrePrincipale;
 
 /**
@@ -16,34 +11,50 @@ import com.sparadrap.app.view.FenetrePrincipale;
  */
 public class Main implements Serializable {	
 	/**
-	 * 
+	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -8989197673410509830L;
-	
-	private static Pharmacie pharmacie = new Pharmacie();
+	/**
+	 * Création de la Pharmacie dans le point d'entrée de l'application
+	 */
+	private static Pharmacie pharmacieSparadrap = new Pharmacie();
 
 	/**
-	 * @return the pharmacie
+	 * getter de la Pharmacie
+	 * @return the pharmacieSparadrap
 	 */
 	public static Pharmacie getPharmacie() {
-		return pharmacie;
+		return pharmacieSparadrap;
 	}
 
 	public static void main(String[] args) {
-		
+		/**
+		 * Appels aux fonctions de la pharmacie afin d'alimenter l'application en données
+		 * pour simuler la BDD d'une pharmacie
+		 */
 		try {
 			getPharmacie().ajoutMedicament();
 			getPharmacie().ajoutMutuelle();
 			getPharmacie().ajoutMedecin();
+			getPharmacie().ajoutOrdonnance();
+			getPharmacie().bddClient();
+			getPharmacie().bddPatient();
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				/**
+				 * Appel de la frame principale qui contient toutes les vues de l'application
+				 * par superposition de panels dans cette dernière, ainsi que l'utilisation du 
+				 * setter de visibilité
+				 */
 				try {
 					FenetrePrincipale frame = new FenetrePrincipale();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

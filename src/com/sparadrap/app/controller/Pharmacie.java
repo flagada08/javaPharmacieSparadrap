@@ -1,11 +1,11 @@
 package com.sparadrap.app.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+//import java.io.ObjectInputStream;
+//import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,18 +23,27 @@ import com.sparadrap.app.model.Specialite;
 public class Pharmacie implements Serializable {
 	
 	/**
-	 * 
+	 * Serial ID pour la création du fichier de sauvegarde
 	 */
-	private static final long serialVersionUID = 3950418334702262358L;
-	private static ArrayList<Achat> listeAchats = new ArrayList<Achat>();
-	private static ArrayList<Client> listeClients = new ArrayList<Client>();
-	private static ArrayList<Patient> listePatients = new ArrayList<Patient>();
-	private static ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
-	private static ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
-	private static ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
-	private static ArrayList<Medicament> listeMedicamentsVendus = new ArrayList<Medicament>();
-	private static ArrayList<Ordonnance> listeOrdonnances = new ArrayList<Ordonnance>();
+	private static final long serialVersionUID = 4911578787997441779L;
 	
+	/**
+	 * Attributs de la classe composée des listes qui seront alimentées
+	 * par la saisie utilisateur
+	 */
+	private ArrayList<Achat> listeAchats = new ArrayList<Achat>();
+	private ArrayList<Client> listeClients = new ArrayList<Client>();
+	private ArrayList<Patient> listePatients = new ArrayList<Patient>();
+	private ArrayList<Mutuelle> listeMutuelles = new ArrayList<Mutuelle>();
+	private ArrayList<Medecin> listeMedecins = new ArrayList<Medecin>();
+	private ArrayList<Medicament> listeMedicaments = new ArrayList<Medicament>();
+	private ArrayList<Medicament> listeMedicamentsVendus = new ArrayList<Medicament>();
+	private ArrayList<Ordonnance> listeOrdonnances = new ArrayList<Ordonnance>();
+	
+	public long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
 	/**
 	 * @return the listeAchats
 	 */
@@ -43,7 +52,7 @@ public class Pharmacie implements Serializable {
 	}
 	
 	/**
-	 * @param listeAchats the listeAchats to set
+	 * @param pListeAchats the listeAchats to set
 	 */
 	public void setListeAchats(ArrayList<Achat> pListeAchats) {
 		listeAchats = pListeAchats;
@@ -57,7 +66,7 @@ public class Pharmacie implements Serializable {
 	}
 
 	/**
-	 * @param listeClients the listeClients to set
+	 * @param pListeClients the listeClients to set
 	 */
 	public void setListeClients(ArrayList<Client> pListeClients) {
 		listeClients = pListeClients;
@@ -71,7 +80,7 @@ public class Pharmacie implements Serializable {
 	}
 
 	/**
-	 * @param listePatients the listePatients to set
+	 * @param pListePatients the listePatients to set
 	 */
 	public void setListePatients(ArrayList<Patient> pListePatients) {
 		listePatients = pListePatients;
@@ -80,26 +89,26 @@ public class Pharmacie implements Serializable {
 	/**
 	 * @return the listeMutuelles
 	 */
-	public static ArrayList<Mutuelle> getListeMutuelles() {
+	public ArrayList<Mutuelle> getListeMutuelles() {
 		return listeMutuelles;
 	}
 
 	/**
 	 * @param pListeMutuelles the listeMutuelles to set
 	 */
-	public static void setListeMutuelles(ArrayList<Mutuelle> pListeMutuelles) {
-		Pharmacie.listeMutuelles = pListeMutuelles;
+	public void setListeMutuelles(ArrayList<Mutuelle> pListeMutuelles) {
+		listeMutuelles = pListeMutuelles;
 	}
 
 	/**
 	 * @return the listeMedecins
 	 */
-	public static ArrayList<Medecin> getListeMedecins() {
+	public ArrayList<Medecin> getListeMedecins() {
 		return listeMedecins;
 	}
 
 	/**
-	 * @param listeMedecins the listeMedecins to set
+	 * @param pListeMedecins the listeMedecins to set
 	 */
 	public void setListeMedecins(ArrayList<Medecin> pListeMedecins) {
 		listeMedecins = pListeMedecins;
@@ -113,10 +122,10 @@ public class Pharmacie implements Serializable {
 	}
 
 	/**
-	 * @param listeMedicaments the listeMedicaments to set
+	 * @param pListeMedicaments the listeMedicaments to set
 	 */
-	public static void setListeMedicaments(ArrayList<Medicament> listeMedicaments) {
-		Pharmacie.listeMedicaments = listeMedicaments;
+	public void setListeMedicaments(ArrayList<Medicament> pListeMedicaments) {
+		listeMedicaments = pListeMedicaments;
 	}
 
 	/**
@@ -127,23 +136,23 @@ public class Pharmacie implements Serializable {
 	}
 
 	/**
-	 * @param listeMedicamentsVendus the listeMedicamentsVendus to set
+	 * @param pListeMedicamentsVendus the listeMedicamentsVendus to set
 	 */
-	public static void setListeMedicamentsVendus(ArrayList<Medicament> listeMedicamentsVendus) {
-		Pharmacie.listeMedicamentsVendus = listeMedicamentsVendus;
+	public void setListeMedicamentsVendus(ArrayList<Medicament> pListeMedicamentsVendus) {
+		listeMedicamentsVendus = pListeMedicamentsVendus;
 	}
 
 	/**
-	 * @return the ordonnance
+	 * @return the listeOrdonnances
 	 */
-	public static ArrayList<Ordonnance> getListeOrdonnances() {
+	public ArrayList<Ordonnance> getListeOrdonnances() {
 		return listeOrdonnances;
 	}
 
 	/**
-	 * @param ordonnance the ordonnance to set
+	 * @param pListeOrdonnances the listeOrdonnances to set
 	 */
-	public static void setListeOrdonnances(ArrayList<Ordonnance> pListeOrdonnances) {
+	public void setListeOrdonnances(ArrayList<Ordonnance> pListeOrdonnances) {
 		listeOrdonnances = pListeOrdonnances;
 	}
 
@@ -191,102 +200,133 @@ public class Pharmacie implements Serializable {
 //	      System.out.println(obj);
 //	}
 	
+	/**
+	 * @param achat
+	 * Ajout dynamique d'un achat et ses exceptions
+	 * @throws PharmaException
+	 * Exception perso
+	 */
 	public void ajoutAchat(Achat achat) throws PharmaException {
 		getListeAchats().add(achat);
 	}
 	
+	/**
+	 * @param client
+	 * Ajout dynamique d'un client et ses exceptions, ainsi qu'une simulation
+	 * de données déjà stockées dans l'appli
+	 * @throws PharmaException
+	 * Exception perso
+	 */
 	public void ajoutClient(Client client) throws PharmaException {
 		getListeClients().add(client);
-		getListeClients().add(new Client(
-					"testNomClient1", 
-					"testPrenomClient1", 
-					1, 
-					"rue du test", 
-					12345, 
-					"testCity1", 
-					1234567890 , 
-					"testClient1@test.st", 
-					"31/12/1234", 
-					getListeMedicaments()
-				));
-		getListeClients().add(new Client(
-					"testNomClient2", 
-					"testPrenomClient2", 
-					2, 
-					"rue du test", 
-					12345, 
-					"testCity2", 
-					1234567890 , 
-					"testClient2@test.st", 
-					"31/12/1234",
-					getListeMedicaments()
-				));
-		getListeClients().add(new Client(
-					"testNomClient3", 
-					"testPrenomClient3", 
-					3, 
-					"rue du test", 
-					12345, 
-					"testCity3", 
-					1234567890 , 
-					"testClient3@test.st", 
-					"31/12/1234", 
-					getListeMedicaments()
-				));
 	}
 	
+	public void bddClient() throws PharmaException {
+		getListeClients().add(new Client(
+				"testNomClient1", 
+				"testPrenomClient1", 
+				1, 
+				"rue du test", 
+				12345, 
+				"testCity1", 
+				1234567890 , 
+				"testClient1@test.st", 
+				"31/12/1234", 
+				getListeMedicaments()
+			));
+	getListeClients().add(new Client(
+				"testNomClient2", 
+				"testPrenomClient2", 
+				2, 
+				"rue du test", 
+				12345, 
+				"testCity2", 
+				1234567890 , 
+				"testClient2@test.st", 
+				"31/12/1234",
+				getListeMedicaments()
+			));
+	getListeClients().add(new Client(
+				"testNomClient3", 
+				"testPrenomClient3", 
+				3, 
+				"rue du test", 
+				12345, 
+				"testCity3", 
+				1234567890 , 
+				"testClient3@test.st", 
+				"31/12/1234", 
+				getListeMedicaments()
+			));
+	}
+	
+/**
+ * @param patient
+ * Ajout dynamique d'un patient et ses exceptions, ainsi qu'une simulation
+ * de données déjà stockées dans l'appli
+ * @throws PharmaException
+ * Exception perso
+ */
 	public void ajoutPatient(Patient patient) throws PharmaException {
 		getListePatients().add(patient);
-		getListePatients().add(new Patient(
-					"testNomPatient1", 
-					"testPrenomPatient1", 
-					1, 
-					"rue du test", 
-					12345, 
-					"testCity1", 
-					1234567890, 
-					"testPatient1@test.st", 
-					"31/12/1234", 
-					1234567890123456L, 
-					null, 
-					null,
-					getListeOrdonnances(), 
-					null
-				));
-		getListePatients().add(new Patient(
-					"testNomPatient2", 
-					"testPrenomPatient2", 
-					1, 
-					"rue du test", 
-					12345, 
-					"testCity2", 
-					1234567890, 
-					"testPatient1@test.st", 
-					"31/12/1234", 
-					1234567890123456L, 
-					null, 
-					null,
-					getListeOrdonnances(), 
-					null
-				));
-		getListePatients().add(new Patient(
-					"testNomPatient3", 
-					"testPrenomPatient3", 
-					1, 
-					"rue du test", 
-					12345, 
-					"testCity3", 
-					1234567890, 
-					"testPatient1@test.st", 
-					"31/12/1234", 
-					1234567890123456L, 
-					null, 
-					null,
-					getListeOrdonnances(), 
-					null
-				));
 	}
 	
+	public void bddPatient() throws PharmaException {
+		getListePatients().add(new Patient(
+				"testNomPatient1", 
+				"testPrenomPatient1", 
+				1, 
+				"rue du test", 
+				12345, 
+				"testCity1", 
+				1234567890, 
+				"testPatient1@test.st", 
+				"31/12/1234", 
+				1234567890123456L, 
+				null, 
+				null,
+				getListeOrdonnances(), 
+				new ArrayList<Medicament>()
+			));
+	getListePatients().add(new Patient(
+				"testNomPatient2", 
+				"testPrenomPatient2", 
+				1, 
+				"rue du test", 
+				12345, 
+				"testCity2", 
+				1234567890, 
+				"testPatient1@test.st", 
+				"31/12/1234", 
+				1234567890123456L, 
+				null, 
+				null,
+				getListeOrdonnances(), 
+				null
+			));
+	getListePatients().add(new Patient(
+				"testNomPatient3", 
+				"testPrenomPatient3", 
+				1, 
+				"rue du test", 
+				12345, 
+				"testCity3", 
+				1234567890, 
+				"testPatient1@test.st", 
+				"31/12/1234", 
+				1234567890123456L, 
+				null, 
+				null,
+				getListeOrdonnances(), 
+				null
+			));
+	}
+	
+	/**
+	 * @throws PharmaException
+	 * Ajout d'une simulation de BDD médecins, crée au lancement de l'application 
+	 * (voir le point d'entrée Main)
+	 */
 	public void ajoutMedecin() throws PharmaException {
 		getListeMedecins().add(new Medecin(
 					"testNomMedecin1", 
@@ -332,34 +372,103 @@ public class Pharmacie implements Serializable {
 				));
 	}
 	
+	public void ajoutOrdonnance() throws PharmaException {
+		getListeOrdonnances().add(new Ordonnance(
+					new Date(), 
+					new Medecin(
+							"testNomMedecin1", 
+							"testPrenomMedecin1", 
+							1, 
+							"rue du test", 
+							12345, 
+							"testCity1", 
+							1234567890, 
+							"testMedecin1@test.st", 
+							12345678, 
+							listePatients, 
+							listeOrdonnances, 
+							Specialite.GYNECO
+						), 
+					new Patient(
+							"testNomPatient1", 
+							"testPrenomPatient1", 
+							1, 
+							"rue du test", 
+							12345, 
+							"testCity1", 
+							1234567890, 
+							"testPatient1@test.st", 
+							"31/12/1234", 
+							1234567890123456L, 
+							new Mutuelle(
+									"testMutuelle1", 
+									"testCity1", 
+									11, 
+									1234567890, 
+									"testMutuelle1@test.st", 
+									50
+								), 
+							new Medecin(
+									"testNomMedecin1", 
+									"testPrenomMedecin1", 
+									1, 
+									"rue du test", 
+									12345, 
+									"testCity1", 
+									1234567890, 
+									"testMedecin1@test.st", 
+									12345678, 
+									listePatients, 
+									listeOrdonnances, 
+									Specialite.GYNECO
+								),
+							getListeOrdonnances(), 
+							getListeMedicaments()
+						), 
+					null
+				));
+	}
+	
+	/**
+	 * Ajout d'une simulation de BDD médicaments, crée au lancement de l'application 
+	 * (voir le point d'entrée Main)
+	 */
 	public void ajoutMedicament() {
 		getListeMedicaments().add(new Medicament(
 					"testMedoc1", 
-					null, 
+					"testCatégorie1", 
 					10, 
 					new Date(), 
 					50
 				));
 		getListeMedicaments().add(new Medicament(
 					"testMedoc2", 
-					null, 
+					"testCatégorie2", 
 					5, 
 					new Date(), 
 					100
 				));
 		getListeMedicaments().add(new Medicament(
 					"testMedoc3", 
-					null, 
+					"testCatégorie3", 
 					25, 
 					new Date(), 
 					150
 				));
 	}
 	
+	/**
+	 * @param listeMedicamentsClients
+	 * Fonction qui permet d'ajouté à une liste, le total des médicaments vendus par la pharmacie
+	 */
 	public void ajoutMedicamentVendu(ArrayList<Medicament> listeMedicamentsClients) {
 		getListeMedicamentsVendus().addAll(listeMedicamentsClients);
 	}
 	
+	/**
+	 * Ajout d'une simulation de BDD Mutuelles, crée au lancement de l'application 
+	 * (voir le point d'entrée Main)
+	 */
 	public void ajoutMutuelle() {
 		getListeMutuelles().add(new Mutuelle(
 					"testMutuelle1", 
@@ -372,21 +481,24 @@ public class Pharmacie implements Serializable {
 		getListeMutuelles().add(new Mutuelle(
 					"testMutuelle2", 
 					"testCity2", 
-					11, 
+					22, 
 					1234567890, 
 					"testMutuelle2@test.st", 
-					50
+					30
 				));
 		getListeMutuelles().add(new Mutuelle(
 				"testMutuelle3", 
 				"testCity3", 
-				11, 
+				33, 
 				1234567890, 
 				"testMutuelle2@test.st", 
-				50
+				70
 				));
 	}
-
+	
+	/**
+	 * Return d'un toString pour rendre les données utilisables sur des vues et utiliser les données
+	 */
 	@Override
 	public String toString() {
 		return "Pharmacie ["

@@ -28,7 +28,7 @@ public class Medecin extends Personne{
 		return listePatients;
 	}
 	/**
-	 * @param listPatients the listPatients to set
+	 * @param listePatients the listePatients to set
 	 */
 	public void setListePatients(ArrayList<Patient> listePatients) {
 		this.listePatients = listePatients;
@@ -40,7 +40,7 @@ public class Medecin extends Personne{
 		return listeOrdonnances;
 	}
 	/**
-	 * @param listOrdonnances the listOrdonnances to set
+	 * @param listeOrdonnances the listeOrdonnances to set
 	 */
 	public void setListeOrdonnances(ArrayList<Ordonnance> listeOrdonnances) {
 		this.listeOrdonnances = listeOrdonnances;
@@ -71,6 +71,7 @@ public class Medecin extends Personne{
 	 * @param listeOrdonnances
 	 * @param specialite
 	 * @throws PharmaException 
+	 * Exception perso
 	 */
 	public Medecin(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
 			int numTelephone, String email, int numAgrement, ArrayList<Patient> listePatients,
@@ -83,8 +84,6 @@ public class Medecin extends Personne{
 	}
 	@Override
 	public String toString() {
-		return "["
-				+ super.getNom()
-				+ "]";
+		return super.getNom() + ", " + getSpecialite();
 	}
 }

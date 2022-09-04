@@ -48,21 +48,18 @@ public class Client extends Personne {
 	 * @param dateNaissance
 	 * @param listeMedicamentsClient
 	 * @throws PharmaException 
+	 * Exception perso
 	 */
 	public Client(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
 			int numTelephone, String email, String dateNaissance, ArrayList<Medicament> listeMedicamentsClient) throws PharmaException {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email);
-		this.dateNaissance = dateNaissance;
-		this.listeMedicamentsClient = listeMedicamentsClient;
+		this.setDateNaissance(dateNaissance);
+		this.setListeMedicamentsClient(listeMedicamentsClient);
 	}
 
 	@Override
 	public String toString() {
-		return "Client ["
-				+ "\nnom=" + super.getNom() 
-				+ "\nprenom=" + super.getPrenom() 
-				+ "\ndateNaissance=" + getDateNaissance() 
-				+ "\nmedicaments=" + getListeMedicamentsClient() 
-				+ "\n]";
+		return super.getNom() 
+			 + ", " + super.getPrenom();
 	}
 }

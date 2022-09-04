@@ -89,16 +89,16 @@ public class Medicament {
 	 */
 	public Medicament(String nom, String categorie, int prix, Date date, int stock) {
 		super();
-		this.nom = nom;
-		this.categorie = categorie;
-		this.prix = prix;
-		this.date = date;
-		this.stock = stock;
+		this.setNom(nom);
+		this.setCategorie(categorie);
+		this.setPrix(prix);
+		this.setDate(date);
+		this.setStock(stock);
 	}
 	
 	@Override
 	public String toString() {
-		return getNom() + " Prix=" + getPrix();
+		return getNom() + "=" + getPrix() + "€" + ", stock : " + stock;
 	}
 	
 }

@@ -20,12 +20,21 @@ import java.awt.Color;
  */
 public class FenetreAchat extends JPanel {
 	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 2514194265463041005L;
+	
+	/**
+	 * Attributs de classe
+	 */
 	private PanelAchatSansOrdonnance pAchatSansOrdonnance;
 	private PanelAchatAvecOrdonnance pAchatAvecOrdonnance;
 	private JLabel lblTypeAchat;
-	private JComboBox cbTypeAchat;
+	private JComboBox<?> cbTypeAchat;
 	private String[] tabScbTypeAchat = {"Choix du type d'achat", "Achat sans ordonnance", "Achat avec ordonnance"};
 
+	
 	public FenetreAchat() {
 		pAchatSansOrdonnance = new PanelAchatSansOrdonnance();
 		pAchatAvecOrdonnance = new PanelAchatAvecOrdonnance();
@@ -69,9 +78,10 @@ public class FenetreAchat extends JPanel {
 	/**
 	 * Création du panel
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initComposants() {
 		
-		setBounds(50, 50, 600, 500);
+		setBounds(50, 50, 700, 500);
 		setBorder(new TitledBorder(null, "Achat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		lblTypeAchat = new JLabel("[Sélectionner le type d'achat]");

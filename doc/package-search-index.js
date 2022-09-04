@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.sparadrap.app.controller"},{"l":"com.sparadrap.app.exception"},{"l":"com.sparadrap.app.model"},{"l":"com.sparadrap.app.test"},{"l":"com.sparadrap.app.view"}]

@@ -50,6 +50,7 @@ public class Patient extends Client {
 	 * @param medecin the medecin to set
 	 */
 	public void setMedecin(Medecin medecin) {
+		if(medecin != null)
 		this.medecin = medecin;
 	}
 
@@ -83,6 +84,7 @@ public class Patient extends Client {
 	 * @param listeOrdonnances
 	 * @param listeMedicamentsClient
 	 * @throws PharmaException 
+	 * Exception perso
 	 */
 	public Patient(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille, int numTelephone, String email, 
 			String dateNaissance, long numSecuSocial, Mutuelle mutuelle, Medecin medecin, ArrayList<Ordonnance> listeOrdonnances, 
@@ -90,7 +92,7 @@ public class Patient extends Client {
 		super(nom, prenom, numRue, nomRue, codePostal, nomVille, numTelephone, email, dateNaissance, listeMedicamentsClient);
 		this.numSecuSocial = numSecuSocial;
 		this.mutuelle = mutuelle;
-		this.medecin = medecin;
+		this.setMedecin(medecin);
 		this.listeOrdonnances = listeOrdonnances;
 	}
 
@@ -107,7 +109,7 @@ public class Patient extends Client {
 				+ "\nnumSecuSocial=" + getNumSecuSocial() 
 				+ "\nmutuelle=" + getMutuelle() 
 				+ "\nmedecin=" + getMedecin() 
-				+ "\nordonnance=" + getOrdonnance() 
+				+ "\nordonnance=" + getOrdonnance()
 				+ "\n]";
 	}
 }

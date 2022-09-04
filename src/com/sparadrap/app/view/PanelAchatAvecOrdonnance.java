@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.sparadrap.app.controller.Pharmacie;
 import com.sparadrap.app.exception.PharmaException;
 import com.sparadrap.app.model.Achat;
 import com.sparadrap.app.model.Client;
@@ -16,7 +15,6 @@ import com.sparadrap.app.model.Medicament;
 import com.sparadrap.app.model.Mutuelle;
 import com.sparadrap.app.model.Ordonnance;
 import com.sparadrap.app.model.Patient;
-import com.sparadrap.app.model.Specialite;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.TitledBorder;
@@ -32,43 +30,57 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
 import static com.sparadrap.app.controller.Main.*;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * @author User-05
  */
 public class PanelAchatAvecOrdonnance extends JPanel {
 	
-	private JTextField tfNomClient;
-	private JTextField tfPrenomClient;
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -1385861351598316832L;
 	
-	private JFormattedTextField ftfDateNaissanceClient;
-	private SimpleDateFormat dfDateNaissanceClient;
-	private DateFormatter dformatterDateNaissanceClient;
+	/**
+	 * Attributs de classe
+	 */
+	private JTextField tfNomPatient;
+	private JTextField tfPrenomPatient;
 	
-	private JTextField tfAdresseClient;
+	private JFormattedTextField ftfDateNaissancePatient;
+	private SimpleDateFormat dfDateNaissancePatient;
+	private DateFormatter dformatterDateNaissancePatient;
 	
-	private JTextField tfTelephoneClient;
-	private String txtTfTelephoneClient;
-	private int intTfTelephoneClient;
+	private JTextField tfNumRue;
+	private JTextField tfAdressePatient;
+	private JTextField tfCpPatient;
+	private String txtTfCpPatient;
+	private int intTfCpPatient;
+	private JTextField tfNomVille;
 	
-	private JTextField tfEmailClient;
+	private JTextField tfTelephonePatient;
+	private String txtTfTelephonePatient;
+	private int intTfTelephonePatient;
 	
-	private JTextField tfNumSecuSocialClient;
-	private String txtTfNumSecuSocialClient;
-	private long intTfNumSecuSocialClient;
+	private JTextField tfEmailPatient;
+	
+	private JTextField tfNumSecuSocialPatient;
+	private String txtTfNumSecuSocialPatient;
+	private long intTfNumSecuSocialPatient;
 	
 	private JLabel lblSelectionMedicamentTitre;
 	private JLabel lblSelectionMedicament;
 	
 	private JButton btnValider;
 	
-	private JComboBox<Medecin> cbChoixMedecin;
-	private JComboBox<Specialite> cbChoixSpecialite;
-	private JComboBox<Ordonnance> cbChoixOrdonnance;
-	private JComboBox<Mutuelle> cbChoixMutuelle;
-	
 	private JComboBox<Medicament> cbChoixMedicament;
+	private JComboBox<Mutuelle> cbChoixMutuelle;
+	private JComboBox<Medecin> cbChoixMedecin;
+	private JComboBox<Ordonnance> cbChoixOrdonnance;
+	
 	private ArrayList<Medicament> listeMedicamentsPatient = new ArrayList<>();
+	private ArrayList<Ordonnance> listeOrdonnancesPatient = new ArrayList<>();
 	
 	private Achat achat;
 	private Client client;
@@ -76,19 +88,24 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 	private Medicament medicament;
 	private Mutuelle mutuelle; 
 	private Medecin medecin; 
+	private Ordonnance ordonnance; 
 	protected String selectionMedicament;
 	
 	/**
-	 * Création du panel
+	 * Constructeur du JPanel
 	 */
 	public PanelAchatAvecOrdonnance() {
 		initComposants();
 		createEvenements();
 	}
 	
+	/**
+	 * Fonction qui vide les composants et réinitialise la liste des médicaments
+	 * pour le prochain patient qui sera renseigné
+	 */
 	public void resetComposants() {
-		tfNomClient.setText("");
-		tfPrenomClient.setText("");
+		tfNomPatient.setText("");
+		tfPrenomPatient.setText("");
 		lblSelectionMedicament.setText("");
 		listeMedicamentsPatient = new ArrayList<Medicament>();
 	}
@@ -109,40 +126,49 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		btnValider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				txtTfTelephoneClient = tfTelephoneClient.getText();
-				intTfTelephoneClient = Integer.parseInt(txtTfTelephoneClient);
-				txtTfNumSecuSocialClient = tfNumSecuSocialClient.getText();
-				intTfNumSecuSocialClient = Long.parseLong(txtTfNumSecuSocialClient);
+				txtTfTelephonePatient = tfTelephonePatient.getText();
+				intTfTelephonePatient = Integer.parseInt(txtTfTelephonePatient);
+				txtTfNumSecuSocialPatient = tfNumSecuSocialPatient.getText();
+				intTfNumSecuSocialPatient = Long.parseLong(txtTfNumSecuSocialPatient);
+				txtTfCpPatient = tfCpPatient.getText();
+				intTfCpPatient = Integer.parseInt(txtTfCpPatient);
 
 				mutuelle = (Mutuelle) cbChoixMutuelle.getSelectedItem();
 				medecin = (Medecin) cbChoixMedecin.getSelectedItem();
-				client = client = new Client(
-						tfNomClient.getText(), 
-						tfPrenomClient.getText(), 
-						0, 
-						null, 
-						0, 
-						null, 
-						0, 
-						null, 
-						ftfDateNaissanceClient.getText(), 
-						listeMedicamentsPatient
-						);
+				ordonnance = (Ordonnance) cbChoixOrdonnance.getSelectedItem();
+				try {
+					client = new Client(
+							tfNomPatient.getText(), 
+							tfPrenomPatient.getText(), 
+							0, 
+							null, 
+							0, 
+							null, 
+							0, 
+							null, 
+							ftfDateNaissancePatient.getText(), 
+							listeMedicamentsPatient
+							);
+				} catch (PharmaException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+				
 				try {
 					patient = new Patient(
-							tfNomClient.getText(), 
-							tfPrenomClient.getText(), 
+							tfNomPatient.getText(), 
+							tfPrenomPatient.getText(), 
 							0, 
-							tfAdresseClient.getText(), 
-							ALLBITS, 
-							null, 
-							intTfTelephoneClient, 
-							null, 
-							ftfDateNaissanceClient.getText(), 
-							intTfNumSecuSocialClient, 
+							tfAdressePatient.getText(), 
+							intTfCpPatient, 
+							tfNomVille.getText(), 
+							intTfTelephonePatient, 
+							tfEmailPatient.getText(), 
+							ftfDateNaissancePatient.getText(), 
+							intTfNumSecuSocialPatient, 
 							mutuelle, 
 							medecin, 
-							null, 
+							listeOrdonnancesPatient, 
 							listeMedicamentsPatient
 							);
 				} catch (PharmaException e2) {
@@ -153,10 +179,10 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 				try {
 					achat = new Achat(
 							new Date(), 
-							null, 
+							client, 
 							patient, 
-							null,
-							null
+							medecin,
+							ordonnance
 							);
 				} catch (PharmaException e1) {
 					// TODO Auto-generated catch block
@@ -178,83 +204,113 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					}
 					getPharmacie().ajoutMedicamentVendu(listeMedicamentsPatient);
 					
-					JOptionPane.showMessageDialog(null, "Achat ajouté : " + listeMedicamentsPatient, "Achat", 1);
+					// Diminution du stock de médicaments à chaque achats
+					if(medicament.getStock() > 0)
+						medicament.setStock(medicament.getStock()-1);
+					
+					JOptionPane.showMessageDialog( 
+								null, 
+								"Achat ajouté\n" 
+								+ "\nNom du patient : " + tfNomPatient.getText().toUpperCase() 
+								+ "\nPrénom : " + tfPrenomPatient.getText() 
+								+ "\nmedecin : " + medecin 
+								+ "\nMédicament(s) acheté(s) : " + listeMedicamentsPatient, 
+								"ACHAT", 1
+							);
+//					
+//					JOptionPane.showMessageDialog(null, getPharmacie().getListePatients());
 					
 					resetComposants();
 //				}
 			}
 		});
 	}
-
+	
+	/**
+	 * Création du panel
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initComposants() {
-		setBounds(0, 0, 600, 500);
+		setBounds(0, 0, 700, 500);
 		setBorder(new TitledBorder(null, "Achat avec Ordonnance", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel lblAdresseClient = new JLabel("Adresse du client");
+		JLabel lblAdressePatient = new JLabel("Adresse du client");
 		
-		tfAdresseClient = new JTextField();
-		tfAdresseClient.setColumns(10);
+		tfNumRue = new JTextField();
+		tfNumRue.setText("Num");
+		tfNumRue.setColumns(10);
 		
-		JLabel lblTelephoneClient = new JLabel("Téléphone du client");
+		tfAdressePatient = new JTextField();
+		tfAdressePatient.setText("Rue");
+		tfAdressePatient.setColumns(10);
 		
-		tfTelephoneClient = new JTextField();
-		tfTelephoneClient.setColumns(10);
+		tfCpPatient = new JTextField();
+		tfCpPatient.setText("CP");
+		tfCpPatient.setColumns(10);
 		
-		JLabel lblEmailClient = new JLabel("Email du client");
+		tfNomVille = new JTextField();
+		tfNomVille.setText("Commune");
+		tfNomVille.setColumns(10);
 		
-		tfEmailClient = new JTextField();
-		tfEmailClient.setColumns(10);
+		JLabel lblTelephonePatient = new JLabel("Téléphone du client");
 		
-		JLabel lblNumSecuSocialClient = new JLabel("Numéro de sécurité social du client");
+		tfTelephonePatient = new JTextField();
+		tfTelephonePatient.setColumns(10);
 		
-		tfNumSecuSocialClient = new JTextField();
-		tfNumSecuSocialClient.setColumns(10);
+		JLabel lblEmailPatient = new JLabel("Email du client");
 		
-		JLabel lblMutuelleDuClient = new JLabel("Mutuelle du client");
+		tfEmailPatient = new JTextField();
+		tfEmailPatient.setColumns(10);
+		
+		JLabel lblNumSecuSocialPatient = new JLabel("Numéro de sécurité social du client");
+		
+		tfNumSecuSocialPatient = new JTextField();
+		tfNumSecuSocialPatient.setColumns(10);
+		
+		JLabel lblMutuelleDuPatient = new JLabel("Mutuelle du client");
 		
 		cbChoixMutuelle = new JComboBox<Mutuelle>();
 		cbChoixMutuelle.setModel(new DefaultComboBoxModel(new String[] {"Choix Mutuelle"}));
-		for(Mutuelle mutuelle : Pharmacie.getListeMutuelles()) {
+		for(Mutuelle mutuelle : getPharmacie().getListeMutuelles()) {
 			System.out.println(mutuelle.getNom() + mutuelle.getSiege());
 			cbChoixMutuelle.addItem(mutuelle);
 		}
 		
-		JLabel lblMedecinClient = new JLabel("Médecin du client");
+		JLabel lblMedecinPatient = new JLabel("Médecin du client");
 		
 		cbChoixMedecin = new JComboBox<Medecin>();
 		cbChoixMedecin.setModel(new DefaultComboBoxModel(new String[] {"Choix Médecin"}));
-		for(Medecin medecin : Pharmacie.getListeMedecins()) {
+		for(Medecin medecin : getPharmacie().getListeMedecins()) {
 			System.out.println(medecin.getNom());
 			cbChoixMedecin.addItem(medecin);
 		}
 		
-		JLabel lblSpecialiste = new JLabel("Spécialiste (opt)");
-		
-		cbChoixSpecialite = new JComboBox();
-		cbChoixSpecialite.setModel(new DefaultComboBoxModel(new String[] {"Choix Spécialité"}));
-		
 		JLabel lblOrdonnance = new JLabel("Ordonnance");
 		
-		cbChoixOrdonnance = new JComboBox();
+		cbChoixOrdonnance = new JComboBox<Ordonnance>();
 		cbChoixOrdonnance.setModel(new DefaultComboBoxModel(new String[] {"Choix Ordonnance"}));
+		for(Ordonnance ordonnance : getPharmacie().getListeOrdonnances()) {
+			System.out.println(ordonnance.getDate());
+			cbChoixOrdonnance.addItem(ordonnance);
+		}
 		
-		JLabel lblNomClient = new JLabel("Nom du client");
+		JLabel lblNomPatient = new JLabel("Nom du client");
 		
-		tfNomClient = new JTextField();
-		tfNomClient.setColumns(10);
+		tfNomPatient = new JTextField();
+		tfNomPatient.setColumns(10);
 		
-		JLabel lblPrenomClient = new JLabel("Prénom du client");
+		JLabel lblPrenomPatient = new JLabel("Prénom du client");
 		
-		tfPrenomClient = new JTextField();
-		tfPrenomClient.setColumns(10);
+		tfPrenomPatient = new JTextField();
+		tfPrenomPatient.setColumns(10);
 		
-		JLabel lblDateNaissanceClient = new JLabel("Date de Naissance du client");
+		JLabel lblDateNaissancePatient = new JLabel("Date de Naissance du client");
 		
-		dfDateNaissanceClient = new SimpleDateFormat("dd/MM/yyyy");
-		dformatterDateNaissanceClient = new DateFormatter(dfDateNaissanceClient);
-		ftfDateNaissanceClient = new JFormattedTextField(dformatterDateNaissanceClient);
-		ftfDateNaissanceClient.setColumns(10);
-		ftfDateNaissanceClient.setValue(new Date());
+		dfDateNaissancePatient = new SimpleDateFormat("dd/MM/yyyy");
+		dformatterDateNaissancePatient = new DateFormatter(dfDateNaissancePatient);
+		ftfDateNaissancePatient = new JFormattedTextField(dformatterDateNaissancePatient);
+		ftfDateNaissancePatient.setColumns(10);
+		ftfDateNaissancePatient.setValue(new Date());
 		
 		JLabel lblListeMedicaments = new JLabel("Médicaments");
 		
@@ -270,36 +326,34 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 		lblSelectionMedicamentTitre = new JLabel("Médicaments séléctionnés");
 		
 		lblSelectionMedicament = new JLabel("[Sélectionner un médicament]");
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblNomClient)
+					.addComponent(lblNomPatient)
 					.addGap(118)
-					.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(tfNomPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(62)
 					.addComponent(lblOrdonnance)
 					.addGap(41)
 					.addComponent(cbChoixOrdonnance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblPrenomClient)
+					.addComponent(lblPrenomPatient)
 					.addGap(103)
-					.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(tfPrenomPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(62)
-					.addComponent(lblMedecinClient)
+					.addComponent(lblMedecinPatient)
 					.addGap(18)
 					.addComponent(cbChoixMedecin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblDateNaissanceClient)
+					.addComponent(lblDateNaissancePatient)
 					.addGap(50)
-					.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(62)
-					.addComponent(lblSpecialiste)
-					.addGap(23)
-					.addComponent(cbChoixSpecialite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(ftfDateNaissancePatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(263))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
 					.addComponent(lblListeMedicaments)
@@ -307,27 +361,33 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addComponent(cbChoixMedicament, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblTelephoneClient)
+					.addComponent(lblTelephonePatient)
 					.addGap(89)
-					.addComponent(tfTelephoneClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tfTelephonePatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblAdresseClient)
-					.addGap(100)
-					.addComponent(tfAdresseClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(lblAdressePatient)
+					.addGap(51)
+					.addComponent(tfNumRue, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tfAdressePatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tfCpPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tfNomVille, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblEmailClient)
+					.addComponent(lblEmailPatient)
 					.addGap(115)
-					.addComponent(tfEmailClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tfEmailPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblNumSecuSocialClient)
+					.addComponent(lblNumSecuSocialPatient)
 					.addGap(18)
-					.addComponent(tfNumSecuSocialClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tfNumSecuSocialPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblMutuelleDuClient)
+					.addComponent(lblMutuelleDuPatient)
 					.addGap(100)
 					.addComponent(cbChoixMutuelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(groupLayout.createSequentialGroup()
@@ -336,8 +396,8 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addGap(58)
 					.addComponent(lblSelectionMedicament))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(519)
-					.addComponent(btnValider))
+					.addGap(609)
+					.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -346,8 +406,8 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblNomClient))
-						.addComponent(tfNomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblNomPatient))
+						.addComponent(tfNomPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblOrdonnance))
@@ -356,22 +416,18 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblPrenomClient))
-						.addComponent(tfPrenomClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblPrenomPatient))
+						.addComponent(tfPrenomPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblMedecinClient))
+							.addComponent(lblMedecinPatient))
 						.addComponent(cbChoixMedecin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(21)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblDateNaissanceClient))
-						.addComponent(ftfDateNaissanceClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblSpecialiste))
-						.addComponent(cbChoixSpecialite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblDateNaissancePatient))
+						.addComponent(ftfDateNaissancePatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(23)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -382,37 +438,41 @@ public class PanelAchatAvecOrdonnance extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblTelephoneClient))
-						.addComponent(tfTelephoneClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblTelephonePatient))
+						.addComponent(tfTelephonePatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblAdresseClient))
-						.addComponent(tfAdresseClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblAdressePatient))
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(tfAdressePatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfNumRue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfCpPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfNomVille, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(20)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblEmailClient))
-						.addComponent(tfEmailClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblEmailPatient))
+						.addComponent(tfEmailPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(21)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblNumSecuSocialClient))
-						.addComponent(tfNumSecuSocialClient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblNumSecuSocialPatient))
+						.addComponent(tfNumSecuSocialPatient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(17)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblMutuelleDuClient))
+							.addComponent(lblMutuelleDuPatient))
 						.addComponent(cbChoixMutuelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(25)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblSelectionMedicamentTitre)
 						.addComponent(lblSelectionMedicament))
-					.addGap(46)
+					.addGap(48)
 					.addComponent(btnValider))
 		);
 		setLayout(groupLayout);

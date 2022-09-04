@@ -2,6 +2,11 @@ package com.sparadrap.app.exception;
 
 public class PharmaException extends Exception {
 
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -959308206673173142L;
+
 	public PharmaException() {
 		// TODO Auto-generated constructor stub
 	}

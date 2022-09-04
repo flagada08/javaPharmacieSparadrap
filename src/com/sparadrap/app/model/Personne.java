@@ -22,6 +22,7 @@ public abstract class Personne {
 	/**
 	 * @param nom the nom to set
 	 * @throws PharmaException 
+	 * Exception perso
 	 */
 	public void setNom(String nom) throws PharmaException {
 		if(nom == null || nom.trim().isEmpty()) throw new PharmaException("Nom obligatoire");
@@ -36,6 +37,7 @@ public abstract class Personne {
 	/**
 	 * @param prenom the prenom to set
 	 * @throws PharmaException 
+	 * Exception perso
 	 */
 	public void setPrenom(String prenom) throws PharmaException {
 		if(prenom == null || prenom.trim().isEmpty()) throw new PharmaException("Prénom obligatoire");
@@ -123,7 +125,8 @@ public abstract class Personne {
 	 * @param nomVille
 	 * @param numTelephone
 	 * @param email
-	 * @throws PharmaException 
+	 * @throws PharmaException
+	 * Exception perso
 	 */
 	public Personne(String nom, String prenom, int numRue, String nomRue, int codePostal, String nomVille,
 			int numTelephone, String email) throws PharmaException {

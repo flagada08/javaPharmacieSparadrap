@@ -1,0 +1,5 @@
+com.sparadrap.app.controller
+com.sparadrap.app.exception
+com.sparadrap.app.model
+com.sparadrap.app.test
+com.sparadrap.app.view
