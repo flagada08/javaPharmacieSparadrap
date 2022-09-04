@@ -1,6 +1,6 @@
 ![Le logo de Framasoft](https://framasoft.org/nav/img/logo.png "ECF_JAVA")
 
-# **TP Mon Super Démineur**
+# **ECF_JAVA PHARMACIE SPARADRAP**
 
 ## **Use Cases**
 | User              | Action          | Résultat attendu |
@@ -29,3 +29,5 @@
 ### **1.3 Class FenetreAchat**
 * Classe d'un panel "canvas" qui génère les panel enfants sans et avec ordonnance
 * JComboBOx qui permet le switch de pannel au click
+
+### **1.4 ...**
