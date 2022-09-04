@@ -1,4 +1,4 @@
-![Le logo de Framasoft](https://framasoft.org/nav/img/logo.png "ECF_JAVA")
+![Le logo](https://cdn-icons-png.flaticon.com/512/4599/4599049.png "ECF_JAVA")
 
 # **ECF_JAVA PHARMACIE SPARADRAP**
 
