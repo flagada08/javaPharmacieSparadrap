@@ -1,4 +1,4 @@
-![Le logo](https://cdn-icons-png.flaticon.com/512/4599/4599049.png "ECF_JAVA")
+<p align="center"> <img src="https://cdn-icons-png.flaticon.com/512/4599/4599049.png" alt="ECF_JAVA"/> </p>
 
 # **ECF_JAVA PHARMACIE SPARADRAP**
 
